@@ -1,18 +1,434 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="시간표"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="fill_horizontal">
+
+        <Button
+            android:id="@+id/navi_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left"
+            android:gravity="center"
+            android:onClick="Open_Navi"
+            android:text="=" />
+
+        <TextView
+            android:id="@+id/Name"
+            android:layout_width="330dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:onClick="Open_Add_Schedule"
+            android:text="+" />
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background=""
+        android:columnCount="8"
+        android:rowCount="11">
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="right"
+            android:text="" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:gravity="right"
+            android:text="9" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:gravity="right"
+            android:text="10" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:gravity="right"
+            android:text="11" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:gravity="right"
+            android:text="12" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:gravity="right"
+            android:text="1" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:gravity="right"
+            android:text="2" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:gravity="right"
+            android:text="3" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:gravity="right"
+            android:text="4" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:gravity="right"
+            android:text="5" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:gravity="right"
+            android:text="6" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:text="M" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:text="T" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:text="W" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:text="T" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:text="F" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:text="S" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:text="S" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="55dp"
+            android:layout_height="50dp" />
+
+    </GridLayout>
+
+</LinearLayout>

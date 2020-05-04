@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="start"
+    android:background="#4C000000"
+    android:id="@+id/drawer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+            
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/close_drawer"
+                android:onClick="CloseDrawer"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:id="@+id/open_set"
+                android:onClick="OpenSet"/>
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:onClick="OpenSchedule"
+            android:text="시간표"
+            android:background="@drawable/border_drawer"
+            android:gravity="center_vertical|left"
+            android:id="@+id/open_schedule"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:onClick="OpenGallery"
+            android:text="사진"
+            android:background="@drawable/border_drawer"
+            android:gravity="center_vertical|left"
+            android:id="@+id/open_gallery"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:onClick="OpenRecorder"
+            android:text="녹음"
+            android:background="@drawable/border_drawer"
+            android:gravity="center_vertical|left"
+            android:id="@+id/open_recorder"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:onClick="OpenMemo"
+            android:text="메모"
+            android:background="@drawable/border_drawer"
+            android:gravity="center_vertical|left"
+            android:id="@+id/open_memo"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:onClick="OpenCalendar"
+            android:text="일정"
+            android:background="@drawable/border_drawer"
+            android:gravity="center_vertical|left"
+            android:id="@+id/open_calendar"/>
+    </LinearLayout>
+</LinearLayout>

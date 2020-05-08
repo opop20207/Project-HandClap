@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         drawerView = (View)findViewById(R.id.drawer);
 
+        drawerLayout.addDrawerListener(listener);
+
         // drawer 열기
         Button btn_open_drawer = (Button)findViewById(R.id.open_drawer);
         btn_open_drawer.setOnClickListener(new View.OnClickListener() {

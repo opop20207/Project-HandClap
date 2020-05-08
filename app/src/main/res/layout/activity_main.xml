@@ -38,7 +38,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"/>
-
         </RelativeLayout>
 
         <TableLayout
@@ -64,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -73,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -82,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -91,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -100,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -109,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -118,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:textStyle="bold"/>
             </TableRow>
 
@@ -133,7 +132,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:gravity="right"/>
 
                 <TextView
@@ -218,7 +217,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:gravity="right"/>
 
                 <TextView
@@ -303,7 +302,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:gravity="right"/>
 
                 <TextView
@@ -388,7 +387,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:gravity="right"/>
 
                 <TextView
@@ -473,7 +472,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:gravity="right"/>
 
                 <TextView
@@ -558,7 +557,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:gravity="right"/>
 
                 <TextView
@@ -643,7 +642,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:gravity="right"/>
 
                 <TextView
@@ -728,7 +727,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:textColor="#4C000000"
+                    android:textColor="#505050"
                     android:gravity="right"/>
 
                 <TextView
@@ -813,6 +812,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textStyle="bold"
+                    android:textColor="#505050"
                     android:gravity="right"/>
 
                 <TextView

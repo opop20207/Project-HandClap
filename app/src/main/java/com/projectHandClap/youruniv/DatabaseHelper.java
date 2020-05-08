@@ -19,24 +19,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TIMETABLE_CREATE_TABLE = "CREATE TABLE "
             + TIMETABLE_TABLE_NAME + "("
-            + TIMETABLE_COLUMN_TIMETABLE_ID + "INTEGER PRIMARY KEY, "
+            + TIMETABLE_COLUMN_TIMETABLE_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TIMETABLE_COLUMN_TIMETABLE_TITLE + " TEXT)";
 
     //scheme 3 : class
     private static final String CLASS_TABLE_NAME = "class";
-    private static final String CLASS_COLUMN_CLASS_ID = "class_id";
-    private static final String CLASS_COLUMN_CLASS_TITLE = "class_title";
+    private static final String CLASS_COLUMN_ID = "class_id";
+    private static final String CLASS_COLUMN_TIMETABLE_ID = "class_timetable_id";
+    private static final String CLASS_COLUMN_TITLE = "class_title";
     private static final String CLASS_COLUMN_DAY = "class_day";
     private static final String CLASS_COLUMN_STIME = "class_stime";
     private static final String CLASS_COLUMN_ETIME = "class_etime";
 
     private static final String CLASS_CREATE_TABLE = "CREATE TABLE "
             + CLASS_TABLE_NAME + "("
-            + CLASS_COLUMN_CLASS_ID + "INTEGER PRIMARY KEY, "
-            + CLASS_COLUMN_CLASS_TITLE + " TEXT, "
+            + CLASS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + CLASS_COLUMN_TIMETABLE_ID + " INTEGER, "
+            + CLASS_COLUMN_TITLE + " TEXT, "
             + CLASS_COLUMN_DAY + " INTEGER, "
             + CLASS_COLUMN_STIME + " INTEGER, "
             + CLASS_COLUMN_ETIME + " INTEGER)";
+
+    //scheme 4 : picture
+    private static final String PICTURE_TABLE_NAME = "picture";
+
+    //scheme 5 : memo
+    private static final String MEMO_TABLE_NAME = "memo";
+
+    //scheme 6 : record
+    private static final String RECORD_TABLE_NAME = "record";
+
+    //scheme 7 : schedule
+    private static final String SCEDULE_TABLE_NAME = "schedule";
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -9,6 +9,6 @@ public class SetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(findViewById(R.id.activity_set));
+        setContentView(R.layout.activity_set);
     }
 }

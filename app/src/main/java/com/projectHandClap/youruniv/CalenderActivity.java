@@ -9,6 +9,6 @@ public class CalenderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(findViewById(R.id.activity_calender));
+        setContentView(R.layout.activity_calender);
     }
 }

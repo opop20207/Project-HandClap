@@ -22,21 +22,21 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:id="@+id/close_drawer"
-                android:onClick="CloseDrawer"/>
+                android:onClick="onClickMain"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:id="@+id/open_set"
-                android:onClick="OpenSet"/>
+                android:onClick="onClickMain"/>
         </RelativeLayout>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:onClick="OpenSchedule"
+            android:onClick="onClickMainTo"
             android:text="시간표"
             android:background="@drawable/border_drawer"
             android:gravity="center_vertical|left"
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:onClick="OpenGallery"
+            android:onClick="onClickMainTo"
             android:text="사진"
             android:background="@drawable/border_drawer"
             android:gravity="center_vertical|left"
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:onClick="OpenRecorder"
+            android:onClick="onClickMainTo"
             android:text="녹음"
             android:background="@drawable/border_drawer"
             android:gravity="center_vertical|left"
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:onClick="OpenMemo"
+            android:onClick="onClickMainTo"
             android:text="메모"
             android:background="@drawable/border_drawer"
             android:gravity="center_vertical|left"
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:onClick="OpenCalendar"
+            android:onClick="onClickMainTo"
             android:text="일정"
             android:background="@drawable/border_drawer"
             android:gravity="center_vertical|left"

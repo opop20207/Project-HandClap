@@ -17,13 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
-
-
             <Button
                 android:id="@+id/open_drawer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"/>
+                android:layout_alignParentLeft="true"
+                android:onClick="onClickMainTo" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -33,10 +32,11 @@
                 android:text=""/>
 
             <Button
-                android:id="@+id/add_todo"
+                android:id="@+id/open_add_class"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:onClick="onClickMainTo" />
         </RelativeLayout>
 
         <TableLayout

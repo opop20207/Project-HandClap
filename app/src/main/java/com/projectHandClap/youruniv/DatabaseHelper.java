@@ -1,6 +1,7 @@
 package com.projectHandClap.youruniv;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -10,7 +11,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //scheme 1 : user setting
     private static final String SETTING_TABLE_NAME = "setting";
-    private static final String SETTING_COLUMN_MAIN_TIMETABLE_ID = "";
+    private static final String SETTING_COLUMN_ID = "setting_id";
+    private static final String SETTING_COLUMN_MAIN_TIMETABLE_ID = "setting_main_timetable_id";
+    private static final String SETTING_COLUMN_DAY = "setting_day";
+    private static final String SETTING_COLUMN_STIME = "setting_stime";
+    private static final String SETTING_COLUMN_ETIME = "setting_etime";
+
+    private static final String SETTING_CREATE_TABLE = "CREATE TABLE "
+            + SETTING_TABLE_NAME + "("
+            + SETTING_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + SETTING_COLUMN_MAIN_TIMETABLE_ID + " INTEGER, "
+            + SETTING_COLUMN_DAY + " TEXT, "
+            + SETTING_COLUMN_STIME + " TEXT, "
+            + SETTING_COLUMN_ETIME + " TEXT)";
 
     //scheme 2 : timetable
     private static final String TIMETABLE_TABLE_NAME = "timetable";
@@ -19,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TIMETABLE_CREATE_TABLE = "CREATE TABLE "
             + TIMETABLE_TABLE_NAME + "("
-            + TIMETABLE_COLUMN_TIMETABLE_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + TIMETABLE_COLUMN_TIMETABLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TIMETABLE_COLUMN_TIMETABLE_TITLE + " TEXT)";
 
     //scheme 3 : class
@@ -58,20 +71,67 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SETTING_CREATE_TABLE);
         db.execSQL(TIMETABLE_CREATE_TABLE);
         db.execSQL(CLASS_CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS "+ SETTING_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ TIMETABLE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CLASS_TABLE_NAME);
         onCreate(db);
     }
 
-    //CRUD Operation for #1
+    //CRUD Operation for scheme 1
+    public void insertSetting(int id, String day, String stime, String etime){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO setting VALUES('"+id
+                +"', '"+day+"', '"+stime+"', '"+etime+"');");
+        db.close();
+    }
 
-    //CRUD Operation for #2
+    public void updateSetting(int id, String day, String stime, String etime){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE setting SET setting_main_timetable_id = "+id
+                +", setting_day = "+day+", setting_stime = "+stime
+                +", setting_etime = "+etime+" WHERE setting_id = 1");
+        db.close();
+    }
 
-    //CRUD Operation for #3
+    public SettingData getSetting(){
+        SQLiteDatabase db = getWritableDatabase();
+        SettingData ret = new SettingData();
+        Cursor cursor = db.rawQuery("SELECT * FROM SETTING", null);
+        while(cursor.moveToNext()){
+            ret.setting_id = cursor.getInt(0);
+            ret.setting_main_timetable_id = cursor.getInt(1);
+            ret.setting_day = cursor.getString(2);
+            ret.setting_time = cursor.getString(3);
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
+    //CRUD Operation for scheme 2
+    public void insertTimetable(String title){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO setting VALUES('"+title+");");
+        db.close();
+    }
+
+    public void updateTimetable(int id, int title){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE timetable SET timetable_title = "+title
+                +" WHERE timetable_id = "+id);
+        db.close();
+    }
+
+    public void getTimetable(){
+
+    }
+
+    //CRUD Operation for scheme 3
 }

@@ -101,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public SettingData getSetting(){
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
         SettingData ret = new SettingData();
         Cursor cursor = db.rawQuery("SELECT * FROM SETTING", null);
         while(cursor.moveToNext()){

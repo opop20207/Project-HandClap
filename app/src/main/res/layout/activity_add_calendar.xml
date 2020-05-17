@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddCalendarActivity">
+
+    <EditText
+        android:id="@+id/schedule_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="일정 이름"/>
+
+    <EditText
+        android:id="@+id/schedule_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="일정 내용"/>
+
+    <EditText
+        android:id="@+id/schedule_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="일정 날짜"/>
+
+    <EditText
+        android:id="@+id/schedule_time_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="일정 시작 시간"/>
+
+    <EditText
+        android:id="@+id/schedule_time_end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="일정 종료 시간"/>
+</LinearLayout>

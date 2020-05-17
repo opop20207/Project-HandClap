@@ -65,22 +65,55 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_gravity="center">
-                        <TextView
+                        <RadioGroup
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="20202020"
-                            android:textAlignment="center"
-                            android:layout_gravity="center"
-                            android:id="@+id/txv_add_class_show_date"/>
-                        <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="날짜 선택"
-                            android:textAlignment="center"
-                            android:layout_gravity="center"
-                            android:id="@+id/txv_add_class_set_date"/>
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:id="@+id/rgorup_add_class_day">
+                            <RadioButton
+                                android:text="Mon"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:id="@+id/rbtn_add_class_day_1"/>
+                            <RadioButton
+                                android:text="Tue"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:id="@+id/rbtn_add_class_day_2"/>
+                            <RadioButton
+                                android:text="Wed"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:id="@+id/rbtn_add_class_day_3"/>
+                            <RadioButton
+                                android:text="Thu"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:id="@+id/rbtn_add_class_day_4"/>
+                            <RadioButton
+                                android:text="Fri"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:id="@+id/rbtn_add_class_day_5"/>
+                            <RadioButton
+                                android:text="Sat"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:id="@+id/rbtn_add_class_day_6"/>
+                            <RadioButton
+                                android:text="Sun"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:id="@+id/rbtn_add_class_day_7"/>
+
+                        </RadioGroup>
                     </LinearLayout>
 
                     <LinearLayout
@@ -171,7 +204,7 @@
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/rgroup_color">
+                        android:id="@+id/rgroup_add_class_color">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -181,31 +214,31 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:id="@+id/rbtn_color1"/>
+                                android:id="@+id/rbtn_add_class_color_1"/>
                             <RadioButton
                                 android:text="color"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:id="@+id/rbtn_color2"/>
+                                android:id="@+id/rbtn_add_class_color_2"/>
                             <RadioButton
                                 android:text="color"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:id="@+id/rbtn_color3"/>
+                                android:id="@+id/rbtn_add_class_color_3"/>
                             <RadioButton
                                 android:text="color"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:id="@+id/rbtn_color4"/>
+                                android:id="@+id/rbtn_add_class_color_4"/>
                             <RadioButton
                                 android:text="color"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:id="@+id/rbtn_color5"/>
+                                android:id="@+id/rbtn_add_class_color_5"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -216,31 +249,31 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:id="@+id/rbtn_color6"/>
+                                android:id="@+id/rbtn_add_class_color_6"/>
                             <RadioButton
                                 android:text="color"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:id="@+id/rbtn_color7"/>
+                                android:id="@+id/rbtn_add_class_color_7"/>
                             <RadioButton
                                 android:text="color"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:id="@+id/rbtn_color8"/>
+                                android:id="@+id/rbtn_add_class_color_8"/>
                             <RadioButton
                                 android:text="color"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:id="@+id/rbtn_color9"/>
+                                android:id="@+id/rbtn_add_class_color_9"/>
                             <RadioButton
                                 android:text="color"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:id="@+id/rbtn_color10"/>
+                                android:id="@+id/rbtn_add_class_color_10"/>
                         </LinearLayout>
                     </RadioGroup>
                 </LinearLayout>

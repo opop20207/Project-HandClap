@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity{
     private View drawerView;
     SettingData userSetting;
 
-    String [] tableDay = {"?","M","T","W","T","F","S","S"};
+    String [] tableDay = {"S","M","T","W","T","F","S","S"};
     int timeInterval = 100;
 
     @Override

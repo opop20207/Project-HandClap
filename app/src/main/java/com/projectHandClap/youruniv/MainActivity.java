@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity{
         switch (v.getId()) {
             case R.id.open_add_class:
                 intent = new Intent(MainActivity.this, AddClassActivity.class);
+                intent.putExtra("timetableId", userSetting.setting_main_timetable_id);
                 break;
             case R.id.open_set:
                 intent = new Intent(MainActivity.this, SetActivity.class);

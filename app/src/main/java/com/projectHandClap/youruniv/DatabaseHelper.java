@@ -44,12 +44,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CLASS_COLUMN_CLASS_TIMETABLE_ID = "class_timetable_id";
     private static final String CLASS_COLUMN_CLASS_TITLE = "class_title";
     private static final String CLASS_COLUMN_CLASS_PLACE = "class_place";
-    private static final String CLASS_COLUMN_CLASS_PROFESSOR = "class_professor";
     private static final String CLASS_COLUMN_CLASS_DAY = "class_day";
     private static final String CLASS_COLUMN_CLASS_STIME = "class_stime";
     private static final String CLASS_COLUMN_CLASS_ETIME = "class_etime";
     private static final String CLASS_COLUMN_CLASS_ALARM = "class_alarm";
-    private static final String CLASS_COLUMN_CLASS_PROFESSOR_MEMO = "class_professor_memo";
+    private static final String CLASS_COLUMN_CLASS_PROFESSOR = "class_professor";
     private static final String CLASS_COLUMN_CLASS_COLOR = "class_color";
     private static final String CLASS_COLUMN_CLASS_MEMO = "class_memo";
 
@@ -59,12 +58,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + CLASS_COLUMN_CLASS_TIMETABLE_ID + " INTEGER, "
             + CLASS_COLUMN_CLASS_TITLE + " TEXT, "
             + CLASS_COLUMN_CLASS_PLACE + " TEXT, "
-            + CLASS_COLUMN_CLASS_PROFESSOR + " TEXT, "
             + CLASS_COLUMN_CLASS_DAY + " TEXT, "
             + CLASS_COLUMN_CLASS_STIME + " TEXT, "
             + CLASS_COLUMN_CLASS_ETIME + " TEXT, "
             + CLASS_COLUMN_CLASS_ALARM + " TEXT, "
-            + CLASS_COLUMN_CLASS_PROFESSOR_MEMO + " TEXT, "
+            + CLASS_COLUMN_CLASS_PROFESSOR + " TEXT, "
             + CLASS_COLUMN_CLASS_COLOR + " TEXT, "
             + CLASS_COLUMN_CLASS_MEMO + " TEXT)";
 
@@ -186,10 +184,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //CRUD Operation for scheme 3
     public void insertClassData(ClassData classData){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO class(class_timetable_id, class_title, class_place, class_professor, class_day, class_stime, class_etime, "
-                + "class_alarm, class_professor_memo, class_color, class_memo) VALUES("
-                +classData.class_timetable_id+", '"+classData.class_title +"', '"+classData.class_place+"', '"+classData.class_professor+"', '"+classData.class_day+"', '"
-                +classData.class_stime+"', '"+classData.class_etime+"', '"+classData.class_alarm+"', '"+classData.class_professor_memo+"', '"+classData.class_color+"', '"+classData.class_memo+"');");
+        db.execSQL("INSERT INTO class(class_timetable_id, class_title, class_place, class_day, class_stime, class_etime, "
+                + "class_alarm, class_professor, class_color, class_memo) VALUES("
+                +classData.class_timetable_id+", '"+classData.class_title +"', '"+classData.class_place+"', '"+classData.class_day+"', '"
+                +classData.class_stime+"', '"+classData.class_etime+"', '"+classData.class_alarm+"', '"+classData.class_professor+"', '"+classData.class_color+"', '"+classData.class_memo+"');");
         db.close();
     }
 
@@ -203,14 +201,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             temp.class_timetable_id = cursor.getLong(1);
             temp.class_title = cursor.getString(2);
             temp.class_place = cursor.getString(3);
-            temp.class_professor = cursor.getString(4);
-            temp.class_day = cursor.getString(5);
-            temp.class_stime = cursor.getString(6);
-            temp.class_etime = cursor.getString(7);
-            temp.class_alarm = cursor.getString(8);
-            temp.class_professor_memo = cursor.getString(9);
-            temp.class_color = cursor.getString(10);
-            temp.class_memo = cursor.getString(11);
+            temp.class_day = cursor.getString(4);
+            temp.class_stime = cursor.getString(5);
+            temp.class_etime = cursor.getString(6);
+            temp.class_alarm = cursor.getString(7);
+            temp.class_professor = cursor.getString(8);
+            temp.class_color = cursor.getString(9);
+            temp.class_memo = cursor.getString(10);
             ret.add(temp);
         }
         cursor.close();

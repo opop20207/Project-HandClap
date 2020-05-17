@@ -20,7 +20,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/add_class_subject"/>
+            android:id="@+id/etxt_add_class_title"/>
     </LinearLayout>
 
     <LinearLayout
@@ -36,23 +36,39 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/add_class_classroom"/>
+            android:id="@+id/etxt_add_class_classroom"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="시간"/>
-
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/add_class_time"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="시간"/>
+
+            <Button
+                android:id="@+id/btn_add_class_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/etxt_add_class_time"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_add_class_time"
+            android:orientation="vertical"/>
     </LinearLayout>
 
     <LinearLayout
@@ -68,12 +84,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/add_class_btn_alarm"/>
+            android:id="@+id/btn_add_class_alarm"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/add_class_alarm"/>
+            android:id="@+id/etxt_add_class_alarm"/>
     </LinearLayout>
 
     <LinearLayout
@@ -89,7 +105,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/add_class_professor"/>
+            android:id="@+id/etxt_add_class_professor"/>
     </LinearLayout>
 
     <LinearLayout
@@ -98,7 +114,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="색상"/>
 
@@ -128,14 +144,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="메모"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/add_class_memo"/>
+            android:id="@+id/etxt_add_memo"/>
     </LinearLayout>
 
     <LinearLayout
@@ -146,11 +162,15 @@
         <Button
             android:layout_width="200dp"
             android:layout_height="match_parent"
+            android:id="@+id/btn_add_class_cancel"
+            android:onClick="onClickAddClass"
             android:text="취소"/>
 
         <Button
             android:layout_width="200dp"
             android:layout_height="match_parent"
+            android:id="@+id/btn_add_class_submit"
+            android:onClick="onClickAddClass"
             android:text="저장"/>
     </LinearLayout>
 </LinearLayout>

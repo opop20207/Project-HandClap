@@ -1,25 +1,36 @@
 package com.projectHandClap.youruniv;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ActionBar;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
+    private ArrayList<String> groupList = null;
+    private ArrayList<ArrayList<String>> childList = null;
+    private ArrayList<String> childListContent = null;
+
     private DrawerLayout drawerLayout;
     private View drawerView;
     SettingData userSetting;
@@ -31,7 +42,79 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         init();
+
+        groupList = new ArrayList<String>();
+        childList = new ArrayList<ArrayList<String>>();
+        childListContent = new ArrayList<String>();
+
+        groupList.add("시간표");
+
+        // DB에서 시간표 목록 받아와서 ChildListContent에 추가하기
+        childListContent.add("");
+
+        childList.add(childListContent);
+
+        timetable_list.setAdapter(new BaseExpandableAdapter(this, groupList, childList));
+    }
+
+    public class BaseExpandableAdapter extends BaseExpandableListAdapter{
+
+        private ArrayList<String> groupList = null;
+        private ArrayList<ArrayList<String>> childList = null;
+
+        BaseExpandableAdapter(Context c, ArrayList<String> groupList, ArrayList<ArrayList<String>> childList){
+            super();
+            this.groupList = groupList;
+            this.childList = childList;
+        }
+
+        @Override
+        public int getGroupCount() {
+            return groupList.size();
+        }
+
+        @Override
+        public int getChildrenCount(int groupPosition) {
+            return childList.get(groupPosition).size();
+        }
+
+        @Override
+        public String getGroup(int groupPosition) {
+            return groupList.get(groupPosition);
+        }
+
+        @Override
+        public String getChild(int groupPosition, int childPosition) {
+            return childList.get(groupPosition).get(childPosition);
+        }
+
+        @Override
+        public long getGroupId(int groupPosition) {
+            return groupPosition;
+        }
+
+        @Override
+        public long getChildId(int groupPosition, int childPosition) {
+            return childPosition;
+        }
+
+        @Override
+        public boolean hasStableIds() { return true; }
+
+        @Override
+        public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+            return convertView;
+        }
+
+        @Override
+        public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+            return convertView;
+        }
+
+        @Override
+        public boolean isChildSelectable(int groupPosition, int childPosition) { return true; }
     }
 
     public void init(){
@@ -106,7 +189,11 @@ public class MainActivity extends AppCompatActivity{
             }
             tableLayout.addView(tr);
         }
+
+        timetable_list = (ExpandableListView) findViewById(R.id.timetable_list);
     }
+
+    private ExpandableListView timetable_list;
 
     public void addClassToLayout(){
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
@@ -134,8 +221,6 @@ public class MainActivity extends AppCompatActivity{
             case R.id.open_set:
                 intent = new Intent(MainActivity.this, SetActivity.class);
                 break;
-            case R.id.open_schedule:
-                break;
             case R.id.open_recorder:
                 intent = new Intent(MainActivity.this, RecorderActivity.class);
                 break;
@@ -160,12 +245,9 @@ public class MainActivity extends AppCompatActivity{
             case R.id.close_drawer:
                 drawerLayout.closeDrawer(drawerView);
                 break;
+
+            case R.id.timetable_list:
+                break;
         }
     }
-
-    /*
-    * Gallery
-    * */
-
-
 }

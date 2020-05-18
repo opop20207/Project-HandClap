@@ -40,21 +40,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //scheme 3 : class
     private static final String CLASS_TABLE_NAME = "class";
-    private static final String CLASS_COLUMN_ID = "class_id";
-    private static final String CLASS_COLUMN_TIMETABLE_ID = "class_timetable_id";
-    private static final String CLASS_COLUMN_TITLE = "class_title";
-    private static final String CLASS_COLUMN_DAY = "class_day";
-    private static final String CLASS_COLUMN_STIME = "class_stime";
-    private static final String CLASS_COLUMN_ETIME = "class_etime";
+    private static final String CLASS_COLUMN_CLASS_ID = "class_id";
+    private static final String CLASS_COLUMN_CLASS_TIMETABLE_ID = "class_timetable_id";
+    private static final String CLASS_COLUMN_CLASS_TITLE = "class_title";
+    private static final String CLASS_COLUMN_CLASS_PLACE = "class_place";
+    private static final String CLASS_COLUMN_CLASS_DAY = "class_day";
+    private static final String CLASS_COLUMN_CLASS_STIME = "class_stime";
+    private static final String CLASS_COLUMN_CLASS_ETIME = "class_etime";
+    private static final String CLASS_COLUMN_CLASS_ALARM = "class_alarm";
+    private static final String CLASS_COLUMN_CLASS_PROFESSOR = "class_professor";
+    private static final String CLASS_COLUMN_CLASS_COLOR = "class_color";
+    private static final String CLASS_COLUMN_CLASS_MEMO = "class_memo";
 
     private static final String CLASS_CREATE_TABLE = "CREATE TABLE "
             + CLASS_TABLE_NAME + "("
-            + CLASS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-            + CLASS_COLUMN_TIMETABLE_ID + " INTEGER, "
-            + CLASS_COLUMN_TITLE + " TEXT, "
-            + CLASS_COLUMN_DAY + " TEXT, "
-            + CLASS_COLUMN_STIME + " TEXT, "
-            + CLASS_COLUMN_ETIME + " TEXT)";
+            + CLASS_COLUMN_CLASS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + CLASS_COLUMN_CLASS_TIMETABLE_ID + " INTEGER, "
+            + CLASS_COLUMN_CLASS_TITLE + " TEXT, "
+            + CLASS_COLUMN_CLASS_PLACE + " TEXT, "
+            + CLASS_COLUMN_CLASS_DAY + " TEXT, "
+            + CLASS_COLUMN_CLASS_STIME + " TEXT, "
+            + CLASS_COLUMN_CLASS_ETIME + " TEXT, "
+            + CLASS_COLUMN_CLASS_ALARM + " TEXT, "
+            + CLASS_COLUMN_CLASS_PROFESSOR + " TEXT, "
+            + CLASS_COLUMN_CLASS_COLOR + " TEXT, "
+            + CLASS_COLUMN_CLASS_MEMO + " TEXT)";
 
     //scheme 4 : picture
     private static final String PICTURE_TABLE_NAME = "picture";
@@ -137,9 +147,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //CRUD Operation for scheme 2
-    public void insertTimetable(String title){
+    public void insertTimetable(TimetableData timetableData){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO timetable(timetable_title) VALUES('"+title+"');");
+        db.execSQL("INSERT INTO timetable(timetable_title) VALUES('"+timetableData.timetable_title+"');");
         db.close();
     }
 
@@ -158,10 +168,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ret;
     }
 
-    public void updateTimetable(int id, String title){
+    public void updateTimetable(TimetableData timetableData){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE timetable SET timetable_title = '"+title+"'"
-                +" WHERE timetable_id = "+id);
+        db.execSQL("UPDATE timetable SET timetable_title = '"+timetableData.timetable_title+"'"
+                +" WHERE timetable_id = "+timetableData.timetable_id);
         db.close();
     }
 
@@ -172,11 +182,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //CRUD Operation for scheme 3
-    public void insertClassData(int num, ClassData classData){
+    public void insertClassData(ClassData classData){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO class(class_timetable_id, class_title, class_day, class_stime, class_etime) VALUES("
-                +classData.class_timetable_id+", '"+classData.class_title
-                +"', '"+classData.class_day+", '"+classData.class_stime+", '"+classData.class_etime+"');");
+        db.execSQL("INSERT INTO class(class_timetable_id, class_title, class_place, class_day, class_stime, class_etime, "
+                + "class_alarm, class_professor, class_color, class_memo) VALUES("
+                +classData.class_timetable_id+", '"+classData.class_title +"', '"+classData.class_place+"', '"+classData.class_day+"', '"
+                +classData.class_stime+"', '"+classData.class_etime+"', '"+classData.class_alarm+"', '"+classData.class_professor+"', '"+classData.class_color+"', '"+classData.class_memo+"');");
         db.close();
     }
 
@@ -187,11 +198,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while(cursor.moveToNext()){
             ClassData temp = new ClassData();
             temp.class_id = cursor.getLong(0);
-            temp.class_timetable_id = cursor.getInt(1);
+            temp.class_timetable_id = cursor.getLong(1);
             temp.class_title = cursor.getString(2);
-            temp.class_day = cursor.getString(3);
-            temp.class_stime = cursor.getString(4);
-            temp.class_etime = cursor.getString(5);
+            temp.class_place = cursor.getString(3);
+            temp.class_day = cursor.getString(4);
+            temp.class_stime = cursor.getString(5);
+            temp.class_etime = cursor.getString(6);
+            temp.class_alarm = cursor.getString(7);
+            temp.class_professor = cursor.getString(8);
+            temp.class_color = cursor.getString(9);
+            temp.class_memo = cursor.getString(10);
             ret.add(temp);
         }
         cursor.close();

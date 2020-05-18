@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity{
     private View drawerView;
     SettingData userSetting;
 
-    String [] tableDay = {"?","M","T","W","T","F","S","S"};
+    String [] tableDay = {"S","M","T","W","T","F","S","S"};
     int timeInterval = 100;
 
     @Override
@@ -129,7 +129,9 @@ public class MainActivity extends AppCompatActivity{
         db.restart();
         SettingData settingData = db.getSetting();
         if(settingData == null) {
-            db.insertTimetable("내 시간표");
+            TimetableData timetableData = new TimetableData();
+            timetableData.timetable_title = "내 시간표";
+            db.insertTimetable(timetableData);
             db.insertSetting(new SettingData(1,"1234567","900", "1800"));
         }
         userSetting = db.getSetting();
@@ -217,6 +219,7 @@ public class MainActivity extends AppCompatActivity{
         switch (v.getId()) {
             case R.id.open_add_class:
                 intent = new Intent(MainActivity.this, AddClassActivity.class);
+                intent.putExtra("timetableId", userSetting.setting_main_timetable_id);
                 break;
             case R.id.open_set:
                 intent = new Intent(MainActivity.this, SetActivity.class);

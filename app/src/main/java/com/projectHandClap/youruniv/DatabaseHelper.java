@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String SETTING_CREATE_TABLE = "CREATE TABLE "
             + SETTING_TABLE_NAME + "("
-            + SETTING_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + SETTING_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + SETTING_COLUMN_MAIN_TIMETABLE_ID + " INTEGER, "
             + SETTING_COLUMN_DAY + " TEXT, "
             + SETTING_COLUMN_STIME + " TEXT, "
@@ -35,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TIMETABLE_CREATE_TABLE = "CREATE TABLE "
             + TIMETABLE_TABLE_NAME + "("
-            + TIMETABLE_COLUMN_TIMETABLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + TIMETABLE_COLUMN_TIMETABLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TIMETABLE_COLUMN_TIMETABLE_TITLE + " TEXT)";
 
     //scheme 3 : class
@@ -54,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CLASS_CREATE_TABLE = "CREATE TABLE "
             + CLASS_TABLE_NAME + "("
-            + CLASS_COLUMN_CLASS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + CLASS_COLUMN_CLASS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + CLASS_COLUMN_CLASS_TIMETABLE_ID + " INTEGER, "
             + CLASS_COLUMN_CLASS_TITLE + " TEXT, "
             + CLASS_COLUMN_CLASS_PLACE + " TEXT, "
@@ -148,6 +149,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //CRUD Operation for scheme 2
     public void insertTimetable(TimetableData timetableData){
+        Log.e("!!!!!!","######");
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO timetable(timetable_title) VALUES('"+timetableData.timetable_title+"');");
         db.close();
@@ -155,7 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<TimetableData> getTimetable(){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM timetable", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM timetable;", null);
         ArrayList<TimetableData> ret = new ArrayList<TimetableData>();
         while(cursor.moveToNext()){
             TimetableData temp = new TimetableData();
@@ -193,7 +195,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<ClassData> getClassData(int timetable_id){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM class WHERE class_timetable_id = "+timetable_id, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM class WHERE class_timetable_id = "+timetable_id+";", null);
         ArrayList<ClassData> ret = new ArrayList<ClassData>();
         while(cursor.moveToNext()){
             ClassData temp = new ClassData();

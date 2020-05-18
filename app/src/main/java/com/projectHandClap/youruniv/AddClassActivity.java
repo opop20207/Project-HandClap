@@ -2,6 +2,7 @@ package com.projectHandClap.youruniv;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ public class AddClassActivity extends AppCompatActivity {
     TimePicker tp_add_class_stime, tp_add_class_etime;
     RadioGroup rgroup_add_class_color, rgroup_add_class_day;
     ToggleButton tbtn_add_class_alarm;
+    Context mainContext;
 
     List<String> displayedMinute;
     List<String> displayedHour;
@@ -211,5 +213,8 @@ public class AddClassActivity extends AppCompatActivity {
 
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         db.insertClassData(classData);
+
+        setResult(1);
+        finish();
     }
 }

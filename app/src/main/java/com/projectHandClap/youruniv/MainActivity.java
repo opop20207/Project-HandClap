@@ -1,28 +1,17 @@
 package com.projectHandClap.youruniv;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import java.util.ArrayList;
 
@@ -56,9 +45,9 @@ public class MainActivity extends AppCompatActivity{
 
         childList.add(childListContent);
 
-        timetable_list.setAdapter(new BaseExpandableAdapter(this, groupList, childList));
+        timetable_list.setAdapter(new ExpandableAdapter(this, groupList, childList));
     }
-
+/*
     public class BaseExpandableAdapter extends BaseExpandableListAdapter{
 
         private ArrayList<String> groupList = null;
@@ -115,7 +104,7 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         public boolean isChildSelectable(int groupPosition, int childPosition) { return true; }
-    }
+    }*/
 
     public void init(){
         pragmaOnce();

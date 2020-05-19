@@ -50,7 +50,7 @@ public class DeleteTimetableActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     ArrayList<TimetableData> tt = db.getTimetable();
                     if(tt.size()==1){
-                        Toast.makeText(getApplicationContext(), "최소 1개의 시간표가 필요합니다.", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "최소 1개의 시간표가 필요합니다.", Toast.LENGTH_LONG).show();
                         return;
                     }
                     db.deleteTimetable((int)did);

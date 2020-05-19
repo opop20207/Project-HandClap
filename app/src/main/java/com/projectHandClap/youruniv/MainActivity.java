@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
             case R.id.open_set:
                 intent = new Intent(MainActivity.this, SetActivity.class);
-                startActivityForResult(intent, 2);
+                //startActivityForResult(intent, 2);
                 break;
             case R.id.open_recorder:
                 intent = new Intent(MainActivity.this, RecorderActivity.class);
@@ -215,6 +215,9 @@ public class MainActivity extends AppCompatActivity{
             DatabaseHelper db = new DatabaseHelper(getApplicationContext());
             userSetting = db.getSetting();
             timetableNum = userSetting.setting_main_timetable_id;
+            setLayout();
+            setDrawerLayout();
+            addClassToLayout();
         }else if(resultCode == 3){
             timetableNum = getIntent().getIntExtra("newTimetableNum", 1);
             Log.e("!!", timetableNum+"!");

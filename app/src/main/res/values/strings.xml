@@ -2,5 +2,5 @@
     <string name="app_name">YourUNIV</string>
     <string name="folderName">Folder Name</string>
     <string name="appName">Simple Image Gallery</string>
-    <string name="empty">No Images on this device</string>
+    <string name="empty">사진이 없어요</string>
 </resources>

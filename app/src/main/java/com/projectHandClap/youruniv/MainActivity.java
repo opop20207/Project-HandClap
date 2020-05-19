@@ -20,10 +20,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity{
     ExpandableListView timetable_list;
@@ -31,7 +28,6 @@ public class MainActivity extends AppCompatActivity{
     View drawerView;
     SettingData userSetting;
     long timetableNum;
-    Uri image_uri;
 
     String [] tableDay = {"S","M","T","W","T","F","S","S"};
     int timeInterval = 100;
@@ -210,30 +206,6 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-//    public void onClickCamera(View v){
-//        if(v.getId()==R.id.open_camera){
-//            startActivity(new Intent(MainActivity.this, GalleryActivity.class));
-//
-//            long now = System.currentTimeMillis();
-//
-//            Date mDate = new Date(now);
-//            SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
-//            String getTime = simpleDate.format(mDate);
-//
-//
-//            ContentValues values = new ContentValues();
-//            values.put(MediaStore.Images.Media.TITLE,"New Picture");
-//            values.put(MediaStore.Images.Media.DESCRIPTION,"From Camera");
-//            values.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/YourUniv/"+getTime);
-//            image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
-//
-//            //Camera intent
-//            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
-//            startActivityForResult(takePictureIntent, 1);
-//
-//        }
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){

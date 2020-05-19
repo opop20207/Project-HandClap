@@ -34,14 +34,14 @@
   </androidx.cardview.widget.CardView>
 
 
+  <!--android:scaleType="centerCrop"-->
+
   <androidx.viewpager.widget.ViewPager
       android:id="@+id/imagePager"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
   </androidx.viewpager.widget.ViewPager>
-
-  <!--android:scaleType="centerCrop"-->
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/indicatorRecycler"

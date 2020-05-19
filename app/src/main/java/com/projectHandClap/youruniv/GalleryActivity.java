@@ -1,6 +1,7 @@
 package com.projectHandClap.youruniv;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -24,30 +25,16 @@ import com.projectHandClap.youruniv.Gallery.utils.pictureFacer;
 import com.projectHandClap.youruniv.Gallery.utils.pictureFolderAdapter;
 import com.projectHandClap.youruniv.Gallery.ImageDisplay;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-/**
- * Author CodeBoy722
- *
- * The main Activity start and loads all folders containing images in a RecyclerView
- * this folders are gotten from the MediaStore by the Method getPicturePaths()
- */
 public class GalleryActivity extends AppCompatActivity implements itemClickListener {
 
     RecyclerView folderRecycler;
     TextView empty;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
 
-    /**
-     * Request the user for permission to access media files and read images on the device
-     * this will be useful as from api 21 and above, if this check is not done the Activity will crash
-     *
-     * Setting up the RecyclerView and getting all folders that contain pictures from the device
-     * the getPicturePaths() returns an ArrayList of imageFolder objects that is then used to
-     * create a RecyclerView Adapter that is set to the RecyclerView
-     *
-     * @param savedInstanceState saving the activity state
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,12 +116,6 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
 
     }
 
-    /**
-     * Each time an item in the RecyclerView is clicked this method from the implementation of the transitListerner
-     * in this activity is executed, this is possible because this class is passed as a parameter in the creation
-     * of the RecyclerView's Adapter, see the adapter class to understand better what is happening here
-     * @param pictureFolderPath a String corresponding to a folder path on the device external storage
-     */
     @Override
     public void onPicClicked(String pictureFolderPath,String folderName) {
         Intent move = new Intent(GalleryActivity.this,ImageDisplay.class);
@@ -143,5 +124,29 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
 
         //move.putExtra("recyclerItemSize",getCardsOptimalWidth(4));
         startActivity(move);
+    }
+
+
+    public void onClickCamera(View v){
+        if(v.getId()==R.id.open_camera){
+
+            long now = System.currentTimeMillis();
+
+            Date mDate = new Date(now);
+            SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+            String getTime = simpleDate.format(mDate);
+
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Images.Media.TITLE,"New Picture");
+            values.put(MediaStore.Images.Media.DESCRIPTION,"From Camera");
+            values.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/YourUniv/"+getTime);
+            Uri image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+            //Camera intent
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
+            startActivityForResult(takePictureIntent, 1);
+
+        }
     }
 }

@@ -7,11 +7,9 @@
     android:orientation="vertical"
     tools:context=".GalleryActivity">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <com.projectHandClap.youruniv.Gallery.utils.AutoFitRecyclerView
             android:id="@+id/folderRecycler"
@@ -21,16 +19,21 @@
             android:columnWidth="@dimen/folder_column_width"
             android:clipToPadding="false">
 
-            <!--app:fastScrollEnabled="true"
-       app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
-       app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
-       app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
-       app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"-->
-
         </com.projectHandClap.youruniv.Gallery.utils.AutoFitRecyclerView>
 
-    </RelativeLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/open_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="27dp"
+            android:clickable="true"
+            android:onClick="onClickCamera"
+            app:srcCompat="@drawable/ic_add_black_24dp" />
 
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/empty"

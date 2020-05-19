@@ -59,25 +59,14 @@ public class AddClassActivity extends AppCompatActivity {
 
     public void init(){
         initView();
-        timetableId = getIntent().getIntExtra("timetableId", 1);
-
+        timetableId = getIntent().getIntExtra("timetableId", 2);
+        Log.e("timetableId", "!"+timetableId);
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         settingData = db.getSetting();
 
-        int st = Integer.parseInt(settingData.setting_stime)/100;
-        int et = Integer.parseInt(settingData.setting_etime)/100;
-
-        displayedHour = new ArrayList<>();
-        for(int k=0;k<3;k++){
-            for(int i=st;i<=et;i++){
-                Log.e("!!!!!!!!!", i+"!");
-                displayedHour.add(String.format("%02d",i));
-            }
-        }
         displayedMinute = new ArrayList<>();
         for(int k=0;k<3;k++){
             for(int i=0;i<60;i+=TIME_PICKER_INTERVAL){
-                Log.e("!!!!!!!!!", i+"!");
                 displayedMinute.add(String.format("%02d", i));
             }
         }

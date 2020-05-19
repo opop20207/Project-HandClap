@@ -16,18 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddCalendarActivity"/>
+        <activity android:name=".DeleteTimetableActivity"></activity>
+        <activity android:name=".AddTimetableActivity" />
+        <activity android:name=".AddCalendarActivity" />
         <activity android:name=".AddClassActivity" />
         <activity android:name=".CalendarActivity" />
         <activity android:name=".MemoActivity" />
         <activity android:name=".RecorderActivity" />
         <activity android:name=".GalleryActivity" />
         <activity android:name=".SetActivity" />
-        <activity android:name=".Gallery.ImageDisplay"
-            android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:name=".Gallery.ImageDisplay"/>
+        <activity
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

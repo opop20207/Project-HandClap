@@ -170,6 +170,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ret;
     }
 
+    public TimetableData getTimetableOne(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM timetable WHERE timetable_id = " + id, null);
+        TimetableData temp = new TimetableData();
+        while (cursor.moveToNext()) {
+            temp.timetable_id = cursor.getInt(0);
+            temp.timetable_title = cursor.getString(1);
+        }
+
+
+        cursor.close();
+        db.close();
+        return temp;
+    }
+
     public void updateTimetable(TimetableData timetableData){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE timetable SET timetable_title = '"+timetableData.timetable_title+"'"
@@ -177,9 +192,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteTimetable(String title){
+    public void deleteTimetable(int id){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM timetable WHERE timetable_title = '"+title+"'");
+        db.execSQL("DELETE FROM timetable WHERE timetable_id = '"+id+"'");
         db.close();
     }
 

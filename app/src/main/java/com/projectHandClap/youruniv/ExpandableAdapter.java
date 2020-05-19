@@ -1,6 +1,7 @@
 package com.projectHandClap.youruniv;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,9 +52,13 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
                 for(TimetableData t1 : temp){
                     if(t1.timetable_title.equals(t)){
                         res = t1.timetable_id;
+                        break;
                     }
                 }
+                Log.e("res", "!"+res);
                 ((MainActivity)context).timetableNum = res;
+                Log.e("timetableNum", "!"+res);
+                ((MainActivity)context).setLayout();
                 ((MainActivity)context).addClassToLayout();
                 ((MainActivity)context).drawerLayout.closeDrawer(((MainActivity)context).drawerView);
             }

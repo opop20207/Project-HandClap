@@ -44,9 +44,10 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void init(){
-        pragmaOnce();
+        if(timetableNum==0) pragmaOnce();
         initView();
         setLayout();
+        setDrawerLayout();
         addClassToLayout();
     }
 
@@ -69,6 +70,11 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void setLayout(){
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        TextView txv_timetable_title = (TextView)findViewById(R.id.txv_timetable_title);
+        TimetableData timetableData = db.getTimetableOne((int)timetableNum);
+        txv_timetable_title.setText(timetableData.timetable_title);
+
         TableLayout tableLayout = (TableLayout) findViewById(R.id.layout_timetable);
         tableLayout.removeAllViews();
 
@@ -117,7 +123,9 @@ public class MainActivity extends AppCompatActivity{
             }
             tableLayout.addView(tr);
         }
+    }
 
+    public void setDrawerLayout(){
         ArrayList<ExpandableGroup> dataList = new ArrayList<ExpandableGroup>();
         timetable_list = (ExpandableListView) findViewById(R.id.timetable_list);
         ExpandableGroup t = new ExpandableGroup("시간표");
@@ -132,7 +140,6 @@ public class MainActivity extends AppCompatActivity{
         ExpandableAdapter adapter = new ExpandableAdapter(MainActivity.this, R.layout.group_row, R.layout.child_row, dataList);
         timetable_list.setAdapter(adapter);
     }
-
 
     public void addClassToLayout(){
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
@@ -158,12 +165,12 @@ public class MainActivity extends AppCompatActivity{
         switch (v.getId()) {
             case R.id.open_add_class:
                 intent = new Intent(MainActivity.this, AddClassActivity.class);
-                intent.putExtra("timetableId", userSetting.setting_main_timetable_id);
+                intent.putExtra("timetableId", (int)timetableNum);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.open_set:
                 intent = new Intent(MainActivity.this, SetActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 2);
                 break;
             case R.id.open_recorder:
                 intent = new Intent(MainActivity.this, RecorderActivity.class);
@@ -181,6 +188,14 @@ public class MainActivity extends AppCompatActivity{
                 intent = new Intent(MainActivity.this, CalendarActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.open_add_timetable:
+                intent = new Intent(MainActivity.this, AddTimetableActivity.class);
+                startActivityForResult(intent, 3);
+                break;
+            case R.id.open_delete_timetable:
+                intent = new Intent(MainActivity.this, DeleteTimetableActivity.class);
+                startActivityForResult(intent, 4);
+                break;
         }
     }
 
@@ -195,39 +210,51 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    public void onClickCamera(View v){
-        if(v.getId()==R.id.open_camera){
-            startActivity(new Intent(MainActivity.this, GalleryActivity.class));
-
-            long now = System.currentTimeMillis();
-
-            Date mDate = new Date(now);
-            SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
-            String getTime = simpleDate.format(mDate);
-
-
-            ContentValues values = new ContentValues();
-            values.put(MediaStore.Images.Media.TITLE,"New Picture");
-            values.put(MediaStore.Images.Media.DESCRIPTION,"From Camera");
-            values.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/YourUniv/"+getTime);
-            image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
-
-            //Camera intent
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
-            startActivityForResult(takePictureIntent, 1);
-
-        }
-    }
+//    public void onClickCamera(View v){
+//        if(v.getId()==R.id.open_camera){
+//            startActivity(new Intent(MainActivity.this, GalleryActivity.class));
+//
+//            long now = System.currentTimeMillis();
+//
+//            Date mDate = new Date(now);
+//            SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+//            String getTime = simpleDate.format(mDate);
+//
+//
+//            ContentValues values = new ContentValues();
+//            values.put(MediaStore.Images.Media.TITLE,"New Picture");
+//            values.put(MediaStore.Images.Media.DESCRIPTION,"From Camera");
+//            values.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/YourUniv/"+getTime);
+//            image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+//
+//            //Camera intent
+//            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
+//            startActivityForResult(takePictureIntent, 1);
+//
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode == 1){
             addClassToLayout();
-        }else{
+        }else if(resultCode == 2){
             DatabaseHelper db = new DatabaseHelper(getApplicationContext());
             userSetting = db.getSetting();
             timetableNum = userSetting.setting_main_timetable_id;
+        }else if(resultCode == 3){
+            timetableNum = getIntent().getIntExtra("newTimetableNum", 1);
+            Log.e("!!", timetableNum+"!");
+            drawerLayout.closeDrawer(drawerView);
+            setLayout();
+            setDrawerLayout();
+            addClassToLayout();
+        }else if(requestCode==4){
+            drawerLayout.closeDrawer(drawerView);
+            setLayout();
+            setDrawerLayout();
+            addClassToLayout();
         }
     }
 }

@@ -75,19 +75,13 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
             folderRecycler.setAdapter(folderAdapter);
         }
     }
-
-    /**
-     * @return
-     * gets all folders with pictures on the device and loads each of them in a custom object imageFolder
-     * the returns an ArrayList of these custom objects
-     */
     private ArrayList<imageFolder> getPicturePaths(){
         ArrayList<imageFolder> picFolders = new ArrayList<>();
         ArrayList<String> picPaths = new ArrayList<>();
         Uri allImagesuri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String[] projection = { MediaStore.Images.ImageColumns.DATA ,MediaStore.Images.Media.DISPLAY_NAME,
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME,MediaStore.Images.Media.BUCKET_ID};
-        Cursor cursor = this.getContentResolver().query(allImagesuri, projection, MediaStore.Images.Media.DATA + " like ? ", new String[] {"%DCIM%"}, null);
+        Cursor cursor = this.getContentResolver().query(allImagesuri, projection, MediaStore.Images.Media.DATA + " like ? ", new String[] {"%YourUniv%"}, null);
         try {
             if (cursor != null) {
                 cursor.moveToFirst();
@@ -126,13 +120,6 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
             Log.d("picture folders",picFolders.get(i).getFolderName()+" and path = "+picFolders.get(i).getPath()+" "+picFolders.get(i).getNumberOfPics());
         }
 
-        //reverse order ArrayList
-       /* ArrayList<imageFolder> reverseFolders = new ArrayList<>();
-
-        for(int i = picFolders.size()-1;i > reverseFolders.size()-1;i--){
-            reverseFolders.add(picFolders.get(i));
-        }*/
-
         return picFolders;
     }
 
@@ -157,22 +144,4 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
         //move.putExtra("recyclerItemSize",getCardsOptimalWidth(4));
         startActivity(move);
     }
-
-
-   /* public int getCardsOptimalWidth(int numberOfRows){
-        Configuration configuration = MainActivity.this.getResources().getConfiguration();
-        int screenWidthDp = configuration.screenWidthDp; //The current width of the available screen space, in dp units, corresponding to screen width resource qualifier.
-        int smallestScreenWidthDp = configuration.smallestScreenWidthDp; //The smallest screen size an application will see in normal operation, corresponding to smallest screen width resource qualifier.
-        int each = screenWidthDp / numberOfRows;
-
-        return each;
-    }*/
-
-   /* private int dpToPx(int dp) {
-        float density = MainActivity.this.getResources()
-                .getDisplayMetrics()
-                .density;
-        return Math.round((float) dp * density);
-    }*/
-
 }

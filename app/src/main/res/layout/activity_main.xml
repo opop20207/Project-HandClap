@@ -38,6 +38,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:onClick="onClickMainTo" />
+
+            <Button
+                android:id="@+id/open_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="71dp"
+                android:layout_toStartOf="@+id/open_add_class"
+                android:onClick="onClickCamera"
+                android:text="(TEMP)" />
         </RelativeLayout>
 
         <TableLayout

@@ -1,11 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_set"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/activity_set"
+    android:orientation="vertical"
     tools:context=".SetActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="메인 시간표"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/txv_setting_main_timetable_id"
+                    android:layout_weight="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:text="시간표 선택"
+                    android:gravity="center"
+                    android:id="@+id/btn_setting_main_timetable_id"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClickSetting"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:text="시간표에 나타낼 시간"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TimePicker
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:timePickerMode="spinner"
+                        android:id="@+id/tp_setting_stime"/>
+                    <TimePicker
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:timePickerMode="spinner"
+                        android:id="@+id/tp_setting_etime"/>
+                </LinearLayout>
+            </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:text="시간표에 나타낼 요일"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <CheckBox
+                        android:layout_weight="1"
+                        android:text="월"
+                        android:id="@+id/chkbox_setting_day_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <CheckBox
+                        android:layout_weight="1"
+                        android:text="화"
+                        android:id="@+id/chkbox_setting_day_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <CheckBox
+                        android:layout_weight="1"
+                        android:text="수"
+                        android:id="@+id/chkbox_setting_day_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <CheckBox
+                        android:layout_weight="1"
+                        android:text="목"
+                        android:id="@+id/chkbox_setting_day_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <CheckBox
+                        android:layout_weight="1"
+                        android:text="금"
+                        android:id="@+id/chkbox_setting_day_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <CheckBox
+                        android:layout_weight="1"
+                        android:text="토"
+                        android:id="@+id/chkbox_setting_day_6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <CheckBox
+                        android:layout_weight="1"
+                        android:text="일"
+                        android:id="@+id/chkbox_setting_day_7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_setting_submit"
+                android:text="확인"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClickSetting"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

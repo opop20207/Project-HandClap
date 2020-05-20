@@ -22,6 +22,6 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return (RelativeLayout) inflater.inflate(R.layout.activity_calendar, container,false);
+        return (RelativeLayout) inflater.inflate(R.layout.activity_schedule, container,false);
     }
 }

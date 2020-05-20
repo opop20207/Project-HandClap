@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddClassActivity"
+    android:layout_margin="30dp"
     android:orientation="vertical">
 
     <ScrollView
@@ -22,6 +23,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="과목명"/>
 
                 <EditText
@@ -38,6 +40,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="강의실"/>
 
                 <EditText
@@ -71,73 +74,75 @@
                             android:orientation="horizontal"
                             android:id="@+id/rgorup_add_class_day">
                             <RadioButton
-                                android:text="Mon"
+                                android:text="월"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:id="@+id/rbtn_add_class_day_1"/>
                             <RadioButton
-                                android:text="Tue"
+                                android:text="화"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:id="@+id/rbtn_add_class_day_2"/>
                             <RadioButton
-                                android:text="Wed"
+                                android:text="수"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:id="@+id/rbtn_add_class_day_3"/>
                             <RadioButton
-                                android:text="Thu"
+                                android:text="목"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:id="@+id/rbtn_add_class_day_4"/>
                             <RadioButton
-                                android:text="Fri"
+                                android:text="금"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:id="@+id/rbtn_add_class_day_5"/>
                             <RadioButton
-                                android:text="Sat"
+                                android:text="토"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:id="@+id/rbtn_add_class_day_6"/>
                             <RadioButton
-                                android:text="Sun"
+                                android:text="일"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:id="@+id/rbtn_add_class_day_7"/>
-
                         </RadioGroup>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
                         <TimePicker
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:layout_weight="1"
                             android:timePickerMode="spinner"
                             android:id="@+id/tp_add_class_stime"/>
                         <TimePicker
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:layout_weight="1"
                             android:timePickerMode="spinner"
                             android:id="@+id/tp_add_class_etime"/>
+
+                        <Button
+                            android:id="@+id/btn_add_class_time"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:onClick="onClickAddClass"
+                            android:text="+" />
                     </LinearLayout>
-                    <Button
-                        android:id="@+id/btn_add_class_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:text="추가" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -209,70 +214,72 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <RadioButton
-                                android:text="color"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/rbtn_add_class_color_1"/>
+                                android:id="@+id/rbtn_add_class_color_1"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="5dp"
+                                android:background="#E9967A" />
                             <RadioButton
-                                android:text="color"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="5dp"
+                                android:background="#CD5C5C"
                                 android:id="@+id/rbtn_add_class_color_2"/>
                             <RadioButton
-                                android:text="color"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="5dp"
+                                android:background="#FFA500"
                                 android:id="@+id/rbtn_add_class_color_3"/>
                             <RadioButton
-                                android:text="color"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="5dp"
+                                android:background="#4682B4"
                                 android:id="@+id/rbtn_add_class_color_4"/>
                             <RadioButton
-                                android:text="color"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="5dp"
+                                android:background="#87CEEB"
                                 android:id="@+id/rbtn_add_class_color_5"/>
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <RadioButton
-                                android:text="color"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="5dp"
+                                android:background="#6B8E23"
                                 android:id="@+id/rbtn_add_class_color_6"/>
                             <RadioButton
-                                android:text="color"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="5dp"
+                                android:background="#008000"
                                 android:id="@+id/rbtn_add_class_color_7"/>
                             <RadioButton
-                                android:text="color"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="5dp"
+                                android:background="#FF8C00"
                                 android:id="@+id/rbtn_add_class_color_8"/>
                             <RadioButton
-                                android:text="color"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="5dp"
+                                android:background="#FF4500"
                                 android:id="@+id/rbtn_add_class_color_9"/>
                             <RadioButton
-                                android:text="color"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_margin="5dp"
+                                android:background="#C0C0C0"
                                 android:id="@+id/rbtn_add_class_color_10"/>
                         </LinearLayout>
                     </RadioGroup>
@@ -293,6 +300,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lines="3"
                     android:id="@+id/etxt_add_class_memo"/>
             </LinearLayout>
 
@@ -302,15 +310,17 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:id="@+id/btn_add_class_cancel"
                     android:onClick="onClickAddClass"
                     android:text="취소"/>
 
                 <Button
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:id="@+id/btn_add_class_submit"
                     android:onClick="onClickAddClass"
                     android:text="저장"/>

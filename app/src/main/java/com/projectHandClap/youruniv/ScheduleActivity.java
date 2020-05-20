@@ -9,19 +9,19 @@ import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class CalendarActivity extends AppCompatActivity {
+public class ScheduleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
+        setContentView(R.layout.activity_schedule);
 
         FloatingActionButton fab = findViewById(R.id.add_calendar);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CalendarActivity.this, AddCalendarActivity.class));
+                startActivity(new Intent(ScheduleActivity.this, AddScheduleActivity.class));
             }
         });
 

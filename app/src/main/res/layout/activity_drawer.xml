@@ -123,5 +123,5 @@
         android:background="@drawable/border_drawer"
         android:gravity="center_vertical|left"
         tools:ignore="RtlHardcoded"
-        android:id="@+id/open_calendar"/>
+        android:id="@+id/open_schedule"/>
 </LinearLayout>

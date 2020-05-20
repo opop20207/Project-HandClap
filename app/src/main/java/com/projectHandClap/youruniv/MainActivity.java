@@ -180,8 +180,8 @@ public class MainActivity extends AppCompatActivity{
                 intent = new Intent(MainActivity.this, GalleryActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.open_calendar:
-                intent = new Intent(MainActivity.this, CalendarActivity.class);
+            case R.id.open_schedule:
+                intent = new Intent(MainActivity.this, ScheduleActivity.class);
                 startActivity(intent);
                 break;
             case R.id.open_add_timetable:

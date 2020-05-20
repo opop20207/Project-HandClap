@@ -101,7 +101,6 @@ public class AddClassActivity extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.btn_add_class_time:
-
                 break;
         }
     }

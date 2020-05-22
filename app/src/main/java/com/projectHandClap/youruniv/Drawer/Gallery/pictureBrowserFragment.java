@@ -1,4 +1,4 @@
-package com.projectHandClap.youruniv.Gallery;
+package com.projectHandClap.youruniv.Drawer.Gallery;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,10 +20,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.imageIndicatorListener;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFacer;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.recyclerViewPagerImageIndicator;
 import com.projectHandClap.youruniv.R;
-import com.projectHandClap.youruniv.Gallery.utils.imageIndicatorListener;
-import com.projectHandClap.youruniv.Gallery.utils.pictureFacer;
-import com.projectHandClap.youruniv.Gallery.utils.recyclerViewPagerImageIndicator;
 
 import java.util.ArrayList;
 

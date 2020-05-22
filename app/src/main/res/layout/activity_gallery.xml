@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".GalleryActivity">
+    tools:context=".Drawer.GalleryActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.projectHandClap.youruniv.Gallery.utils.AutoFitRecyclerView
+        <com.projectHandClap.youruniv.Drawer.Gallery.utils.AutoFitRecyclerView
             android:id="@+id/folderRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,7 +19,7 @@
             android:columnWidth="@dimen/folder_column_width"
             android:clipToPadding="false">
 
-        </com.projectHandClap.youruniv.Gallery.utils.AutoFitRecyclerView>
+        </com.projectHandClap.youruniv.Drawer.Gallery.utils.AutoFitRecyclerView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/open_camera"

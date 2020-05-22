@@ -1,4 +1,4 @@
-package com.projectHandClap.youruniv;
+package com.projectHandClap.youruniv.Drawer.Schedule;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
+
+import com.projectHandClap.youruniv.R;
 
 public class AddScheduleActivity extends AppCompatActivity {
     private EditText etxt_add_schedule_name, etxt_add_schedule_content;
@@ -34,6 +36,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         ToggleButton tbtn_add_schedule_alarm = (ToggleButton) findViewById(R.id.tbtn_add_schedule_alarm);
         ToggleButton tbtn_add_achedule_alarm = (ToggleButton) findViewById(R.id.tbtn_add_schedule_check);
     }
+
 
     public void onClickAddSchedule(View v){
         switch (v.getId()){

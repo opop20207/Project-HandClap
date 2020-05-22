@@ -1,4 +1,4 @@
-package com.projectHandClap.youruniv.Gallery;
+package com.projectHandClap.youruniv.Drawer.Gallery;
 
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,11 +13,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.projectHandClap.youruniv.Gallery.utils.MarginDecoration;
-import com.projectHandClap.youruniv.Gallery.utils.PicHolder;
-import com.projectHandClap.youruniv.Gallery.utils.itemClickListener;
-import com.projectHandClap.youruniv.Gallery.utils.pictureFacer;
-import com.projectHandClap.youruniv.Gallery.utils.picture_Adapter;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.MarginDecoration;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.PicHolder;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.itemClickListener;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFacer;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.picture_Adapter;
 
 import com.projectHandClap.youruniv.R;
 

@@ -1,15 +1,18 @@
-package com.projectHandClap.youruniv;
+package com.projectHandClap.youruniv.ViewPager;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-public class CalendarFragment extends Fragment {
+import com.projectHandClap.youruniv.R;
 
-    public CalendarFragment(){
+public class MemoFragment extends Fragment {
+
+    public MemoFragment(){
 
     }
 
@@ -22,6 +25,6 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return (RelativeLayout) inflater.inflate(R.layout.activity_schedule, container,false);
+        return (ConstraintLayout) inflater.inflate(R.layout.activity_memo, container,false);
     }
 }

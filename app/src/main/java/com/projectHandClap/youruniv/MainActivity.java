@@ -17,6 +17,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.projectHandClap.youruniv.Drawer.GalleryActivity;
+import com.projectHandClap.youruniv.Drawer.MemoActivity;
+import com.projectHandClap.youruniv.Drawer.RecorderActivity;
+import com.projectHandClap.youruniv.Drawer.Schedule.ScheduleActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 

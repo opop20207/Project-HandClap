@@ -1,4 +1,4 @@
-package com.projectHandClap.youruniv;
+package com.projectHandClap.youruniv.Drawer;
 
 import android.Manifest;
 import android.content.ContentValues;
@@ -17,13 +17,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.projectHandClap.youruniv.Gallery.utils.MarginDecoration;
-import com.projectHandClap.youruniv.Gallery.utils.PicHolder;
-import com.projectHandClap.youruniv.Gallery.utils.imageFolder;
-import com.projectHandClap.youruniv.Gallery.utils.itemClickListener;
-import com.projectHandClap.youruniv.Gallery.utils.pictureFacer;
-import com.projectHandClap.youruniv.Gallery.utils.pictureFolderAdapter;
-import com.projectHandClap.youruniv.Gallery.ImageDisplay;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.MarginDecoration;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.PicHolder;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.imageFolder;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.itemClickListener;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFacer;
+import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFolderAdapter;
+import com.projectHandClap.youruniv.Drawer.Gallery.ImageDisplay;
+import com.projectHandClap.youruniv.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -139,6 +140,7 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
             ContentValues values = new ContentValues();
             values.put(MediaStore.Images.Media.TITLE,"New Picture");
             values.put(MediaStore.Images.Media.DESCRIPTION,"From Camera");
+            values.put(MediaStore.Images.Media.DISPLAY_NAME, "image_1024(1).JPG");
             values.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/YourUniv/"+getTime);
             Uri image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 

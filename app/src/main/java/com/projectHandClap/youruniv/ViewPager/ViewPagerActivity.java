@@ -1,16 +1,20 @@
-package com.projectHandClap.youruniv;
+package com.projectHandClap.youruniv.ViewPager;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewParentCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.projectHandClap.youruniv.R;
+import com.projectHandClap.youruniv.ViewPager.CalendarFragment;
+import com.projectHandClap.youruniv.ViewPager.GalleryFragment;
+import com.projectHandClap.youruniv.ViewPager.MemoFragment;
+import com.projectHandClap.youruniv.ViewPager.RecorderFragment;
 
 public class ViewPagerActivity extends AppCompatActivity {
 

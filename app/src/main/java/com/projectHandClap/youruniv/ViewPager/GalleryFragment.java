@@ -1,16 +1,18 @@
-package com.projectHandClap.youruniv;
+package com.projectHandClap.youruniv.ViewPager;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-public class RecorderFragment extends Fragment {
+import com.projectHandClap.youruniv.R;
 
-    public RecorderFragment(){
+public class GalleryFragment extends Fragment {
+
+    public GalleryFragment(){
 
     }
 
@@ -23,6 +25,6 @@ public class RecorderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return (ConstraintLayout)inflater.inflate(R.layout.activity_recorder, container,false);
+        return (FrameLayout)inflater.inflate(R.layout.activity_gallery, container,false);
     }
 }

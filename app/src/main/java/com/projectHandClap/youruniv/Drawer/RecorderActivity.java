@@ -1,14 +1,16 @@
-package com.projectHandClap.youruniv;
+package com.projectHandClap.youruniv.Drawer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MemoActivity extends AppCompatActivity {
+import com.projectHandClap.youruniv.R;
+
+public class RecorderActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_memo);
+        setContentView(R.layout.activity_recorder);
     }
 }

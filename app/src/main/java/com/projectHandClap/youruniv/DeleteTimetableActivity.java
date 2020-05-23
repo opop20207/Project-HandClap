@@ -11,14 +11,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class DeleteTimetableActivity extends AppCompatActivity {
     LinearLayout ll_delete_timetable;
+
+    DatabaseHelper db;
+    SettingData userSetting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_timetable);
 
+        db = new DatabaseHelper(getApplicationContext());
+        userSetting = db.getSetting();
         init();
         setLayout();
     }
@@ -48,12 +54,12 @@ public class DeleteTimetableActivity extends AppCompatActivity {
             btnDelete.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ArrayList<TimetableData> tt = db.getTimetable();
-                    if(tt.size()==1){
-                        Toast.makeText(getApplicationContext(), "최소 1개의 시간표가 필요합니다.", Toast.LENGTH_LONG).show();
+                    if(did == userSetting.setting_main_timetable_id){
+                        Toast.makeText(getApplicationContext(), "메인 시간표로 설정된 시간표는 삭제할 수 없습니다.", Toast.LENGTH_LONG).show();
                         return;
                     }
                     db.deleteTimetable((int)did);
+                    db.deleteClassData((int)did);
                     setLayout();
                 }
             });

@@ -56,7 +56,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
                     }
                 }
                 Log.e("res", "!"+res);
-                ((MainActivity)context).timetableNum = res;
+                ((MainActivity)context).timetableId = res;
                 Log.e("timetableNum", "!"+res);
                 ((MainActivity)context).setLayout();
                 ((MainActivity)context).addClassToLayout();

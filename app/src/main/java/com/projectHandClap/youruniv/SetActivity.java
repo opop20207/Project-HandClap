@@ -4,14 +4,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +26,11 @@ public class SetActivity extends AppCompatActivity {
     TextView txv_setting_main_timetable_id;
 
     boolean [] chk = {false, false, false ,false ,false,false ,false, false};
+    int newTimetableId;
     SettingData retSetting;
+    private int TIME_PICKER_INTERVAL = 15;
+    NumberPicker minutePicker;
+    List<String> displayedMinute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +39,26 @@ public class SetActivity extends AppCompatActivity {
         init();
     }
 
+    public void setTimePickerInterval(TimePicker timePicker){
+        try{
+            Class<?> classForid = Class.forName("com.android.internal.R$id");
+            Field field = classForid.getField("minute");
+            minutePicker = (NumberPicker) timePicker.findViewById(field.getInt(null));
+
+            minutePicker.setMinValue(0);
+            minutePicker.setMaxValue(3);
+            minutePicker.setDisplayedValues(displayedMinute.toArray(new String[0]));
+            minutePicker.setWrapSelectorWheel(true);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void init(){
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         retSetting = db.getSetting();
+        newTimetableId = retSetting.setting_main_timetable_id;
+
         String temp = retSetting.setting_day;
         for(int i=0;i<temp.length();i++){
             int k = Integer.parseInt(String.valueOf(temp.charAt(i)));
@@ -43,8 +68,28 @@ public class SetActivity extends AppCompatActivity {
         tp_setting_stime = (TimePicker) findViewById(R.id.tp_setting_stime);
         tp_setting_etime = (TimePicker) findViewById(R.id.tp_setting_etime);
 
+        int sh, sm, eh, em;
+        sh = Integer.parseInt(retSetting.setting_stime)/100;
+        sm = Integer.parseInt(retSetting.setting_stime)%100;
+        eh = Integer.parseInt(retSetting.setting_etime)/100;
+        em = Integer.parseInt(retSetting.setting_etime)%100;
+
+        displayedMinute = new ArrayList<>();
+        for(int k=0;k<3;k++){
+            for(int i=0;i<60;i+=TIME_PICKER_INTERVAL){
+                displayedMinute.add(String.format("%02d", i));
+            }
+        }
+
+        setTimePickerInterval(tp_setting_stime);
         tp_setting_stime.setIs24HourView(true);
+        tp_setting_stime.setHour(sh);
+        tp_setting_stime.setMinute(sm);
+
+        setTimePickerInterval(tp_setting_etime);
         tp_setting_etime.setIs24HourView(true);
+        tp_setting_etime.setHour(eh);
+        tp_setting_etime.setMinute(em);
 
         txv_setting_main_timetable_id = (TextView)findViewById(R.id.txv_setting_main_timetable_id);
         chkbox_setting_day_1 = (CheckBox) findViewById(R.id.chkbox_setting_day_1);
@@ -121,17 +166,25 @@ public class SetActivity extends AppCompatActivity {
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         final List<String> listItems = new ArrayList<>();
         final List<Integer> listItems_id = new ArrayList<>();
-        final List<Integer> selectedItems = new ArrayList();
+        final List<Integer> selectedItems = new ArrayList<>();
+
+        int checkedItem = 0;
 
         ArrayList<TimetableData> t = db.getTimetable();
-        for(TimetableData t1 : t){
+        for(int i=0;i<t.size();i++){
+            TimetableData t1 = t.get(i);
+            if(t1.timetable_id == retSetting.setting_main_timetable_id){
+                Log.e("!!!!!",t1.timetable_title+"!!!"+i);
+                checkedItem = i;
+            }
             listItems.add(t1.timetable_title);
             listItems_id.add((int)t1.timetable_id);
         }
         final CharSequence[] items = listItems.toArray(new String[listItems.size()]);
-        AlertDialog.Builder dlg = new AlertDialog.Builder(getApplicationContext());
+        AlertDialog.Builder dlg = new AlertDialog.Builder(SetActivity.this);
         dlg.setTitle("메인 시간표 설정");
-        dlg.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+        Log.e("ckditem", checkedItem+"!"+retSetting.setting_main_timetable_id);
+        dlg.setSingleChoiceItems(items,checkedItem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 selectedItems.clear();
@@ -147,16 +200,20 @@ public class SetActivity extends AppCompatActivity {
                 }
                 int idx = (int)selectedItems.get(0);
                 retSetting.setting_main_timetable_id = listItems_id.get(idx);
+                newTimetableId = listItems_id.get(idx);
                 txv_setting_main_timetable_id.setText(listItems.get(idx));
             }
         });
+        dlg.create().show();
     }
 
     public void onClickSetting(View v){
         switch(v.getId()){
             case R.id.btn_setting_submit:
                 submit();
-                setResult(2);
+                Intent intent = new Intent();
+                intent.putExtra("newTimetableId", newTimetableId);
+                setResult(2, intent);
                 finish();
                 break;
             case R.id.btn_setting_main_timetable_id:

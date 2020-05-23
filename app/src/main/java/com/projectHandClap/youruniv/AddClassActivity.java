@@ -6,9 +6,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -22,16 +26,23 @@ public class AddClassActivity extends AppCompatActivity {
     TimePicker tp_add_class_stime, tp_add_class_etime;
     RadioGroup rgroup_add_class_color, rgroup_add_class_day;
     ToggleButton tbtn_add_class_alarm;
-    Context mainContext;
+
+    String [] tableDay = {"S","M","T","W","T","F","S","S"};
+    DatabaseHelper db;
 
     List<String> displayedMinute;
-    List<String> displayedHour;
     private int TIME_PICKER_INTERVAL = 15;
-    NumberPicker minutePicker, hourPicker;
+    NumberPicker minutePicker;
 
-    ArrayList<Integer> addClassDay;
+    public class TimeData{
+        int stime;
+        int etime;
+        String day;
+    }
+    ArrayList<TimeData> addClassArray;
 
     int timetableId;
+    int timeInterval = 100;
     SettingData settingData;
 
     @Override
@@ -39,6 +50,7 @@ public class AddClassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_class);
 
+        db = new DatabaseHelper(getApplicationContext());
         init();
     }
 
@@ -59,6 +71,9 @@ public class AddClassActivity extends AppCompatActivity {
 
     public void init(){
         initView();
+
+        addClassArray = new ArrayList<>();
+
         timetableId = getIntent().getIntExtra("timetableId", 2);
         Log.e("timetableId", "!"+timetableId);
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
@@ -101,29 +116,15 @@ public class AddClassActivity extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.btn_add_class_time:
+                addDatabaseList();
                 break;
         }
     }
 
-    public void addToDatabase_Class(){
-        ClassData classData = new ClassData();
-        classData.class_timetable_id = timetableId;
-
-        classData.class_title = etxt_add_class_title.getText().toString();
-        if(classData.class_title.isEmpty()){
-            Toast.makeText(getApplicationContext(),"you must input class title",Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        classData.class_place = etxt_add_class_place.getText().toString();
-        if(classData.class_place.isEmpty()){
-            Toast.makeText(getApplicationContext(),"you must input classroom",Toast.LENGTH_LONG).show();
-            return;
-        }
-        classData.class_professor = etxt_add_class_professor.getText().toString();
-
+    public void addDatabaseList(){
+        final TimeData timeData = new TimeData();
         int dayId = rgroup_add_class_day.getCheckedRadioButtonId();
-        int dayNum = 1;
+        int dayNum = 0;
         switch(dayId){
             case R.id.rbtn_add_class_day_1:
                 dayNum = 1;
@@ -147,62 +148,143 @@ public class AddClassActivity extends AppCompatActivity {
                 dayNum = 7;
                 break;
         }
-        classData.class_day = String.valueOf(dayNum);
+        if(dayNum==0){
+            //day error
+            Toast.makeText(getApplicationContext(),"no day info",Toast.LENGTH_LONG).show();
+            return;
+        }
+        timeData.day = String.valueOf(dayNum);
 
-        int stime = tp_add_class_stime.getHour()*100+tp_add_class_stime.getMinute();
-        int etime = tp_add_class_etime.getHour()*100+tp_add_class_etime.getMinute();
-        if(stime>=etime){
+        timeData.stime = tp_add_class_stime.getHour()*100+tp_add_class_stime.getMinute();
+        timeData.etime = tp_add_class_etime.getHour()*100+tp_add_class_etime.getMinute();
+        if(timeData.stime>=timeData.etime){
+            //time setting error
             Toast.makeText(getApplicationContext(),"start time must be faster than end time",Toast.LENGTH_LONG).show();
             return;
         }
-        classData.class_stime = String.valueOf(stime);
-        classData.class_etime = String.valueOf(etime);
-
-        boolean alarmBool = tbtn_add_class_alarm.isActivated();
-        classData.class_alarm = (alarmBool ? "1" : "0");
-
-        int colorId = rgroup_add_class_color.getCheckedRadioButtonId();
-        int colorNum = 1;
-        switch(colorId){
-            case R.id.rbtn_add_class_color_1:
-                colorNum = 1;
-                break;
-            case R.id.rbtn_add_class_color_2:
-                colorNum = 2;
-                break;
-            case R.id.rbtn_add_class_color_3:
-                colorNum = 3;
-                break;
-            case R.id.rbtn_add_class_color_4:
-                colorNum = 4;
-                break;
-            case R.id.rbtn_add_class_color_5:
-                colorNum = 5;
-                break;
-            case R.id.rbtn_add_class_color_6:
-                colorNum = 6;
-                break;
-            case R.id.rbtn_add_class_color_7:
-                colorNum = 7;
-                break;
-            case R.id.rbtn_add_class_color_8:
-                colorNum = 8;
-                break;
-            case R.id.rbtn_add_class_color_9:
-                colorNum = 9;
-                break;
-            case R.id.rbtn_add_class_color_10:
-                colorNum = 10;
-                break;
+        if(timeData.stime<Integer.parseInt(settingData.setting_stime) ||
+           timeData.etime>Integer.parseInt(settingData.setting_etime)){
+            //setting error
+            Toast.makeText(getApplicationContext(), "out of setting time", Toast.LENGTH_LONG).show();
+            return;
         }
-        classData.class_color = String.valueOf(colorNum);
 
-        classData.class_memo = etxt_add_class_memo.getText().toString();
+        for(TimeData t : addClassArray){
+            if(Integer.parseInt(t.day) == Integer.parseInt(timeData.day)){
+                if(t.stime>=timeData.etime || t.etime<=timeData.stime){
+                    //time error
+                    Toast.makeText(getApplicationContext(), "시간 중복", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        }
 
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        db.insertClassData(classData);
+        final LinearLayout ll_add_class_time = (LinearLayout)findViewById(R.id.ll_add_class_time);
+        ll_add_class_time.setOrientation(LinearLayout.VERTICAL);
 
-        setResult(1);
-        finish();
+        final LinearLayout ll = new LinearLayout(getApplicationContext());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+        TextView tv = new TextView(getApplicationContext());
+        tv.setText(tableDay[dayNum]+" - "+timeData.stime+" ~ "+timeData.etime);
+        tv.setLayoutParams(layoutParams);
+
+        Button btn = new Button(getApplicationContext());
+        btn.setText("삭제");
+        btn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ll_add_class_time.removeView(ll);
+                addClassArray.remove(timeData);
+            }
+        });
+        btn.setLayoutParams(layoutParams);
+
+        ll.addView(tv);
+        ll.addView(btn);
+
+        ll_add_class_time.addView(ll);
+
+        addClassArray.add(timeData);
+    }
+
+    public void addToDatabase_Class(){
+        String toStr = null;
+        if(addClassArray.size()==0){
+            //no class error
+            Toast.makeText(getApplicationContext(), "추가할 시간표 없음", Toast.LENGTH_LONG).show();
+            return;
+        }
+        for(TimeData temp : addClassArray){
+            ClassData classData = new ClassData();
+            classData.class_timetable_id = timetableId;
+
+            classData.class_title = etxt_add_class_title.getText().toString();
+            if(classData.class_title.isEmpty()){
+                Toast.makeText(getApplicationContext(),"you must input class title",Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            classData.class_place = etxt_add_class_place.getText().toString();
+            if(classData.class_place.isEmpty()){
+                Toast.makeText(getApplicationContext(),"you must input classroom",Toast.LENGTH_LONG).show();
+                return;
+            }
+            classData.class_professor = etxt_add_class_professor.getText().toString();
+
+            classData.class_day = temp.day;
+            classData.class_stime = String.valueOf(temp.stime);
+            classData.class_etime = String.valueOf(temp.etime);
+            if(toStr == null){
+                toStr = classData.class_timetable_id+classData.class_stime+classData.class_etime+classData.class_day;
+            }
+            classData.class_string = toStr;
+
+            boolean alarmBool = tbtn_add_class_alarm.isActivated();
+            classData.class_alarm = (alarmBool ? "1" : "0");
+
+            int colorId = rgroup_add_class_color.getCheckedRadioButtonId();
+            int colorNum = 0;
+            switch(colorId){
+                case R.id.rbtn_add_class_color_1:
+                    colorNum = 1;
+                    break;
+                case R.id.rbtn_add_class_color_2:
+                    colorNum = 2;
+                    break;
+                case R.id.rbtn_add_class_color_3:
+                    colorNum = 3;
+                    break;
+                case R.id.rbtn_add_class_color_4:
+                    colorNum = 4;
+                    break;
+                case R.id.rbtn_add_class_color_5:
+                    colorNum = 5;
+                    break;
+                case R.id.rbtn_add_class_color_6:
+                    colorNum = 6;
+                    break;
+                case R.id.rbtn_add_class_color_7:
+                    colorNum = 7;
+                    break;
+                case R.id.rbtn_add_class_color_8:
+                    colorNum = 8;
+                    break;
+                case R.id.rbtn_add_class_color_9:
+                    colorNum = 9;
+                    break;
+                case R.id.rbtn_add_class_color_10:
+                    colorNum = 10;
+                    break;
+            }
+            classData.class_color = String.valueOf(colorNum);
+
+            classData.class_memo = etxt_add_class_memo.getText().toString();
+
+            DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+            db.insertClassData(classData);
+
+            setResult(1);
+            finish();
+        }
     }
 }

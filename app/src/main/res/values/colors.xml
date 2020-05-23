@@ -3,6 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
     <color name="grey">#848282</color>
     <color name="lightgrey">#a6FFFFFF</color>
     <color name="white">#FFFFFF</color>
@@ -10,5 +11,16 @@
     <color name="lightorange">#A6FFA500</color>
     <color name="black">#000000</color>
     <color name="skyblue">#4BB4E9</color>
+
+    <color name="ttcolor1">#E9967A</color>
+    <color name="ttcolor2">#CD5C5C</color>
+    <color name="ttcolor3">#FFA500</color>
+    <color name="ttcolor4">#4682B4</color>
+    <color name="ttcolor5">#87CEEB</color>
+    <color name="ttcolor6">#6B8E23</color>
+    <color name="ttcolor7">#008000</color>
+    <color name="ttcolor8">#FF8C00</color>
+    <color name="ttcolor9">#FF4500</color>
+    <color name="ttcolor10">#C0C0C0</color>
 
 </resources>

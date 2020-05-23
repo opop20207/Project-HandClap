@@ -4,74 +4,36 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:importantForAccessibility="no"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_gravity="start"
-    android:layout_width="240dp"
+    android:layout_gravity="end"
+    android:layout_width="match_parent"
     android:background="#505050"
     android:clickable="true"
     android:focusable="true"
-    android:id="@+id/drawer">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-
-        <Button
-            android:text="BACK"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:onClick="onClickMain"
-            android:id="@+id/close_drawer"/>
-
-        <Button
-            android:text="SETTING"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClickMainTo"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:id="@+id/open_set" />
-    </RelativeLayout>
-
-    <ExpandableListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/timetable_list" >
-
-    </ExpandableListView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2sp"
-        android:layout_marginTop="8sp"
-        android:layout_marginBottom="8sp"
-        android:background="@color/white" />
+    android:id="@+id/bottomDrawer">
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickMainTo"
-        android:text="시간표 추가"
+        android:text="상세정보"
         android:textColor="#ffffff"
         android:background="@drawable/border_drawer"
         android:gravity="center_vertical|left"
         tools:ignore="RtlHardcoded"
-        android:id="@+id/open_add_timetable"/>
+        android:id="@+id/detail_class" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickMainTo"
-        android:text="시간표 삭제"
         android:textColor="#ffffff"
+        android:onClick="onClickMainTo"
+        android:text="삭제"
         android:background="@drawable/border_drawer"
         android:gravity="center_vertical|left"
         tools:ignore="RtlHardcoded"
-        android:id="@+id/open_delete_timetable"/>
+        android:id="@+id/delete_class" />
 
     <View
         android:layout_width="match_parent"

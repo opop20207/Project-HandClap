@@ -48,6 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CLASS_COLUMN_CLASS_DAY = "class_day";
     private static final String CLASS_COLUMN_CLASS_STIME = "class_stime";
     private static final String CLASS_COLUMN_CLASS_ETIME = "class_etime";
+    private static final String CLASS_COLUMN_CLASS_STRING = "class_string";
     private static final String CLASS_COLUMN_CLASS_ALARM = "class_alarm";
     private static final String CLASS_COLUMN_CLASS_PROFESSOR = "class_professor";
     private static final String CLASS_COLUMN_CLASS_COLOR = "class_color";
@@ -62,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + CLASS_COLUMN_CLASS_DAY + " TEXT, "
             + CLASS_COLUMN_CLASS_STIME + " TEXT, "
             + CLASS_COLUMN_CLASS_ETIME + " TEXT, "
+            + CLASS_COLUMN_CLASS_STRING + " TEXT, "
             + CLASS_COLUMN_CLASS_ALARM + " TEXT, "
             + CLASS_COLUMN_CLASS_PROFESSOR + " TEXT, "
             + CLASS_COLUMN_CLASS_COLOR + " TEXT, "
@@ -201,10 +203,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //CRUD Operation for scheme 3
     public void insertClassData(ClassData classData){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO class(class_timetable_id, class_title, class_place, class_day, class_stime, class_etime, "
+        db.execSQL("INSERT INTO class(class_timetable_id, class_title, class_place, class_day, class_stime, class_etime, class_string, "
                 + "class_alarm, class_professor, class_color, class_memo) VALUES("
                 +classData.class_timetable_id+", '"+classData.class_title +"', '"+classData.class_place+"', '"+classData.class_day+"', '"
-                +classData.class_stime+"', '"+classData.class_etime+"', '"+classData.class_alarm+"', '"+classData.class_professor+"', '"+classData.class_color+"', '"+classData.class_memo+"');");
+                +classData.class_stime+"', '"+classData.class_etime+"', '"+classData.class_string+"', '"+classData.class_alarm+"', '"+classData.class_professor+"', '"+classData.class_color+"', '"+classData.class_memo+"');");
         db.close();
     }
 
@@ -221,10 +223,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             temp.class_day = cursor.getString(4);
             temp.class_stime = cursor.getString(5);
             temp.class_etime = cursor.getString(6);
-            temp.class_alarm = cursor.getString(7);
-            temp.class_professor = cursor.getString(8);
-            temp.class_color = cursor.getString(9);
-            temp.class_memo = cursor.getString(10);
+            temp.class_string = cursor.getString(7);
+            temp.class_alarm = cursor.getString(8);
+            temp.class_professor = cursor.getString(9);
+            temp.class_color = cursor.getString(10);
+            temp.class_memo = cursor.getString(11);
             ret.add(temp);
         }
         cursor.close();
@@ -232,11 +235,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ret;
     }
 
-    public void updateClassData(int id){
+    public void updateClassData(String toStr){
 
     }
 
-    public void deleteClassData(){
+    public void deleteClassDataOne(String toStr){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM class WHERE class_string = '"+toStr+"'");
+        db.close();
+    }
 
+    public void deleteClassData(int id){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM class WHERE class_timetable_id = '"+id+"'");
+        db.close();
     }
 }

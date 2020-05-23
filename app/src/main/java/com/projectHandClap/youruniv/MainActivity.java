@@ -1,22 +1,21 @@
 package com.projectHandClap.youruniv;
 
-import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -25,22 +24,29 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity{
     ExpandableListView timetable_list;
     DrawerLayout drawerLayout;
-    View drawerView;
+    View drawerView, bottomDrawerView;
+    LinearLayout ll_bottom_drawer;
+    DatabaseHelper db;
+
     SettingData userSetting;
-    long timetableNum;
+    long timetableId;
+    int selectedClassId;
 
     String [] tableDay = {"S","M","T","W","T","F","S","S"};
+    int [] tableColor = {R.color.colorAccent, R.color.ttcolor1, R.color.ttcolor2, R.color.ttcolor3, R.color.ttcolor4, R.color.ttcolor5,
+            R.color.ttcolor6, R.color.ttcolor7, R.color.ttcolor8, R.color.ttcolor9, R.color.ttcolor10};
     int timeInterval = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = new DatabaseHelper(getApplicationContext());
         init();
     }
 
     public void init(){
-        if(timetableNum==0) pragmaOnce();
+        if(timetableId == 0) pragmaOnce();
         initView();
         setLayout();
         setDrawerLayout();
@@ -48,7 +54,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void pragmaOnce(){
-        DatabaseHelper db = new DatabaseHelper(this);
         SettingData settingData = db.getSetting();
         if(settingData == null) {
             TimetableData timetableData = new TimetableData();
@@ -57,19 +62,20 @@ public class MainActivity extends AppCompatActivity{
             db.insertSetting(new SettingData(1,"1234567","900", "1800"));
         }
         userSetting = db.getSetting();
-        timetableNum = userSetting.setting_main_timetable_id;
+        timetableId = userSetting.setting_main_timetable_id;
     }
 
     public void initView(){
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         drawerView = (View)findViewById(R.id.drawer);
+        bottomDrawerView = (View)findViewById(R.id.bottomDrawer);
     }
 
     public void setLayout(){
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         TextView txv_timetable_title = (TextView)findViewById(R.id.txv_timetable_title);
-        TimetableData timetableData = db.getTimetableOne((int)timetableNum);
+        TimetableData timetableData = db.getTimetableOne((int)timetableId);
         txv_timetable_title.setText(timetableData.timetable_title);
+
 
         TableLayout tableLayout = (TableLayout) findViewById(R.id.layout_timetable);
         tableLayout.removeAllViews();
@@ -92,6 +98,7 @@ public class MainActivity extends AppCompatActivity{
             }
         }
         tableLayout.addView(tableRow);
+
 
         int stime = Integer.parseInt(userSetting.setting_stime);
         int etime = Integer.parseInt(userSetting.setting_etime);
@@ -126,7 +133,6 @@ public class MainActivity extends AppCompatActivity{
         timetable_list = (ExpandableListView) findViewById(R.id.timetable_list);
         ExpandableGroup t = new ExpandableGroup("시간표");
 
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         ArrayList<TimetableData> timetableList = db.getTimetable();
         for(TimetableData t1 : timetableList){
             t.child.add(t1.timetable_title);
@@ -138,20 +144,27 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void addClassToLayout(){
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        ArrayList<ClassData> classDataList = db.getClassData((int)timetableNum);
+        ArrayList<ClassData> classDataList = db.getClassData((int)timetableId);
         for(ClassData cd : classDataList){
             String title = cd.class_title;
             int stime = Integer.parseInt(cd.class_stime);
             int etime = Integer.parseInt(cd.class_etime);
             int day = Integer.parseInt(cd.class_day);
             for(int i=stime;i<=etime;i+=timeInterval){
+                if(stime<Integer.parseInt(userSetting.setting_stime) || etime>Integer.parseInt(userSetting.setting_etime)) continue;
                 String k = "row"+Integer.toString(i)+"day"+Integer.toString(day);
                 Log.e("!", k);
                 int a = getResources().getIdentifier(k, "id", "com.projectHandClap.youruniv");
-                TextView tv = (TextView) findViewById(a);
+                final TextView tv = (TextView) findViewById(a);
+                tv.setOnClickListener(new TextView.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        selectedClassId = tv.getId();
+                        drawerLayout.openDrawer(bottomDrawerView);
+                    }
+                });
                 //tv.setText(title);
-                tv.setBackgroundResource(R.drawable.border_drawer);
+                tv.setBackgroundColor(getResources().getColor(tableColor[Integer.parseInt(cd.class_color)]));
             }
         }
     }
@@ -161,12 +174,20 @@ public class MainActivity extends AppCompatActivity{
         switch (v.getId()) {
             case R.id.open_add_class:
                 intent = new Intent(MainActivity.this, AddClassActivity.class);
-                intent.putExtra("timetableId", (int)timetableNum);
+                intent.putExtra("timetableId", (int)timetableId);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.open_set:
                 intent = new Intent(MainActivity.this, SetActivity.class);
-                //startActivityForResult(intent, 2);
+                startActivityForResult(intent, 2);
+                break;
+            case R.id.open_add_timetable:
+                intent = new Intent(MainActivity.this, AddTimetableActivity.class);
+                startActivityForResult(intent, 3);
+                break;
+            case R.id.open_delete_timetable:
+                intent = new Intent(MainActivity.this, DeleteTimetableActivity.class);
+                startActivityForResult(intent, 4);
                 break;
             case R.id.open_recorder:
                 intent = new Intent(MainActivity.this, RecorderActivity.class);
@@ -184,14 +205,6 @@ public class MainActivity extends AppCompatActivity{
                 intent = new Intent(MainActivity.this, ScheduleActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.open_add_timetable:
-                intent = new Intent(MainActivity.this, AddTimetableActivity.class);
-                startActivityForResult(intent, 3);
-                break;
-            case R.id.open_delete_timetable:
-                intent = new Intent(MainActivity.this, DeleteTimetableActivity.class);
-                startActivityForResult(intent, 4);
-                break;
         }
     }
 
@@ -206,27 +219,33 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode == 1){
+            //open_add_class
             addClassToLayout();
         }else if(resultCode == 2){
-            DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+            //open_set
             userSetting = db.getSetting();
-            timetableNum = userSetting.setting_main_timetable_id;
+            timetableId = data.getIntExtra("newTimetableId", 1);
             setLayout();
             setDrawerLayout();
             addClassToLayout();
         }else if(resultCode == 3){
-            timetableNum = getIntent().getIntExtra("newTimetableNum", 1);
-            Log.e("!!", timetableNum+"!");
+            //open_add_timetable
+            timetableId = data.getIntExtra("newTimetableId", 1);
+            Log.e("ttI", timetableId+"!");
             drawerLayout.closeDrawer(drawerView);
             setLayout();
             setDrawerLayout();
             addClassToLayout();
         }else if(requestCode==4){
+            //open_delete_timetable
             drawerLayout.closeDrawer(drawerView);
+            TimetableData chk = db.getTimetableOne((int)timetableId);
+            if(chk==null){
+                timetableId = userSetting.setting_main_timetable_id;
+            }
             setLayout();
             setDrawerLayout();
             addClassToLayout();

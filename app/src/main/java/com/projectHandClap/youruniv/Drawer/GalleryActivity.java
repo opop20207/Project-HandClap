@@ -140,6 +140,7 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
             ContentValues values = new ContentValues();
             values.put(MediaStore.Images.Media.TITLE,"New Picture");
             values.put(MediaStore.Images.Media.DESCRIPTION,"From Camera");
+            values.put(MediaStore.Images.Media.DISPLAY_NAME, "image_1024(1).JPG");
             values.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/YourUniv/"+getTime);
             Uri image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 

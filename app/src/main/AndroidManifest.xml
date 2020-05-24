@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ListItemActivity"></activity>
         <activity android:name=".ViewPager.ViewPagerActivity" />
         <activity android:name=".DeleteTimetableActivity" />
         <activity android:name=".AddTimetableActivity" />
@@ -17,7 +18,7 @@
         <activity android:name=".Drawer.Schedule.ScheduleActivity" />
         <activity android:name=".Drawer.MemoActivity" />
         <activity android:name=".Drawer.RecorderActivity" />
-        <activity android:name=".Drawer.GalleryActivity" />
+        <activity android:name=".Drawer.Gallery.GalleryActivity" />
         <activity android:name=".SetActivity" />
         <activity android:name=".Drawer.Gallery.ImageDisplay" />
         <activity android:name=".MainActivity">
@@ -29,11 +30,11 @@
         </activity>
     </application>
     <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:required="true" />
 
     <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:required="true" />
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.projectHandClap.youruniv.Drawer;
+package com.projectHandClap.youruniv.Drawer.Gallery;
 
 import android.Manifest;
 import android.content.ContentValues;
@@ -23,7 +23,6 @@ import com.projectHandClap.youruniv.Drawer.Gallery.utils.imageFolder;
 import com.projectHandClap.youruniv.Drawer.Gallery.utils.itemClickListener;
 import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFacer;
 import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFolderAdapter;
-import com.projectHandClap.youruniv.Drawer.Gallery.ImageDisplay;
 import com.projectHandClap.youruniv.R;
 
 import java.text.SimpleDateFormat;
@@ -148,7 +147,6 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
             startActivityForResult(takePictureIntent, 1);
-
         }
     }
 }

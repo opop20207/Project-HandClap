@@ -10,30 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/list_schedule_date">
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txv_schedule_date"/>
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/list_schedule"
-            tools:ignore="AdapterViewChildren,NestedScrolling">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/chkbox_schedule_done"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/txv_schedule_title"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/txv_schedule_deadline"/>
-            </LinearLayout>
+            android:id="@+id/list_schedule">
         </ListView>
     </ListView>
 

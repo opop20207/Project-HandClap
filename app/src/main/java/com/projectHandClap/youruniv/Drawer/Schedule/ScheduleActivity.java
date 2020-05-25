@@ -16,9 +16,6 @@ date
 title isDone memo deadline
  */
 
-// 날짜 list_schedule_date 뿌려주기
-// list_schedule_date 에 list_schedule 구성해서 뿌려주기
-
 public class ScheduleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

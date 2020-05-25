@@ -19,24 +19,30 @@
             android:layout_margin="10dp">
 
             <Button
-                android:id="@+id/open_drawer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:onClick="onClickMain" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:onClick="onClickMain"
+                android:gravity="center"
+                android:background="@drawable/menu"
+                android:id="@+id/open_drawer" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
                 android:id="@+id/txv_timetable_title"/>
 
             <Button
-                android:id="@+id/open_add_class"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:onClick="onClickMainTo" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:onClick="onClickMainTo"
+                android:gravity="center"
+                tools:ignore="RelativeOverlap"
+                android:background="@drawable/add"
+                android:id="@+id/open_add_class"/>
         </RelativeLayout>
 
         <TableLayout
@@ -44,8 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginEnd="15sp"
+            android:layout_marginBottom="20sp">
 
         </TableLayout>
     </LinearLayout>

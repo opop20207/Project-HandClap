@@ -33,6 +33,8 @@
         android:background="@drawable/border_drawer"
         android:gravity="center_vertical|left"
         tools:ignore="RtlHardcoded"
+        android:drawableRight="@drawable/icon_delete"
+        android:drawablePadding="5sp"
         android:id="@+id/delete_class" />
 
     <View
@@ -51,6 +53,8 @@
         android:background="@drawable/border_drawer"
         android:gravity="center_vertical|left"
         tools:ignore="RtlHardcoded"
+        android:drawableRight="@drawable/icon_gallery"
+        android:drawablePadding="5sp"
         android:id="@+id/open_gallery" />
 
     <Button
@@ -62,6 +66,8 @@
         android:background="@drawable/border_drawer"
         android:gravity="center_vertical|left"
         tools:ignore="RtlHardcoded"
+        android:drawableRight="@drawable/icon_record"
+        android:drawablePadding="5sp"
         android:id="@+id/open_recorder" />
 
     <Button
@@ -73,6 +79,8 @@
         android:background="@drawable/border_drawer"
         android:gravity="center_vertical|left"
         tools:ignore="RtlHardcoded"
+        android:drawableRight="@drawable/icon_memo"
+        android:drawablePadding="5sp"
         android:id="@+id/open_memo" />
 
     <Button
@@ -84,5 +92,7 @@
         android:background="@drawable/border_drawer"
         android:gravity="center_vertical|left"
         tools:ignore="RtlHardcoded"
+        android:drawableRight="@drawable/icon_calendar"
+        android:drawablePadding="5sp"
         android:id="@+id/open_schedule"/>
 </LinearLayout>

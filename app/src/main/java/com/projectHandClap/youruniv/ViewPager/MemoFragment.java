@@ -25,6 +25,7 @@ public class MemoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return (ConstraintLayout) inflater.inflate(R.layout.activity_memo, container,false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.activity_memo, container, false);
+        return rootView;
     }
 }

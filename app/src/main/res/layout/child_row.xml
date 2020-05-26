@@ -6,8 +6,8 @@
         android:id="@+id/expandable_child_name"
         android:layout_width="match_parent"
         android:layout_height="40sp"
-        android:textColor="#ffffff"
-        android:background="@drawable/border_drawer"
-        android:paddingLeft="40dip"
+        android:textColor="@color/colorBasic"
+        android:background="@color/colorBasicDarkula"
+        android:paddingLeft="40sp"
         android:gravity="center_vertical|left"/>
 </LinearLayout>

@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="start"
-    android:layout_width="240dp"
-    android:background="#505050"
+    android:layout_width="240sp"
+    android:background="@color/colorBasicDarkula"
     android:clickable="true"
     android:focusable="true"
     android:id="@+id/drawer">
@@ -16,7 +16,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_margin="5sp">
 
         <Button
             android:layout_width="30sp"
@@ -47,6 +47,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15sp"
+        android:groupIndicator="@drawable/expandable_indicator"
+        android:divider="@null"
+        android:transcriptMode="alwaysScroll"
         android:id="@+id/timetable_list" >
 
     </ExpandableListView>
@@ -63,22 +66,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickMainTo"
-        android:text="+시간표추가"
-        android:textColor="#ffffff"
-        android:background="#505050"
+        android:text="시간표 추가"
+        android:textColor="@color/colorBasic"
+        android:background="@color/colorBasicDarkula"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
         android:layout_marginStart="15sp"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_add_timetable"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/white"
+        android:layout_marginTop="15sp"
+        tools:ignore="SmallSp" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickMainTo"
         android:text="시간표 삭제"
-        android:textColor="#ffffff"
-        android:background="#505050"
+        android:textColor="@color/colorBasic"
+        android:background="@color/colorBasicDarkula"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
         android:layout_marginStart="15sp"
@@ -98,8 +108,8 @@
         android:layout_height="wrap_content"
         android:onClick="onClickMainTo"
         android:text="사진"
-        android:textColor="#ffffff"
-        android:background="#505050"
+        android:textColor="@color/colorBasic"
+        android:background="@color/colorBasicDarkula"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
         android:layout_marginStart="15sp"
@@ -109,16 +119,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1sp"
-        android:background="@color/white"
+        android:background="@color/colorBasic"
         tools:ignore="SmallSp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
         android:onClick="onClickMainTo"
         android:text="녹음"
-        android:background="#505050"
+        android:textColor="@color/colorBasic"
+        android:background="@color/colorBasicDarkula"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
         android:layout_marginStart="15sp"
@@ -128,16 +138,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1sp"
-        android:background="@color/white"
+        android:background="@color/colorBasic"
         tools:ignore="SmallSp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
         android:onClick="onClickMainTo"
         android:text="메모"
-        android:background="#505050"
+        android:textColor="@color/colorBasic"
+        android:background="@color/colorBasicDarkula"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
         android:layout_marginStart="15sp"
@@ -147,16 +157,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1sp"
-        android:background="@color/white"
+        android:background="@color/colorBasic"
         tools:ignore="SmallSp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
         android:onClick="onClickMainTo"
         android:text="일정"
-        android:background="#505050"
+        android:textColor="@color/colorBasic"
+        android:background="@color/colorBasicDarkula"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
         android:layout_marginStart="15sp"
@@ -166,6 +176,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1sp"
-        android:background="@color/white"
+        android:background="@color/colorBasic"
         tools:ignore="SmallSp" />
 </LinearLayout>

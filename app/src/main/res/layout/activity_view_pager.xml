@@ -1,49 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ViewPager.ViewPagerActivity">
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
+        android:orientation="horizontal">
 
         <Button
-            android:layout_weight="1"
+            android:id="@+id/Viewpager_Gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/Viewpager_Gallery"/>
+            android:layout_weight="1" />
 
         <Button
-            android:layout_weight="1"
+            android:id="@+id/Viewpager_Recorder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/Viewpager_Recorder"/>
+            android:layout_weight="1" />
 
         <Button
-            android:layout_weight="1"
+            android:id="@+id/Viewpager_Memo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/Viewpager_Memo"/>
+            android:layout_weight="1" />
 
         <Button
-            android:layout_weight="1"
+            android:id="@+id/Viewpager_Calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/Viewpager_Calendar"/>
+            android:layout_weight="1" />
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/viewPager"/>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

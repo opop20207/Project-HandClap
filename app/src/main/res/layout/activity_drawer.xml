@@ -19,27 +19,34 @@
         android:layout_margin="5dp">
 
         <Button
-            android:text="BACK"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_alignParentStart="true"
             android:onClick="onClickMain"
+            android:background="@drawable/close_menu"
             android:id="@+id/close_drawer"/>
 
         <Button
-            android:text="SETTING"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:onClick="onClickMainTo"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:background="@drawable/set"
+            tools:ignore="RelativeOverlap"
             android:id="@+id/open_set" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/white"
+        android:layout_marginTop="15sp"
+        tools:ignore="SmallSp" />
 
     <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15sp"
         android:id="@+id/timetable_list" >
 
     </ExpandableListView>
@@ -49,17 +56,20 @@
         android:layout_height="2sp"
         android:layout_marginTop="8sp"
         android:layout_marginBottom="8sp"
-        android:background="@color/white" />
+        android:background="@color/white"
+        tools:ignore="SmallSp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickMainTo"
-        android:text="시간표 추가"
+        android:text="+시간표추가"
         android:textColor="#ffffff"
-        android:background="@drawable/border_drawer"
+        android:background="#505050"
         android:gravity="center_vertical|left"
-        tools:ignore="RtlHardcoded"
+        tools:ignore="HardcodedText,RtlHardcoded"
+        android:layout_marginStart="15sp"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_add_timetable"/>
 
     <Button
@@ -68,9 +78,11 @@
         android:onClick="onClickMainTo"
         android:text="시간표 삭제"
         android:textColor="#ffffff"
-        android:background="@drawable/border_drawer"
+        android:background="#505050"
         android:gravity="center_vertical|left"
-        tools:ignore="RtlHardcoded"
+        tools:ignore="HardcodedText,RtlHardcoded"
+        android:layout_marginStart="15sp"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_delete_timetable"/>
 
     <View
@@ -78,7 +90,8 @@
         android:layout_height="2sp"
         android:layout_marginTop="8sp"
         android:layout_marginBottom="8sp"
-        android:background="@color/white" />
+        android:background="@color/white"
+        tools:ignore="SmallSp" />
 
     <Button
         android:layout_width="match_parent"
@@ -86,10 +99,18 @@
         android:onClick="onClickMainTo"
         android:text="사진"
         android:textColor="#ffffff"
-        android:background="@drawable/border_drawer"
+        android:background="#505050"
         android:gravity="center_vertical|left"
-        tools:ignore="RtlHardcoded"
+        tools:ignore="HardcodedText,RtlHardcoded"
+        android:layout_marginStart="15sp"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_gallery" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/white"
+        tools:ignore="SmallSp" />
 
     <Button
         android:layout_width="match_parent"
@@ -97,10 +118,18 @@
         android:textColor="#ffffff"
         android:onClick="onClickMainTo"
         android:text="녹음"
-        android:background="@drawable/border_drawer"
+        android:background="#505050"
         android:gravity="center_vertical|left"
-        tools:ignore="RtlHardcoded"
+        tools:ignore="HardcodedText,RtlHardcoded"
+        android:layout_marginStart="15sp"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_recorder" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/white"
+        tools:ignore="SmallSp" />
 
     <Button
         android:layout_width="match_parent"
@@ -108,10 +137,18 @@
         android:textColor="#ffffff"
         android:onClick="onClickMainTo"
         android:text="메모"
-        android:background="@drawable/border_drawer"
+        android:background="#505050"
         android:gravity="center_vertical|left"
-        tools:ignore="RtlHardcoded"
+        tools:ignore="HardcodedText,RtlHardcoded"
+        android:layout_marginStart="15sp"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_memo" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/white"
+        tools:ignore="SmallSp" />
 
     <Button
         android:layout_width="match_parent"
@@ -119,8 +156,16 @@
         android:textColor="#ffffff"
         android:onClick="onClickMainTo"
         android:text="일정"
-        android:background="@drawable/border_drawer"
+        android:background="#505050"
         android:gravity="center_vertical|left"
-        tools:ignore="RtlHardcoded"
+        tools:ignore="HardcodedText,RtlHardcoded"
+        android:layout_marginStart="15sp"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_schedule"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/white"
+        tools:ignore="SmallSp" />
 </LinearLayout>

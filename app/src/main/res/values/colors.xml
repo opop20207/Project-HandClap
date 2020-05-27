@@ -8,6 +8,10 @@
     <color name="colorBasicDarkula">#7F7F7F</color>
 
     <color name="grey">#848282</color>
+    <color name="darkGrey">#706E6E</color>
+
+    <color name="colorDarkBlue">#3D4054</color>
+
     <color name="lightgrey">#a6FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="orange">#FFA500</color>

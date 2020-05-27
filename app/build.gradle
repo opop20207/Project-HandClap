@@ -32,4 +32,14 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+
+    //Android Jetpak Navigation
+    def nav_version = "2.3.0-alpha05"
+
+    // Java language implementation
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    //Material Design Components
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
 }

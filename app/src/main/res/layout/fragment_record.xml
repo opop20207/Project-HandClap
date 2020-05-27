@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".RecordFragment">
+
+    <ImageView
+        android:id="@+id/record_header_image"
+        android:layout_width="184dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/book"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/record_filename"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Press the mic button \n to start recordeing"
+        app:layout_constraintTop_toBottomOf="@+id/record_header_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="64dp"
+        android:lineHeight="32dp"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:textColor="@color/colorDarkBlue"
+        android:gravity="center_horizontal" />
+
+    <Chronometer
+        android:id="@+id/record_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/record_filename"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="64dp"
+        android:textSize="64sp"
+        android:textColor="@color/colorDarkBlue"
+        />
+    
+    <ImageButton
+        android:id="@+id/record_btn"
+        android:background="@color/lightgrey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/record_timer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/recordstopbtn"
+        />
+
+    <ImageButton
+        android:id="@+id/record_list_btn"
+        android:background="@color/lightgrey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/record_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/record_btn"
+        app:layout_constraintStart_toEndOf="@+id/record_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"
+        android:src="@drawable/recorder_list_btn"
+        />
+        
+
+</androidx.constraintlayout.widget.ConstraintLayout>

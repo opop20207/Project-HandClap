@@ -31,11 +31,13 @@ public class SetActivity extends AppCompatActivity {
     private int TIME_PICKER_INTERVAL = 15;
     NumberPicker minutePicker;
     List<String> displayedMinute;
+    DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
 
+        db = new DatabaseHelper(getApplicationContext());
         init();
     }
 
@@ -55,7 +57,6 @@ public class SetActivity extends AppCompatActivity {
     }
 
     public void init(){
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         retSetting = db.getSetting();
         newTimetableId = retSetting.setting_main_timetable_id;
 
@@ -149,7 +150,6 @@ public class SetActivity extends AppCompatActivity {
     }
 
     public void submit(){
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         retSetting.setting_stime = String.valueOf(tp_setting_stime.getHour()*100+tp_setting_stime.getMinute());
         retSetting.setting_etime = String.valueOf(tp_setting_etime.getHour()*100+tp_setting_etime.getMinute());
         String retDay="";
@@ -163,7 +163,6 @@ public class SetActivity extends AppCompatActivity {
     }
 
     public void showDialog(){
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         final List<String> listItems = new ArrayList<>();
         final List<Integer> listItems_id = new ArrayList<>();
         final List<Integer> selectedItems = new ArrayList<>();

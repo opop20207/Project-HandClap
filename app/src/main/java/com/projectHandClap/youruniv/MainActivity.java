@@ -1,21 +1,31 @@
 package com.projectHandClap.youruniv;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.projectHandClap.youruniv.Drawer.Gallery.GalleryActivity;
 import com.projectHandClap.youruniv.Drawer.MemoActivity;
 import com.projectHandClap.youruniv.Drawer.RecorderActivity;
 import com.projectHandClap.youruniv.Drawer.Schedule.ScheduleActivity;
+import com.projectHandClap.youruniv.ViewPager.ViewPagerActivity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -27,8 +37,14 @@ public class MainActivity extends AppCompatActivity{
     DrawerLayout drawerLayout;
     View drawerView;
     SettingData userSetting;
-    long timetableNum;
 
+    Button bottomSheetDialog_btnGallery, bottomSheetDialog_btnDetail, bottomSheetDialog_btnDelete;
+    Button bottomSheetDialog_btnRecord, bottomSheetDialog_btnMemo, bottomSheetDialog_btnSchedule;
+    TextView bottomSheetDialog_txvTitle;
+    DatabaseHelper db;
+
+    int [] tableColor = {R.color.colorAccent, R.color.ttcolor1, R.color.ttcolor2, R.color.ttcolor3, R.color.ttcolor4, R.color.ttcolor5,
+            R.color.ttcolor6, R.color.ttcolor7, R.color.ttcolor8, R.color.ttcolor9, R.color.ttcolor10};
     String [] tableDay = {"S","M","T","W","T","F","S","S"};
     int timeInterval = 100;
 
@@ -36,11 +52,12 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = new DatabaseHelper(getApplicationContext());
         init();
     }
 
     public void init(){
-        if(timetableNum==0) pragmaOnce();
+        if(timetableId==0) pragmaOnce();
         initView();
         setLayout();
         setDrawerLayout();
@@ -48,7 +65,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void pragmaOnce(){
-        DatabaseHelper db = new DatabaseHelper(this);
         SettingData settingData = db.getSetting();
         if(settingData == null) {
             TimetableData timetableData = new TimetableData();
@@ -57,7 +73,7 @@ public class MainActivity extends AppCompatActivity{
             db.insertSetting(new SettingData(1,"1234567","900", "1800"));
         }
         userSetting = db.getSetting();
-        timetableNum = userSetting.setting_main_timetable_id;
+        timetableId = userSetting.setting_main_timetable_id;
     }
 
     public void initView(){
@@ -66,10 +82,37 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void setLayout(){
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        TextView txv_timetable_title = (TextView)findViewById(R.id.txv_timetable_title);
-        TimetableData timetableData = db.getTimetableOne((int)timetableNum);
+        final TextView txv_timetable_title = (TextView)findViewById(R.id.txv_timetable_title);
+        final TimetableData timetableData = db.getTimetableOne((int)timetableId);
         txv_timetable_title.setText(timetableData.timetable_title);
+        txv_timetable_title.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final EditText editText = new EditText(MainActivity.this);
+                editText.setText(timetableData.timetable_title);
+                AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
+
+                dlg.setTitle("시간표 이름 변경");
+                dlg.setView(editText);
+                dlg.setPositiveButton("입력",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                db.updateTimetable(new TimetableData(timetableData.timetable_id, editText.getText().toString()));
+
+                                setLayout();
+                                setDrawerLayout();
+                                addClassToLayout();
+                            }
+                    });
+                dlg.setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                dlg.show();
+
+            }
+        });
 
         TableLayout tableLayout = (TableLayout) findViewById(R.id.layout_timetable);
         tableLayout.removeAllViews();
@@ -121,12 +164,21 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    public int getPixelFromDips(float pixels){
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (pixels*scale+0.5f);
+    }
+
     public void setDrawerLayout(){
-        ArrayList<ExpandableGroup> dataList = new ArrayList<ExpandableGroup>();
         timetable_list = (ExpandableListView) findViewById(R.id.timetable_list);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = 800;
+        timetable_list.setIndicatorBounds(width-getPixelFromDips(50),width-getPixelFromDips(10));
+        timetable_list.setChildDivider(getResources().getDrawable(R.drawable.border));
+        ArrayList<ExpandableGroup> dataList = new ArrayList<ExpandableGroup>();
         ExpandableGroup t = new ExpandableGroup("시간표");
 
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         ArrayList<TimetableData> timetableList = db.getTimetable();
         for(TimetableData t1 : timetableList){
             t.child.add(t1.timetable_title);
@@ -138,20 +190,93 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void addClassToLayout(){
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        ArrayList<ClassData> classDataList = db.getClassData((int)timetableNum);
+        ArrayList<ClassData> classDataList = db.getClassData((int)timetableId);
         for(ClassData cd : classDataList){
             String title = cd.class_title;
             int stime = Integer.parseInt(cd.class_stime);
             int etime = Integer.parseInt(cd.class_etime);
             int day = Integer.parseInt(cd.class_day);
             for(int i=stime;i<=etime;i+=timeInterval){
+                if(stime<Integer.parseInt(userSetting.setting_stime) || etime>Integer.parseInt(userSetting.setting_etime)) continue;
                 String k = "row"+Integer.toString(i)+"day"+Integer.toString(day);
                 Log.e("!", k);
                 int a = getResources().getIdentifier(k, "id", "com.projectHandClap.youruniv");
+
+                final ClassData fcd = cd;
+
                 TextView tv = (TextView) findViewById(a);
                 //tv.setText(title);
-                tv.setBackgroundResource(R.drawable.border_drawer);
+                tv.setBackgroundColor(getResources().getColor(tableColor[Integer.parseInt(cd.class_color)]));
+                tv.setOnClickListener(new TextView.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final int cid = (int)fcd.class_id;
+                        final String cstr = fcd.class_string;
+                        final BottomSheetDialog dialog = new BottomSheetDialog(MainActivity.this);
+                        dialog.setContentView(R.layout.bottomsheetdialog);
+
+                        bottomSheetDialog_btnDetail = (Button)dialog.findViewById(R.id.bottomSheetDialog_btnDetail);
+                        bottomSheetDialog_btnDelete = (Button)dialog.findViewById(R.id.bottomSheetDialog_btnDelete);
+                        bottomSheetDialog_btnGallery = (Button)dialog.findViewById(R.id.bottomSheetDialog_btnGallery);
+                        bottomSheetDialog_btnRecord = (Button)dialog.findViewById(R.id.bottomSheetDialog_btnRecord);
+                        bottomSheetDialog_btnMemo = (Button)dialog.findViewById(R.id.bottomSheetDialog_btnMemo);
+                        bottomSheetDialog_btnSchedule = (Button)dialog.findViewById(R.id.bottomSheetDialog_btnSchedule);
+                        bottomSheetDialog_txvTitle = (TextView)dialog.findViewById(R.id.bottomSheetDialog_txvTitle);
+
+                        bottomSheetDialog_txvTitle.setText(fcd.class_title);
+                        bottomSheetDialog_btnDetail.setOnClickListener(new Button.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(MainActivity.this, ClassDetailActivity.class);
+                                intent.putExtra("classDataId", cid);
+                                startActivity(intent);
+                            }
+                        });
+                        bottomSheetDialog_btnDelete.setOnClickListener(new Button.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                db.deleteClassDataOne(cstr);
+                                setLayout();
+                                setDrawerLayout();
+                                addClassToLayout();
+                                dialog.cancel();
+                            }
+                        });
+                        bottomSheetDialog_btnGallery.setOnClickListener(new Button.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                                intent.putExtra("classDataId", cid);
+                                startActivity(intent);
+                            }
+                        });
+                        bottomSheetDialog_btnRecord.setOnClickListener(new Button.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                                intent.putExtra("classDataId", cid);
+                                startActivity(intent);
+                            }
+                        });
+                        bottomSheetDialog_btnMemo.setOnClickListener(new Button.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                                intent.putExtra("classDataId", cid);
+                                startActivity(intent);
+                            }
+                        });
+                        bottomSheetDialog_btnSchedule.setOnClickListener(new Button.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                                intent.putExtra("classDataId", cid);
+                                startActivity(intent);
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
             }
         }
     }
@@ -161,12 +286,20 @@ public class MainActivity extends AppCompatActivity{
         switch (v.getId()) {
             case R.id.open_add_class:
                 intent = new Intent(MainActivity.this, AddClassActivity.class);
-                intent.putExtra("timetableId", (int)timetableNum);
+                intent.putExtra("timetableId", (int)timetableId);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.open_set:
                 intent = new Intent(MainActivity.this, SetActivity.class);
-                //startActivityForResult(intent, 2);
+                startActivityForResult(intent, 2);
+                break;
+            case R.id.open_add_timetable:
+                intent = new Intent(MainActivity.this, AddTimetableActivity.class);
+                startActivityForResult(intent, 3);
+                break;
+            case R.id.open_delete_timetable:
+                intent = new Intent(MainActivity.this, DeleteTimetableActivity.class);
+                startActivityForResult(intent, 4);
                 break;
             case R.id.open_recorder:
                 intent = new Intent(MainActivity.this, RecorderActivity.class);
@@ -183,14 +316,6 @@ public class MainActivity extends AppCompatActivity{
             case R.id.open_schedule:
                 intent = new Intent(MainActivity.this, ScheduleActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.open_add_timetable:
-                intent = new Intent(MainActivity.this, AddTimetableActivity.class);
-                startActivityForResult(intent, 3);
-                break;
-            case R.id.open_delete_timetable:
-                intent = new Intent(MainActivity.this, DeleteTimetableActivity.class);
-                startActivityForResult(intent, 4);
                 break;
         }
     }
@@ -212,15 +337,13 @@ public class MainActivity extends AppCompatActivity{
         if(resultCode == 1){
             addClassToLayout();
         }else if(resultCode == 2){
-            DatabaseHelper db = new DatabaseHelper(getApplicationContext());
             userSetting = db.getSetting();
-            timetableNum = userSetting.setting_main_timetable_id;
+            timetableId = data.getIntExtra("newTimetableId", 1);
             setLayout();
             setDrawerLayout();
             addClassToLayout();
         }else if(resultCode == 3){
-            timetableNum = getIntent().getIntExtra("newTimetableNum", 1);
-            Log.e("!!", timetableNum+"!");
+            timetableId = data.getIntExtra("newTimetableId", 1);
             drawerLayout.closeDrawer(drawerView);
             setLayout();
             setDrawerLayout();

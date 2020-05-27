@@ -6,7 +6,7 @@
         android:id="@+id/expandable_group_name"
         android:layout_width="match_parent"
         android:layout_height="50sp"
-        android:textColor="#ffffff"
-        android:background="@drawable/border_drawer"
+        android:textColor="@color/colorBasic"
+        android:background="@color/colorBasicDarkula"
         android:gravity="center_vertical|left"/>
 </LinearLayout>

@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.projectHandClap.youruniv">
 
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,9 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListScheduleItem"></activity>
-        <activity android:name=".ListSchedule" />
-        <activity android:name=".ListItemActivity" />
+        <activity android:name=".ClassDetailActivity"/>
         <activity android:name=".ViewPager.ViewPagerActivity" />
         <activity android:name=".DeleteTimetableActivity" />
         <activity android:name=".AddTimetableActivity" />
@@ -31,13 +36,6 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:required="true" />
-
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:required="true" />
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 

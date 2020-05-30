@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
                 break;
             case R.id.open_schedule:
-                intent = new Intent(MainActivity.this, ScheduleActivity.class);
+                intent = new Intent(MainActivity.this, ViewPagerActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -302,19 +302,23 @@ public class MainActivity extends AppCompatActivity{
                 startActivityForResult(intent, 4);
                 break;
             case R.id.open_recorder:
-                intent = new Intent(MainActivity.this, RecorderActivity.class);
+                intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                intent.putExtra("position", 1);
                 startActivity(intent);
                 break;
             case R.id.open_memo:
-                intent = new Intent(MainActivity.this, MemoActivity.class);
+                intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                intent.putExtra("position", 2);
                 startActivity(intent);
                 break;
             case R.id.open_gallery:
-                intent = new Intent(MainActivity.this, GalleryActivity.class);
+                intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                intent.putExtra("position", 0);
                 startActivity(intent);
                 break;
             case R.id.open_schedule:
                 intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                intent.putExtra("position", 3);
                 startActivity(intent);
                 break;
         }

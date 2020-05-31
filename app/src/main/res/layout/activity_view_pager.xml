@@ -13,28 +13,32 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/Viewpager_Gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/icon_gallery"
+            android:id="@+id/btn_Viewpager_Gallery" />
 
         <Button
-            android:id="@+id/Viewpager_Recorder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/icon_record"
+            android:id="@+id/btn_Viewpager_Recorder" />
 
         <Button
-            android:id="@+id/Viewpager_Memo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/icon_memo"
+            android:id="@+id/btn_Viewpager_Memo" />
 
         <Button
-            android:id="@+id/Viewpager_Calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/icon_schedule"
+            android:id="@+id/btn_Viewpager_Schedule" />
     </LinearLayout>
 
     <androidx.viewpager.widget.ViewPager

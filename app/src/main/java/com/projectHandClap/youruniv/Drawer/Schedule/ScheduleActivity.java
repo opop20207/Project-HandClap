@@ -22,7 +22,7 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        FloatingActionButton fab = findViewById(R.id.add_calendar);
+        FloatingActionButton fab = findViewById(R.id.btn_add_schedule);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

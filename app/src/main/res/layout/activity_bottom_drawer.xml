@@ -92,7 +92,7 @@
         android:background="@drawable/border_drawer"
         android:gravity="center_vertical|left"
         tools:ignore="RtlHardcoded"
-        android:drawableRight="@drawable/icon_calendar"
+        android:drawableRight="@drawable/icon_schedule"
         android:drawablePadding="5sp"
         android:id="@+id/open_schedule"/>
 </LinearLayout>

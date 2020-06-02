@@ -197,7 +197,6 @@ public class MainActivity extends AppCompatActivity{
             int etime = Integer.parseInt(cd.class_etime);
             int day = Integer.parseInt(cd.class_day);
             for(int i=stime;i<=etime;i+=timeInterval){
-                if(stime<Integer.parseInt(userSetting.setting_stime) || etime>Integer.parseInt(userSetting.setting_etime)) continue;
                 String k = "row"+Integer.toString(i)+"day"+Integer.toString(day);
                 Log.e("!", k);
                 int a = getResources().getIdentifier(k, "id", "com.projectHandClap.youruniv");
@@ -205,6 +204,7 @@ public class MainActivity extends AppCompatActivity{
                 final ClassData fcd = cd;
 
                 TextView tv = (TextView) findViewById(a);
+                if(tv==null) continue;
                 //tv.setText(title);
                 tv.setBackgroundColor(getResources().getColor(tableColor[Integer.parseInt(cd.class_color)]));
                 tv.setOnClickListener(new TextView.OnClickListener() {
@@ -301,6 +301,11 @@ public class MainActivity extends AppCompatActivity{
                 intent = new Intent(MainActivity.this, DeleteTimetableActivity.class);
                 startActivityForResult(intent, 4);
                 break;
+            case R.id.open_gallery:
+                intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                intent.putExtra("position", 0);
+                startActivity(intent);
+                break;
             case R.id.open_recorder:
                 intent = new Intent(MainActivity.this, ViewPagerActivity.class);
                 intent.putExtra("position", 1);
@@ -309,11 +314,6 @@ public class MainActivity extends AppCompatActivity{
             case R.id.open_memo:
                 intent = new Intent(MainActivity.this, ViewPagerActivity.class);
                 intent.putExtra("position", 2);
-                startActivity(intent);
-                break;
-            case R.id.open_gallery:
-                intent = new Intent(MainActivity.this, ViewPagerActivity.class);
-                intent.putExtra("position", 0);
                 startActivity(intent);
                 break;
             case R.id.open_schedule:
@@ -337,26 +337,28 @@ public class MainActivity extends AppCompatActivity{
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(resultCode == 1){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == 1) {
             addClassToLayout();
-        }else if(resultCode == 2){
+        } else if (resultCode == 2) {
             userSetting = db.getSetting();
             timetableId = data.getIntExtra("newTimetableId", 1);
             setLayout();
             setDrawerLayout();
             addClassToLayout();
-        }else if(resultCode == 3){
+        } else if (resultCode == 3) {
             timetableId = data.getIntExtra("newTimetableId", 1);
             drawerLayout.closeDrawer(drawerView);
             setLayout();
             setDrawerLayout();
             addClassToLayout();
-        }else if(requestCode==4){
+        } else if (requestCode == 4) {
             drawerLayout.closeDrawer(drawerView);
             setLayout();
             setDrawerLayout();
             addClassToLayout();
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

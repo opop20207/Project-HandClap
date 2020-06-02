@@ -12,53 +12,61 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.projectHandClap.youruniv.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewPagerActivity extends AppCompatActivity {
     FragmentPagerAdapter viewPageAdapter;
     ViewPager viewPager;
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
 
-        Button btn_viewpager_gallery = (Button) findViewById(R.id.btn_Viewpager_Gallery);
-        Button btn_viewpager_recorder = (Button) findViewById(R.id.btn_Viewpager_Recorder);
-        Button btn_viewpager_memo = (Button) findViewById(R.id.btn_Viewpager_Memo);
-        Button btn_viewpager_schedule = (Button) findViewById(R.id.btn_Viewpager_Schedule);
+        init();
+    }
 
+    public void init(){
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-
-        viewPageAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(viewPageAdapter);
 
         Intent intent = getIntent();
         int position = intent.getIntExtra("position", -1);
 
         viewPager.setCurrentItem(position, true);
+        setupViewPager(viewPager);
 
-        btn_viewpager_gallery.setTag(0);
-        btn_viewpager_recorder.setTag(1);
-        btn_viewpager_memo.setTag(2);
-        btn_viewpager_schedule.setTag(3);
-
-        btn_viewpager_gallery.setOnClickListener(movePageListener);
-        btn_viewpager_recorder.setOnClickListener(movePageListener);
-        btn_viewpager_memo.setOnClickListener(movePageListener);
-        btn_viewpager_schedule.setOnClickListener(movePageListener);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
     }
 
-    View.OnClickListener movePageListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int tag = (int)view.getTag();
-            viewPager.setCurrentItem(tag, true);
-        }
-    };
+    public void setupTabIcons(){
+        tabLayout.getTabAt(0).setIcon(R.drawable.icon_gallery);
+        tabLayout.getTabAt(1).setIcon(R.drawable.icon_record);
+        tabLayout.getTabAt(2).setIcon(R.drawable.icon_memo);
+        tabLayout.getTabAt(3).setIcon(R.drawable.icon_schedule);
+    }
+
+    public void setupViewPager(ViewPager viewPager){
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new Fragment_Gallery(), "Gallery");
+        adapter.addFrag(new Fragment_Recorder(), "Recorder");
+        adapter.addFrag(new Fragment_Memo(), "Memo");
+        adapter.addFrag(new Fragment_Schedule(), "Schedule");
+        viewPager.setAdapter(adapter);
+    }
 
     public static class ViewPagerAdapter extends FragmentPagerAdapter {
         private int NUM_ITEMS = 4;
+
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
         public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
             super(fm, behavior);
@@ -71,23 +79,22 @@ public class ViewPagerActivity extends AppCompatActivity {
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return new Fragment_Gallery();
-                case 1:
-                    return new Fragment_Recorder();
-                case 2:
-                    return new Fragment_Memo();
-                case 3:
-                    return new Fragment_Schedule();
-                default:
-                    return null;
-            }
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position){
+            return mFragmentTitleList.get(position);
         }
 
         @Override
         public int getCount() {
             return NUM_ITEMS;
+        }
+
+        public void addFrag(Fragment fragment, String title){
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
         }
     }
 }

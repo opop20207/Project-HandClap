@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,10 +20,10 @@ import static androidx.core.view.ViewCompat.setTransitionName;
 public class picture_Adapter extends RecyclerView.Adapter<PicHolder> {
 
     private ArrayList<pictureFacer> pictureList;
-    private Context pictureContx;
+    private Fragment pictureContx;
     private final itemClickListener picListerner;
 
-    public picture_Adapter(ArrayList<pictureFacer> pictureList, Context pictureContx, itemClickListener picListerner) {
+    public picture_Adapter(ArrayList<pictureFacer> pictureList, Fragment pictureContx, itemClickListener picListerner) {
         this.pictureList = pictureList;
         this.pictureContx = pictureContx;
         this.picListerner = picListerner;

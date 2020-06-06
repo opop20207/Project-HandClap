@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,10 +25,10 @@ import java.util.Date;
 public class pictureFolderAdapter extends RecyclerView.Adapter<pictureFolderAdapter.FolderHolder>{
 
     private ArrayList<imageFolder> folders;
-    private Context folderContx;
+    private Fragment folderContx;
     private itemClickListener listenToClick;
 
-    public pictureFolderAdapter(ArrayList<imageFolder> folders, Context folderContx, itemClickListener listen) {
+    public pictureFolderAdapter(ArrayList<imageFolder> folders, Fragment folderContx, itemClickListener listen) {
         this.folders = folders;
         this.folderContx = folderContx;
         this.listenToClick = listen;

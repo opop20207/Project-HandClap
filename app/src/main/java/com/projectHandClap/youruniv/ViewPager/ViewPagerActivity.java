@@ -1,12 +1,16 @@
 package com.projectHandClap.youruniv.ViewPager;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -23,6 +27,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     FragmentPagerAdapter viewPageAdapter;
     ViewPager viewPager;
     TabLayout tabLayout;
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,13 @@ public class ViewPagerActivity extends AppCompatActivity {
     }
 
     public void init(){
+        if(ContextCompat.checkSelfPermission(ViewPagerActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(ViewPagerActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         Intent intent = getIntent();
@@ -96,5 +108,9 @@ public class ViewPagerActivity extends AppCompatActivity {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
+    }
+
+    public void ss(){
+
     }
 }

@@ -6,7 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.transition.Fade;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,20 +34,19 @@ public class ImageDisplay extends Fragment implements itemClickListener {
     String foldePath;
     TextView folderName;
 
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_display);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        folderName = findViewById(R.id.foldername);
-        folderName.setText(getIntent().getStringExtra("folderName"));
+        folderName = getView().findViewById(R.id.foldername);
+        folderName.setText(getActivity().getIntent().getStringExtra("folderName"));
 
-        foldePath =  getIntent().getStringExtra("folderPath");
+        foldePath =  getActivity().getIntent().getStringExtra("folderPath");
         allpictures = new ArrayList<>();
-        imageRecycler = findViewById(R.id.recycler);
+        imageRecycler = getView().findViewById(R.id.recycler);
         imageRecycler.addItemDecoration(new MarginDecoration(this));
         imageRecycler.hasFixedSize();
-        load = findViewById(R.id.loader);
+        load = getView().findViewById(R.id.loader);
 
 
         if(allpictures.isEmpty()){
@@ -56,11 +57,15 @@ public class ImageDisplay extends Fragment implements itemClickListener {
         }else{
 
         }
+
+        return inflater.inflate(R.layout.activity_image_display, container, false);
     }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
     @Override
     public void onPicClicked(PicHolder holder, int position, ArrayList<pictureFacer> pics) {
-        pictureBrowserFragment browser = pictureBrowserFragment.newInstance(pics,position,ImageDisplay.this);
+        pictureBrowserFragment browser = pictureBrowserFragment.newInstance(pics,position,getActivity());
 
         // Note that we need the API version check here because the actual transition classes (e.g. Fade)
         // are not in the support library and are only available in API 21+. The methods we are calling on the Fragment
@@ -73,7 +78,7 @@ public class ImageDisplay extends Fragment implements itemClickListener {
             browser.setExitTransition(new Fade());
         }
 
-        getSupportFragmentManager()
+        getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .addSharedElement(holder.picture, position+"picture")
                 .add(R.id.displayContainer, browser)
@@ -92,7 +97,7 @@ public class ImageDisplay extends Fragment implements itemClickListener {
         Uri allVideosuri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String[] projection = { MediaStore.Images.ImageColumns.DATA ,MediaStore.Images.Media.DISPLAY_NAME,
                 MediaStore.Images.Media.SIZE};
-        Cursor cursor = ImageDisplay.this.getContentResolver().query( allVideosuri, projection, MediaStore.Images.Media.DATA + " like ? ", new String[] {"%"+path+"%"}, null);
+        Cursor cursor = getActivity().getContentResolver().query( allVideosuri, projection, MediaStore.Images.Media.DATA + " like ? ", new String[] {"%"+path+"%"}, null);
         try {
             cursor.moveToFirst();
             do{

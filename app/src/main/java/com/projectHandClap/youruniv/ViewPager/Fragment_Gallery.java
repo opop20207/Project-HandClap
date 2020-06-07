@@ -37,24 +37,21 @@ import com.projectHandClap.youruniv.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 
 public class Fragment_Gallery extends Fragment implements itemClickListener {
     public Fragment_Gallery(){
 
     }
-    RecyclerView folderRecycler;
-    TextView empty;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setContentView(R.layout.activity_gallery);
-
         //____________________________________________________________________________________
 
-        empty =findViewById(R.id.empty);
+        TextView empty = requireView().findViewById(R.id.empty);
 
-        folderRecycler = findViewById(R.id.folderRecycler);
+        RecyclerView folderRecycler = requireView().findViewById(R.id.folderRecycler);
         folderRecycler.addItemDecoration(new MarginDecoration(this));
         folderRecycler.hasFixedSize();
         ArrayList<imageFolder> folds = getPicturePaths();
@@ -66,23 +63,22 @@ public class Fragment_Gallery extends Fragment implements itemClickListener {
             folderRecycler.setAdapter(folderAdapter);
         }
 
-        FrameLayout layout = (FrameLayout) inflater.inflate(R.layout.activity_gallery, container, false);
-        return layout;
+        return inflater.inflate(R.layout.activity_gallery, container, false);
     }
-
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     private ArrayList<imageFolder> getPicturePaths(){
         ArrayList<imageFolder> picFolders = new ArrayList<>();
         ArrayList<String> picPaths = new ArrayList<>();
         Uri allImagesuri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String[] projection = { MediaStore.Images.ImageColumns.DATA ,MediaStore.Images.Media.DISPLAY_NAME,
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME,MediaStore.Images.Media.BUCKET_ID};
-        Cursor cursor = getActivity().getContentResolver().query(allImagesuri, projection, MediaStore.Images.Media.DATA + " like ? ", new String[] {"%YourUniv%"}, null);
+        Cursor cursor = requireActivity().getContentResolver().query(allImagesuri, projection, MediaStore.Images.Media.DATA + " like ? ", new String[] {"%YourUniv%"}, null);
         try {
             if (cursor != null) {
                 cursor.moveToFirst();
@@ -132,7 +128,7 @@ public class Fragment_Gallery extends Fragment implements itemClickListener {
 
     @Override
     public void onPicClicked(String pictureFolderPath,String folderName) {
-        Intent move = new Intent(Fragment_Gallery.this, ImageDisplay.class);
+        Intent move = new Intent(getActivity(), ImageDisplay.class);
         move.putExtra("folderPath",pictureFolderPath);
         move.putExtra("folderName",folderName);
 

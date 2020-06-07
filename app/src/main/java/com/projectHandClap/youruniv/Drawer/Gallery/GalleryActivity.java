@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.projectHandClap.youruniv.Drawer.Gallery.utils.MarginDecoration;
@@ -24,6 +25,7 @@ import com.projectHandClap.youruniv.Drawer.Gallery.utils.itemClickListener;
 import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFacer;
 import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFolderAdapter;
 import com.projectHandClap.youruniv.R;
+import com.projectHandClap.youruniv.ViewPager.Fragment_Gallery;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,15 +53,15 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
         empty =findViewById(R.id.empty);
 
         folderRecycler = findViewById(R.id.folderRecycler);
-        folderRecycler.addItemDecoration(new MarginDecoration(this));
+ //       folderRecycler.addItemDecoration(new MarginDecoration(Fragment_Gallery.this));
         folderRecycler.hasFixedSize();
         ArrayList<imageFolder> folds = getPicturePaths();
 
         if(folds.isEmpty()){
             empty.setVisibility(View.VISIBLE);
         }else{
-            RecyclerView.Adapter folderAdapter = new pictureFolderAdapter(folds,GalleryActivity.this,this);
-            folderRecycler.setAdapter(folderAdapter);
+ //           RecyclerView.Adapter folderAdapter = new pictureFolderAdapter(folds,getAct,this);
+ //           folderRecycler.setAdapter(folderAdapter);
         }
     }
     private ArrayList<imageFolder> getPicturePaths(){
@@ -127,7 +129,7 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
     }
 
 
-    public void onClickCamera(View v){
+    public void o1nClickCamera(View v){
         if(v.getId()==R.id.open_camera){
 
             long now = System.currentTimeMillis();

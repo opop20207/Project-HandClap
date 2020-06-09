@@ -3,6 +3,7 @@ package com.projectHandClap.youruniv.ViewPager;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -41,6 +42,21 @@ import java.util.Objects;
 
 
 public class Fragment_Gallery extends Fragment implements itemClickListener {
+    ViewPagerActivity viewPagerActivity;
+    ViewGroup viewGroup;
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        viewPagerActivity = (ViewPagerActivity) getActivity();
+    }
+
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        viewPagerActivity = null;
+    }
+
     public Fragment_Gallery(){
 
     }
@@ -48,10 +64,10 @@ public class Fragment_Gallery extends Fragment implements itemClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //____________________________________________________________________________________
+        viewGroup = (ViewGroup)inflater.inflate(R.layout.activity_gallery, container, false);
+        TextView empty = viewGroup.findViewById(R.id.empty);
 
-        TextView empty = requireView().findViewById(R.id.empty);
-
-        RecyclerView folderRecycler = requireView().findViewById(R.id.folderRecycler);
+        RecyclerView folderRecycler = viewGroup.findViewById(R.id.folderRecycler);
         folderRecycler.addItemDecoration(new MarginDecoration(this));
         folderRecycler.hasFixedSize();
         ArrayList<imageFolder> folds = getPicturePaths();
@@ -63,7 +79,7 @@ public class Fragment_Gallery extends Fragment implements itemClickListener {
             folderRecycler.setAdapter(folderAdapter);
         }
 
-        return inflater.inflate(R.layout.activity_gallery, container, false);
+        return viewGroup;
     }
 
 

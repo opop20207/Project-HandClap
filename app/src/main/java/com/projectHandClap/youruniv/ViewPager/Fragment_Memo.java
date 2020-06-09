@@ -23,7 +23,7 @@ public class Fragment_Memo extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.activity_memo, container, false);
-        return layout;
+        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.activity_memo, container,false);
+        return viewGroup;
     }
 }

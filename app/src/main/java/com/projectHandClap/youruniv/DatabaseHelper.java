@@ -69,17 +69,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + CLASS_COLUMN_CLASS_COLOR + " TEXT, "
             + CLASS_COLUMN_CLASS_MEMO + " TEXT)";
 
-    //scheme 4 : picture
-    private static final String PICTURE_TABLE_NAME = "picture";
+    //scheme 4 : gallery
+    private static final String GALLERY_TABLE_NAME = "gallery";
 
     //scheme 5 : memo
     private static final String MEMO_TABLE_NAME = "memo";
 
-    //scheme 6 : record
-    private static final String RECORD_TABLE_NAME = "record";
+    //scheme 6 : recorder
+    private static final String RECORDER_TABLE_NAME = "recorder";
 
     //scheme 7 : schedule
     private static final String SCHEDULE_TABLE_NAME = "schedule";
+    private static final String SCHEDULE_COLUMN_SCHEDULE_ID = "schedule_id";
+    private static final String SCHEDULE_COLUMN_SCHEDULE_CLASS_STRING = "schedule_class_string";
+    private static final String SCHEDULE_COLUMN_SCHEDULE_TITLE = "schedule_title";
+    private static final String SCHEDULE_COLUMN_SCHEDULE_MEMO = "schedule_memo";
+    private static final String SCHEDULE_COLUMN_SCHEDULE_ALARM = "schedule_alarm";
+    private static final String SCHEDULE_COLUMN_SCHEDULE_ISDONE = "schedule_isdone";
+    private static final String SCHEDULE_COLUMN_SCHEDULE_DEADLINE = "schedule_deadline";
+
+    private static final String SCHEDULE_CREATE_TABLE = "CREATE TABLE "
+            + SCHEDULE_TABLE_NAME + "("
+            + SCHEDULE_COLUMN_SCHEDULE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + SCHEDULE_COLUMN_SCHEDULE_CLASS_STRING + " TEXT, "
+            + SCHEDULE_COLUMN_SCHEDULE_TITLE + " TEXT, "
+            + SCHEDULE_COLUMN_SCHEDULE_MEMO + " TEXT, "
+            + SCHEDULE_COLUMN_SCHEDULE_ALARM + " TEXT, "
+            + SCHEDULE_COLUMN_SCHEDULE_ISDONE + " TEXT, "
+            + SCHEDULE_COLUMN_SCHEDULE_DEADLINE + " INTEGER)";
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -90,6 +107,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SETTING_CREATE_TABLE);
         db.execSQL(TIMETABLE_CREATE_TABLE);
         db.execSQL(CLASS_CREATE_TABLE);
+
+        db.execSQL(SCHEDULE_CREATE_TABLE);
     }
 
     @Override
@@ -97,6 +116,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ SETTING_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ TIMETABLE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CLASS_TABLE_NAME);
+
+        db.execSQL("DROP TABLE IF EXISTS "+ SCHEDULE_TABLE_NAME);
         onCreate(db);
     }
 
@@ -106,9 +127,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ TIMETABLE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CLASS_TABLE_NAME);
 
+        db.execSQL("DROP TABLE IF EXISTS "+ SCHEDULE_TABLE_NAME);
+
         db.execSQL(SETTING_CREATE_TABLE);
         db.execSQL(TIMETABLE_CREATE_TABLE);
         db.execSQL(CLASS_CREATE_TABLE);
+
+        db.execSQL(SCHEDULE_CREATE_TABLE);
     }
 
     //CRUD Operation for scheme 1
@@ -181,7 +206,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             temp.timetable_title = cursor.getString(1);
         }
 
-
         cursor.close();
         db.close();
         return temp;
@@ -235,11 +259,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ret;
     }
 
+    public ClassData getClassDataOneById(int class_id){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM class WHERE class_id = "+class_id+";", null);
+        ClassData ret = new ClassData();
+        while(cursor.moveToNext()){
+            ClassData temp = new ClassData();
+            temp.class_id = cursor.getLong(0);
+            temp.class_timetable_id = cursor.getLong(1);
+            temp.class_title = cursor.getString(2);
+            temp.class_place = cursor.getString(3);
+            temp.class_day = cursor.getString(4);
+            temp.class_stime = cursor.getString(5);
+            temp.class_etime = cursor.getString(6);
+            temp.class_string = cursor.getString(7);
+            temp.class_alarm = cursor.getString(8);
+            temp.class_professor = cursor.getString(9);
+            temp.class_color = cursor.getString(10);
+            temp.class_memo = cursor.getString(11);
+            ret = temp;
+        }
+        cursor.close();
+        db.close();
+        return ret;
+
+    }
+
     public void updateClassData(String toStr){
 
     }
 
-    public void deleteClassDataOne(String toStr){
+    public void deleteClassDataOneById(String toStr){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM class WHERE class_string = '"+toStr+"'");
         db.close();
@@ -249,5 +299,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM class WHERE class_timetable_id = '"+id+"'");
         db.close();
+    }
+
+    //CRUD Operation for scheme 7
+    public void insertSchedule(ScheduleData scheduleData){
+        Log.e("!!", "database in");
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO schedule(schedule_class_string, schedule_title, schedule_memo, "
+                + "schedule_alarm, schedule_isdone, schedule_deadline) VALUES("
+                +scheduleData.schedule_class_string+", '"+scheduleData.schedule_title +"', '"+scheduleData.schedule_memo+"', '"
+                +scheduleData.schedule_alarm+"', '"+scheduleData.schedule_isDone+"', '"+scheduleData.schedule_deadline+"');");
+        db.close();
+    }
+
+    public ArrayList<ScheduleData> getSchedule(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM schedule ORDER BY schedule_deadline DESC;", null);
+        ArrayList<ScheduleData> ret = new ArrayList<ScheduleData>();
+        while(cursor.moveToNext()){
+            ScheduleData temp = new ScheduleData();
+            temp.schedule_id = cursor.getInt(0);
+            temp.schedule_class_string = cursor.getString(1);
+            temp.schedule_title = cursor.getString(2);
+            temp.schedule_memo = cursor.getString(3);
+            temp.schedule_alarm = cursor.getString(4);
+            temp.schedule_isDone = cursor.getString(5);
+            temp.schedule_deadline = cursor.getLong(6);
+            ret.add(temp);
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
+    public void updateSchedule(ScheduleData scheduleData){
+
+    }
+
+    public void deleteSchedule(ScheduleData scheduleData){
+
     }
 }

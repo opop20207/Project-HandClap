@@ -23,7 +23,7 @@ public class Fragment_Recorder extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        CoordinatorLayout layout = (CoordinatorLayout) inflater.inflate(R.layout.activity_recorder, container,false);
-        return layout;
+        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.activity_recorder, container,false);
+        return viewGroup;
     }
 }

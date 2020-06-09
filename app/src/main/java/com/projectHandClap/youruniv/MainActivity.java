@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity{
                         bottomSheetDialog_btnDelete.setOnClickListener(new Button.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                db.deleteClassDataOne(cstr);
+                                db.deleteClassDataOneById(cstr);
                                 setLayout();
                                 setDrawerLayout();
                                 addClassToLayout();

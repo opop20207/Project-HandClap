@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,12 +31,14 @@ public class Fragment_Schedule extends Fragment {
     ViewGroup viewGroup;
     LinearLayout layoutSchedule;
     DatabaseHelper db;
+    Context mContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewGroup = (ViewGroup) inflater.inflate(R.layout.activity_schedule, container,false);
 
-        db = new DatabaseHelper(viewGroup.getContext());
+        mContext = viewGroup.getContext();
+        db = new DatabaseHelper(mContext);
         init();
 
         return viewGroup;
@@ -47,7 +51,7 @@ public class Fragment_Schedule extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent;
-                intent = new Intent(viewGroup.getContext(), AddScheduleActivity.class);
+                intent = new Intent(mContext, AddScheduleActivity.class);
                 startActivityForResult(intent, 1);
             }
         });
@@ -58,32 +62,74 @@ public class Fragment_Schedule extends Fragment {
 
     public void setLayout(){
         layoutSchedule.removeAllViews();
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        LinearLayout.LayoutParams layoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+
         ArrayList<ScheduleData> scheduleList = db.getSchedule();
+
         Log.e("!!","!"+scheduleList.size());
+
         long nowtime = 0;
-        Context context = viewGroup.getContext();
+
         for(ScheduleData s : scheduleList){
-            long d = (s.schedule_deadline/10000)*10000;
+            long t = s.schedule_deadline%10000;
+            long d = (s.schedule_deadline/10000);
+            String st = String.valueOf(t);
+            String sd = String.valueOf(d);
             Log.e("!!", "!+"+nowtime+"!"+s.schedule_deadline);
-            if(nowtime!=d){
+            if(nowtime != d){
                 nowtime = d;
-                TextView txvDate = new TextView(context);
-                txvDate.setText(String.valueOf(d));
+
+                TextView txvDate = new TextView(mContext);
+
+                txvDate.setText(String.format(sd));
                 txvDate.setLayoutParams(layoutParams);
-                Log.e("!!","@@@@@@@@@@");
+                txvDate.setTextSize(25);
+
                 layoutSchedule.addView(txvDate);
             }
-            LinearLayout ll = new LinearLayout(context);
-            ll.setLayoutParams(layoutParams);
-            ll.setOrientation(LinearLayout.VERTICAL);
-            TextView txvTime = new TextView(context);
-            txvTime.setLayoutParams(layoutParams);
-            txvTime.setText("일정 기간 : " + String.valueOf(s.schedule_deadline));
-            TextView txvTitle = new TextView(context);
-            txvTitle.setLayoutParams(layoutParams);
-            txvTitle.setText("일정 제목 : "+s.schedule_title);
 
+            LinearLayout ll = new LinearLayout(mContext);
+            ll.setLayoutParams(layoutParams);
+            ll.setOrientation(LinearLayout.HORIZONTAL);
+
+            Button btnDelete = new Button(mContext);
+            btnDelete.setText("삭제");
+            btnDelete.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    2));
+            final ScheduleData fs = s;
+            btnDelete.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    db.deleteSchedule(fs);
+                    setLayout();
+                }
+            });
+
+            TextView txvTitle = new TextView(mContext);
+            txvTitle.setLayoutParams(layoutParams);
+            txvTitle.setText(s.schedule_title);
+            txvTitle.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1));
+
+            TextView txvTime = new TextView(mContext);
+            txvTime.setLayoutParams(layoutParams);
+            txvTime.setText(String.format("~%02d:%02d", t/100, t%100));
+            txvTime.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    2));
+
+            ll.addView(btnDelete);
+            ll.addView(txvTitle);
+            ll.addView(txvTime);
             layoutSchedule.addView(ll);
         }
     }

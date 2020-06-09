@@ -50,12 +50,12 @@ public class ViewPagerActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int position = intent.getIntExtra("position", -1);
 
-        viewPager.setCurrentItem(position, true);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+        viewPager.setCurrentItem(position, true);
     }
 
     public void setupTabIcons(){

@@ -71,6 +71,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //scheme 4 : gallery
     private static final String GALLERY_TABLE_NAME = "gallery";
+    private static final String GALLERY_COLUMN_GALLERY_ID = "gallery_id";
+    private static final String GALLERY_COLUMN_GALLERY_CLASS_STRING = "gallery_class_string";
+    private static final String GALLERY_COLUMN_GALLERY_IMAGE_PATH = "gallery_image_path";
+    private static final String GALLERY_COLUMN_GALLERY_TITLE = "gallery_title";
+    private static final String GALLERY_COLUMN_GALLERY_MEMO = "gallery_memo";
+    private static final String GALLERY_COLUMN_GALLERY_TIME = "gallery_time";
+
+    private static final String GALLERY_CREATE_TABLE = "CREATE TABLE "
+            + GALLERY_TABLE_NAME + "("
+            + GALLERY_COLUMN_GALLERY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + GALLERY_COLUMN_GALLERY_CLASS_STRING + " TEXT, "
+            + GALLERY_COLUMN_GALLERY_IMAGE_PATH + " TEXT, "
+            + GALLERY_COLUMN_GALLERY_TITLE + " TEXT, "
+            + GALLERY_COLUMN_GALLERY_MEMO + " TEXT, "
+            + GALLERY_COLUMN_GALLERY_TIME + " INTEGER)";
 
     //scheme 5 : memo
     private static final String MEMO_TABLE_NAME = "memo";
@@ -107,6 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SETTING_CREATE_TABLE);
         db.execSQL(TIMETABLE_CREATE_TABLE);
         db.execSQL(CLASS_CREATE_TABLE);
+        db.execSQL(GALLERY_CREATE_TABLE);
 
         db.execSQL(SCHEDULE_CREATE_TABLE);
     }
@@ -116,6 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ SETTING_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ TIMETABLE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CLASS_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ GALLERY_TABLE_NAME);
 
         db.execSQL("DROP TABLE IF EXISTS "+ SCHEDULE_TABLE_NAME);
         onCreate(db);
@@ -126,12 +143,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ SETTING_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ TIMETABLE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CLASS_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ GALLERY_TABLE_NAME);
 
         db.execSQL("DROP TABLE IF EXISTS "+ SCHEDULE_TABLE_NAME);
 
         db.execSQL(SETTING_CREATE_TABLE);
         db.execSQL(TIMETABLE_CREATE_TABLE);
         db.execSQL(CLASS_CREATE_TABLE);
+        db.execSQL(GALLERY_CREATE_TABLE);
 
         db.execSQL(SCHEDULE_CREATE_TABLE);
     }
@@ -314,7 +333,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<ScheduleData> getSchedule(){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM schedule ORDER BY schedule_deadline DESC;", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM schedule ORDER BY schedule_deadline;", null);
         ArrayList<ScheduleData> ret = new ArrayList<ScheduleData>();
         while(cursor.moveToNext()){
             ScheduleData temp = new ScheduleData();
@@ -337,6 +356,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void deleteSchedule(ScheduleData scheduleData){
-
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM schedule WHERE schedule_id = '"+scheduleData.schedule_id+"'");
+        db.close();
     }
 }

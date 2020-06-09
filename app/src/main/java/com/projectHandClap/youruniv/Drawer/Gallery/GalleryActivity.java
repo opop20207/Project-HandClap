@@ -50,9 +50,9 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
                     MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
         //____________________________________________________________________________________
 
-        empty =findViewById(R.id.empty);
-
-        folderRecycler = findViewById(R.id.folderRecycler);
+//        empty =findViewById(R.id.empty);
+//
+//        folderRecycler = findViewById(R.id.folderRecycler);
  //       folderRecycler.addItemDecoration(new MarginDecoration(Fragment_Gallery.this));
         folderRecycler.hasFixedSize();
         ArrayList<imageFolder> folds = getPicturePaths();
@@ -130,7 +130,6 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
 
 
     public void o1nClickCamera(View v){
-        if(v.getId()==R.id.open_camera){
 
             long now = System.currentTimeMillis();
 
@@ -149,6 +148,5 @@ public class GalleryActivity extends AppCompatActivity implements itemClickListe
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
             startActivityForResult(takePictureIntent, 1);
-        }
     }
 }

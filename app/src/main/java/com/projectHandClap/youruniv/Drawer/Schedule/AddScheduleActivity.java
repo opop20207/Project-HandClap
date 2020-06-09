@@ -85,10 +85,6 @@ public class AddScheduleActivity extends AppCompatActivity {
         scheduleData.schedule_class_string = classString;
 
         scheduleData.schedule_title = etxt_add_schedule_title.getText().toString();
-        if(scheduleData.schedule_title.isEmpty()){
-            Toast.makeText(getApplicationContext(),"you must input schedule title",Toast.LENGTH_LONG).show();
-            return;
-        }
 
         scheduleData.schedule_memo = etxt_add_schedule_memo.getText().toString();
 
@@ -109,7 +105,10 @@ public class AddScheduleActivity extends AppCompatActivity {
         Log.e("!!", v.getId()+"!");
         switch (v.getId()){
             case R.id.btn_add_schedule_submit:
-                Log.e("!!","@");
+                if(etxt_add_schedule_title.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"you must input schedule title",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 addToDatabaseSchedule();
                 setResult(1);
                 finish();

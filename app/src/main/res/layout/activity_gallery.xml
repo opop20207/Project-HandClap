@@ -1,48 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ViewPager.Fragment_Gallery">
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.projectHandClap.youruniv.Drawer.Gallery.utils.AutoFitRecyclerView
-            android:id="@+id/folderRecycler"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:columnWidth="@dimen/folder_column_width"
-            android:clipToPadding="false">
-
-        </com.projectHandClap.youruniv.Drawer.Gallery.utils.AutoFitRecyclerView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/open_camera"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="27dp"
-            android:clickable="true"
-            android:onClick="onClickCamera"
-            app:srcCompat="@drawable/ic_add_black_24dp" />
+            android:orientation="vertical"
+            android:id="@+id/layout_gallery">
 
-    </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
-    <TextView
-        android:id="@+id/empty"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_gallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/empty"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="25sp"
+        android:layout_marginBottom="27sp"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
 
-</FrameLayout>
+</RelativeLayout>

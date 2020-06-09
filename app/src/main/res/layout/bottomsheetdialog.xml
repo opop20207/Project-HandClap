@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="bottom"
+    android:background="#505050"
     android:id="@+id/layout_bottom_sheet_dialog">
+
     <TextView
         android:id="@+id/bottomSheetDialog_txvTitle"
+        android:textColor="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -14,41 +18,83 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1sp"
-        android:background="@color/black"
+        android:background="@color/white"
         android:layout_marginTop="15sp" />
     <Button
         android:id="@+id/bottomSheetDialog_btnDetail"
         android:text="세부정보"
+        android:textColor="#ffffff"
+        android:paddingStart="35sp"
+        android:background="@drawable/border_drawer"
+        android:gravity="center_vertical|left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"/>
+
     <Button
         android:id="@+id/bottomSheetDialog_btnDelete"
         android:text="삭제"
+        android:textColor="#ffffff"
+        android:background="@drawable/border_drawer"
+        android:paddingStart="15sp"
+        android:paddingEnd="270sp"
+        android:gravity="center_vertical|left"
+        android:drawableLeft="@drawable/icon_delete"
+        android:drawableTint="@color/white"
+        android:drawablePadding="10sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/bottomSheetDialog_btnGallery"
         android:text="사진"
+        android:textColor="#ffffff"
+        android:background="@drawable/border_drawer"
+        android:paddingStart="15sp"
+        android:gravity="center_vertical|left"
+        android:drawableLeft="@drawable/icon_gallery"
+        android:drawableTint="@color/white"
+        android:drawablePadding="10sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
     <Button
         android:id="@+id/bottomSheetDialog_btnRecord"
         android:text="녹음"
+        android:textColor="#ffffff"
+        android:background="@drawable/border_drawer"
+        android:paddingStart="15sp"
+        android:gravity="center_vertical|left"
+        android:drawableLeft="@drawable/icon_record"
+        android:drawableTint="@color/white"
+        android:drawablePadding="10sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"/>
     <Button
         android:id="@+id/bottomSheetDialog_btnMemo"
         android:text="메모"
+        android:textColor="#ffffff"
+        android:background="@drawable/border_drawer"
+        android:gravity="center_vertical|left"
+        android:paddingStart="15sp"
+        android:drawableLeft="@drawable/icon_memo"
+        android:drawableTint="@color/white"
+        android:drawablePadding="10sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"/>
     <Button
         android:id="@+id/bottomSheetDialog_btnSchedule"
         android:text="일정"
+        android:paddingStart="15sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/border_drawer"
+        android:gravity="center_vertical|left"
+        android:drawableLeft="@drawable/icon_schedule"
+        android:drawableTint="@color/white"
+        android:drawablePadding="10sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"/>

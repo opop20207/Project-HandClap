@@ -146,8 +146,11 @@ public class MainActivity extends AppCompatActivity{
                 if(i==1){
                     TextView tvFirst = new TextView(getApplicationContext());
                     tvFirst.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
-                    tvFirst.setText(Integer.toString(t));
-                    tvFirst.setGravity(Gravity.CENTER);
+                    int time = t / 100;
+                    if(time >= 13)  time = time - 12;
+                    tvFirst.setText(Integer.toString(time));
+                    tvFirst.setGravity(Gravity.TOP);
+                    tvFirst.setGravity(Gravity.CENTER_HORIZONTAL);
                     tr.addView(tvFirst);
                 }
                 if(userSetting.setting_day.contains(String.valueOf(i))){

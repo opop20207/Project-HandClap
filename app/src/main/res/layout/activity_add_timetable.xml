@@ -2,22 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".AddTimetableActivity">
+    android:layout_width="320sp"
+    android:layout_height="wrap_content"
+    android:background="#505050"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:text="시간표 추가"
+            android:textSize="20sp"
+            android:background="#505050"
+            android:gravity="center"/>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/etxt_add_timetable_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50sp"
         android:hint="시간표 제목"
+        android:background="@color/white"
+        android:textColor="#505050"
+        android:paddingStart="15sp"
         android:inputType="textPersonName" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="#eeeeee"/>
 
     <Button
         android:id="@+id/btn_add_timetable_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="추가"
+        android:text="확인"
+        android:background="#505050"
         android:onClick="onClickAddTimetable"/>
 </LinearLayout>

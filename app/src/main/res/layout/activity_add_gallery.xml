@@ -7,4 +7,14 @@
     android:orientation="vertical"
     tools:context=".Drawer.Gallery.AddGalleryActivity">
 
+    <ImageView
+        android:id="@+id/iv_temp_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_add_gallery_pick"
+        android:onClick="onClickAddGallery"/>
 </LinearLayout>

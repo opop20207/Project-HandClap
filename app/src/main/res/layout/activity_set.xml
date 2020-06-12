@@ -7,51 +7,73 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SetActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="15sp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:text="메인 시간표"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
                 <TextView
                     android:id="@+id/txv_setting_main_timetable_id"
                     android:text="temp"
+                    android:gravity="center"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
                 <Button
-                    android:text="시간표 선택"
+                    android:text="변경"
                     android:gravity="center"
                     android:id="@+id/btn_setting_main_timetable_id"
                     android:layout_weight="1"
+                    android:background="#00ff0000"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onClickSetting"/>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp"
+                android:background="#505050"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="15sp">
+
                 <TextView
                     android:text="시간표에 나타낼 시간"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="15sp"
                     android:orientation="horizontal">
+
                     <TimePicker
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -67,18 +89,28 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp"
+                android:background="#505050"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:text="시간표에 나타낼 요일"
                     android:gravity="center"
+                    android:layout_marginTop="15sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="15sp"
                     android:orientation="horizontal">
                     <CheckBox
                         android:layout_weight="1"
@@ -125,11 +157,19 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp"
+                android:background="#505050"/>
+
             <Button
                 android:id="@+id/btn_setting_submit"
                 android:text="확인"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
                 android:onClick="onClickSetting"/>
         </LinearLayout>
     </ScrollView>

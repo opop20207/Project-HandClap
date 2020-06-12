@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="30dp"
     tools:context=".Drawer.Schedule.AddScheduleActivity">
 
     <ScrollView
@@ -15,6 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="30sp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -39,6 +39,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
                 android:orientation="vertical">
 
 
@@ -52,6 +53,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="5sp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -82,7 +85,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -108,7 +113,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -127,18 +134,22 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp"
                 android:text="메모" />
 
             <EditText
                 android:id="@+id/etxt_add_schedule_memo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp"
                 android:lines="3" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5sp"
                 android:orientation="horizontal">
 
                 <Button

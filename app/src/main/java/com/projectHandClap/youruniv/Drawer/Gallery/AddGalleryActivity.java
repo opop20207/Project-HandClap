@@ -18,11 +18,14 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.projectHandClap.youruniv.DatabaseHelper;
+import com.projectHandClap.youruniv.GalleryData;
 import com.projectHandClap.youruniv.R;
 
 import java.io.File;
@@ -33,16 +36,25 @@ import java.util.Date;
 import java.util.List;
 
 public class AddGalleryActivity extends AppCompatActivity {
-    File tempFile;
+    File tempFile = null;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int PICK_FROM_CAMERA = 2;
+    String timeStamp = null;
+    String timeStamp_db = null;
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_gallery);
 
+        db = new DatabaseHelper(this);
+        init();
         tedPermission();
+    }
+
+    public void init(){
+
     }
 
     public void tedPermission(){
@@ -89,14 +101,37 @@ public class AddGalleryActivity extends AppCompatActivity {
                 });
                 dlg.show();
                 break;
-//            case R.id.btn_add_gallery_submit:
-//                break;
-//            case R.id.btn_add_gallery_cancel:
-//                break;
+            case R.id.btn_add_gallery_submit:
+                if(timeStamp==null || tempFile==null) return;
+                Log.e("!!",timeStamp+tempFile.getAbsolutePath());
+                addToDatabase_Gallery();
+                Log.e("!!","2");
+                Intent intent = new Intent();
+                setResult(1);
+                finish();
+                break;
+            case R.id.btn_add_gallery_cancel:
+                onBackPressed();
+                break;
         }
     }
 
+    public void addToDatabase_Gallery(){
+        GalleryData galleryData = new GalleryData();
+        galleryData.gallery_class_string = "1";
+        galleryData.gallery_image_path = tempFile.getAbsolutePath();
+
+        EditText editText = (EditText)findViewById(R.id.etxt_add_gallery_memo);
+        galleryData.gallery_memo = editText.getText().toString();
+        galleryData.gallery_title = "1";
+        galleryData.gallery_time = Long.parseLong(timeStamp_db);
+        db.insertGallery(galleryData);
+        Log.e("addD", "3");
+    }
+
     public void goToAlbum(){
+        timeStamp = new SimpleDateFormat("yyyy_MM_dd_kkmmss").format(new Date());
+        timeStamp_db = new SimpleDateFormat("yyyyMMddkkmmss").format(new Date());
         Intent albumIntent = new Intent(Intent.ACTION_PICK);
         albumIntent.setType(MediaStore.Images.Media.CONTENT_TYPE);
         startActivityForResult(albumIntent, PICK_FROM_ALBUM);
@@ -120,7 +155,8 @@ public class AddGalleryActivity extends AppCompatActivity {
     }
 
     public File createImageFile() throws IOException{
-        String timeStamp = new SimpleDateFormat("yyyy_MM_dd_kkmmss").format(new Date());
+        timeStamp = new SimpleDateFormat("yyyy_MM_dd_kkmmss").format(new Date());
+        timeStamp_db = new SimpleDateFormat("yyyyMMddkkmmss").format(new Date());
         String imageFileName = "YourUNIV_"+timeStamp+"_";
 
         File storageDir = new File(Environment.getExternalStorageDirectory()+"/YourUNIV/");
@@ -169,7 +205,6 @@ public class AddGalleryActivity extends AppCompatActivity {
                 return;
             }
             Uri photoUri = data.getData();
-
             Cursor cursor = null;
             try{
                 String[] proj = {MediaStore.Images.Media.DATA};
@@ -181,8 +216,8 @@ public class AddGalleryActivity extends AppCompatActivity {
                 int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 
                 cursor.moveToFirst();
-
                 tempFile = new File(cursor.getString(column_index));
+                Log.e("!!", tempFile.getPath());
             }finally {
                 if(cursor!=null){
                     cursor.close();

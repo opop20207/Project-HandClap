@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.projectHandClap.youruniv.Drawer.Gallery.GalleryActivity;
+
 import java.sql.Time;
 import java.util.ArrayList;
 
@@ -320,9 +322,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    //CRUD Operation for scheme 4
+    public void insertGallery(GalleryData galleryData){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO gallery(gallery_class_string, gallery_image_path, gallery_title, "
+                + "gallery_memo, gallery_time) VALUES("
+                +galleryData.gallery_class_string+", '"+galleryData.gallery_image_path +"', '"+galleryData.gallery_title+"', '"
+                +galleryData.gallery_memo+"', '"+galleryData.gallery_time+"');");
+        db.close();
+    }
+
+    public ArrayList<GalleryData> getGallery(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM gallery ORDER BY gallery_time;", null);
+        ArrayList<GalleryData> ret = new ArrayList<>();
+        while(cursor.moveToNext()){
+            GalleryData temp = new GalleryData();
+            temp.gallery_id = cursor.getInt(0);
+            temp.gallery_class_string = cursor.getString(1);
+            temp.gallery_image_path = cursor.getString(2);
+            temp.gallery_title = cursor.getString(3);
+            temp.gallery_memo = cursor.getString(4);
+            temp.gallery_time = cursor.getLong(5);
+            ret.add(temp);
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
+    public void updateGallery(GalleryData galleryData){
+
+    }
+
+    public void deleteGallery(GalleryData galleryData){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM gallery WHERE gallery_id = "+galleryData.gallery_id);
+        db.close();
+    }
+
     //CRUD Operation for scheme 7
     public void insertSchedule(ScheduleData scheduleData){
-        Log.e("!!", "database in");
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO schedule(schedule_class_string, schedule_title, schedule_memo, "
                 + "schedule_alarm, schedule_isdone, schedule_deadline) VALUES("
@@ -357,7 +397,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteSchedule(ScheduleData scheduleData){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM schedule WHERE schedule_id = '"+scheduleData.schedule_id+"'");
+        db.execSQL("DELETE FROM schedule WHERE schedule_id = "+scheduleData.schedule_id);
         db.close();
     }
 }

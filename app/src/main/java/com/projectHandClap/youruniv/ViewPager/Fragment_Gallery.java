@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,6 +40,8 @@ import com.projectHandClap.youruniv.Drawer.Gallery.utils.imageFolder;
 import com.projectHandClap.youruniv.Drawer.Gallery.utils.itemClickListener;
 import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFacer;
 import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFolderAdapter;
+import com.projectHandClap.youruniv.GalleryData;
+import com.projectHandClap.youruniv.GalleryDetailActivity;
 import com.projectHandClap.youruniv.ViewPager.ViewPagerActivity;
 import com.projectHandClap.youruniv.R;
 
@@ -73,24 +78,6 @@ public class Fragment_Gallery extends Fragment {
                 Intent intent;
                 intent = new Intent(mContext, AddGalleryActivity.class);
                 startActivityForResult(intent, 1);
-
-//                long now = System.currentTimeMillis();
-//
-//                Date mDate = new Date(now);
-//                SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy_MM_dd_kkmmss");
-//                String getTime = simpleDate.format(mDate);
-//
-//                ContentValues values = new ContentValues();
-//                values.put(MediaStore.Images.Media.TITLE,"New Picture");
-//                values.put(MediaStore.Images.Media.DESCRIPTION,"From Camera");
-//                values.put(MediaStore.Images.Media.DISPLAY_NAME, "image_1024(1).JPG");
-//                values.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/YourUniv/"+getTime);
-//                Uri image_uri = getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-//
-//                //Camera intent
-//                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
-//                startActivityForResult(takePictureIntent, 1);
             }
         });
 
@@ -99,7 +86,24 @@ public class Fragment_Gallery extends Fragment {
     }
 
     public void setLayout(){
-
+        layoutGallery.removeAllViews();
+        ArrayList<GalleryData> galleryDataList = db.getGallery();
+        for(GalleryData t : galleryDataList){
+            ImageView imageView = new ImageView(mContext);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap origianalBm = BitmapFactory.decodeFile(t.gallery_image_path, options);
+            imageView.setImageBitmap(origianalBm);
+            final GalleryData ft = t;
+            imageView.setOnClickListener(new ImageView.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, GalleryDetailActivity.class);
+                    intent.putExtra("galleryId", ft.gallery_id);
+                    startActivity(intent);
+                }
+            });
+            layoutGallery.addView(imageView);
+        }
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.projectHandClap.youruniv;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -33,6 +35,7 @@ public class DeleteTimetableActivity extends AppCompatActivity {
         ll_delete_timetable = (LinearLayout) findViewById(R.id.ll_delete_timetable);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void setLayout(){
         ll_delete_timetable.removeAllViews();
         final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
@@ -49,7 +52,9 @@ public class DeleteTimetableActivity extends AppCompatActivity {
 
             txv.setText(t1.timetable_title);
             txv.setGravity(Gravity.CENTER);
+            txv.setTypeface(getResources().getFont(R.font.font));
             btnDelete.setText("삭제");
+            btnDelete.setTypeface(getResources().getFont(R.font.font));
             final long did = t1.timetable_id;
             btnDelete.setOnClickListener(new Button.OnClickListener() {
                 @Override

@@ -1,8 +1,10 @@
 package com.projectHandClap.youruniv;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -121,6 +123,7 @@ public class AddClassActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void addDatabaseList(){
         final TimeData timeData = new TimeData();
         int dayId = rgroup_add_class_day.getCheckedRadioButtonId();
@@ -187,9 +190,11 @@ public class AddClassActivity extends AppCompatActivity {
         TextView tv = new TextView(getApplicationContext());
         tv.setText(tableDay[dayNum]+" - "+timeData.stime+" ~ "+timeData.etime);
         tv.setLayoutParams(layoutParams);
+        tv.setTypeface(getResources().getFont(R.font.font));
 
         Button btn = new Button(getApplicationContext());
         btn.setText("삭제");
+        btn.setTypeface(getResources().getFont(R.font.font));
         btn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {

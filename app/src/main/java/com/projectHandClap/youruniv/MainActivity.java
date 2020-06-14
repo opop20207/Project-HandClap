@@ -3,6 +3,7 @@ package com.projectHandClap.youruniv;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.projectHandClap.youruniv.Drawer.RecorderActivity;
 import com.projectHandClap.youruniv.Drawer.Schedule.ScheduleActivity;
 import com.projectHandClap.youruniv.ViewPager.ViewPagerActivity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -81,10 +83,12 @@ public class MainActivity extends AppCompatActivity{
         drawerView = (View)findViewById(R.id.drawer);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void setLayout(){
         final TextView txv_timetable_title = (TextView)findViewById(R.id.txv_timetable_title);
         final TimetableData timetableData = db.getTimetableOne((int)timetableId);
         txv_timetable_title.setText(timetableData.timetable_title);
+        txv_timetable_title.setTypeface(getResources().getFont(R.font.font));
         txv_timetable_title.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,6 +135,7 @@ public class MainActivity extends AppCompatActivity{
                 tv.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3f));
                 tv.setText(tableDay[i]);
                 tv.setGravity(Gravity.CENTER);
+                tv.setTypeface(getResources().getFont(R.font.font));
                 tableRow.addView(tv);
             }
         }
@@ -150,6 +155,7 @@ public class MainActivity extends AppCompatActivity{
                     if(time >= 13)  time = time - 12;
                     tvFirst.setText(Integer.toString(time));
                     tvFirst.setGravity(Gravity.TOP);
+                    tvFirst.setTypeface(getResources().getFont(R.font.font));
                     tvFirst.setGravity(Gravity.CENTER_HORIZONTAL);
                     tr.addView(tvFirst);
                 }
@@ -157,6 +163,7 @@ public class MainActivity extends AppCompatActivity{
                     TextView tv = new TextView(getApplicationContext());
                     tv.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3f));
                     tv.setBackgroundResource(R.drawable.border);
+                    tv.setTypeface(getResources().getFont(R.font.font));
                     String k = "row"+Integer.toString(t)+"day"+Integer.toString(i);
                     int a = getResources().getIdentifier(k,"id","com.projectHandClap.youruniv");
                     tv.setId(a);
@@ -210,6 +217,7 @@ public class MainActivity extends AppCompatActivity{
                 if(tv==null) continue;
                 //tv.setText(title);
                 tv.setBackgroundColor(getResources().getColor(tableColor[Integer.parseInt(cd.class_color)]));
+                tv.setTypeface(getResources().getFont(R.font.font));
                 tv.setOnClickListener(new TextView.OnClickListener() {
                     @Override
                     public void onClick(View view) {

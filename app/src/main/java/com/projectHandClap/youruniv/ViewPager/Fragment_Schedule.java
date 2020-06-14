@@ -2,9 +2,14 @@ package com.projectHandClap.youruniv.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -60,6 +65,7 @@ public class Fragment_Schedule extends Fragment {
         setLayout();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void setLayout(){
         layoutSchedule.removeAllViews();
 
@@ -69,6 +75,8 @@ public class Fragment_Schedule extends Fragment {
                         LinearLayout.LayoutParams.WRAP_CONTENT);
 
         ArrayList<ScheduleData> scheduleList = db.getSchedule();
+
+        Typeface typeface = getResources().getFont(R.font.font);
 
         Log.e("!!","!"+scheduleList.size());
 
@@ -87,8 +95,10 @@ public class Fragment_Schedule extends Fragment {
 
                 txvDate.setText(String.format(sd));
                 txvDate.setLayoutParams(layoutParams);
-                txvDate.setTextSize(25);
-
+                txvDate.setTextSize(15);
+                txvDate.setTypeface(typeface);
+                txvDate.getTypeface();
+                txvDate.setPadding(30,50,15, 0);
                 layoutSchedule.addView(txvDate);
             }
 
@@ -96,8 +106,30 @@ public class Fragment_Schedule extends Fragment {
             ll.setLayoutParams(layoutParams);
             ll.setOrientation(LinearLayout.HORIZONTAL);
 
+            TextView txvTitle = new TextView(mContext);
+            txvTitle.setLayoutParams(layoutParams);
+            txvTitle.setText(s.schedule_title);
+            txvTitle.setTypeface(typeface);
+            txvTitle.setPadding(100, 15,15,0);
+            txvTitle.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1));
+
+            TextView txvTime = new TextView(mContext);
+            txvTime.setLayoutParams(layoutParams);
+            txvTime.setText(String.format("~%02d:%02d", t/100, t%100));
+            txvTime.setTypeface(typeface);
+            txvTime.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    2));
+
             Button btnDelete = new Button(mContext);
             btnDelete.setText("삭제");
+            btnDelete.setTypeface(typeface);
+            btnDelete.setBackgroundColor(Color.TRANSPARENT);
+            btnDelete.setPadding(0, 15, 10, 0);
             btnDelete.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -111,25 +143,9 @@ public class Fragment_Schedule extends Fragment {
                 }
             });
 
-            TextView txvTitle = new TextView(mContext);
-            txvTitle.setLayoutParams(layoutParams);
-            txvTitle.setText(s.schedule_title);
-            txvTitle.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    1));
-
-            TextView txvTime = new TextView(mContext);
-            txvTime.setLayoutParams(layoutParams);
-            txvTime.setText(String.format("~%02d:%02d", t/100, t%100));
-            txvTime.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    2));
-
-            ll.addView(btnDelete);
             ll.addView(txvTitle);
             ll.addView(txvTime);
+            ll.addView(btnDelete);
             layoutSchedule.addView(ll);
         }
     }

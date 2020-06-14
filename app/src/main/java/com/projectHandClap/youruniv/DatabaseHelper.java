@@ -91,6 +91,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //scheme 5 : memo
     private static final String MEMO_TABLE_NAME = "memo";
+    private static final String MEMO_COLUMN_MEMO_ID = "memo_id";
+    private static final String MEMO_COLUMN_MEMO_CLASS_STRING = "memo_class_string";
+    private static final String MEMO_COLUMN_MEMO_TITLE = "memo_title";
+    private static final String MEMO_COLUMN_MEMO_MEMO = "memo_memo";
+    private static final String MEMO_COLUMN_MEMO_TIME = "memo_time";
+
+    private static final String MEMO_CREATE_TABLE = "CREATE TABLE "
+            + MEMO_TABLE_NAME + "("
+            + MEMO_COLUMN_MEMO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + MEMO_COLUMN_MEMO_CLASS_STRING + " TEXT, "
+            + MEMO_COLUMN_MEMO_TITLE + " TEXT, "
+            + MEMO_COLUMN_MEMO_MEMO + " TEXT, "
+            + MEMO_COLUMN_MEMO_TIME + " INTEGER)";
 
     //scheme 6 : recorder
     private static final String RECORDER_TABLE_NAME = "recorder";
@@ -125,6 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(TIMETABLE_CREATE_TABLE);
         db.execSQL(CLASS_CREATE_TABLE);
         db.execSQL(GALLERY_CREATE_TABLE);
+        db.execSQL(MEMO_CREATE_TABLE);
 
         db.execSQL(SCHEDULE_CREATE_TABLE);
     }
@@ -135,6 +149,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ TIMETABLE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CLASS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ GALLERY_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ MEMO_TABLE_NAME);
 
         db.execSQL("DROP TABLE IF EXISTS "+ SCHEDULE_TABLE_NAME);
         onCreate(db);
@@ -146,6 +161,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ TIMETABLE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CLASS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ GALLERY_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ MEMO_TABLE_NAME);
 
         db.execSQL("DROP TABLE IF EXISTS "+ SCHEDULE_TABLE_NAME);
 
@@ -153,6 +169,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(TIMETABLE_CREATE_TABLE);
         db.execSQL(CLASS_CREATE_TABLE);
         db.execSQL(GALLERY_CREATE_TABLE);
+        db.execSQL(MEMO_CREATE_TABLE);
 
         db.execSQL(SCHEDULE_CREATE_TABLE);
     }
@@ -361,6 +378,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteGalleryByClassString(String class_string){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM gallery WHERE gallery_string_id = '"+class_string+"'");
+        db.close();
+    }
+
+    //CRUD Operation for scheme 5
+    public void insertMemo(MemoData memoData){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO memo(memo_class_string, memo_title, "
+                + "memo_memo, memo_time) VALUES("
+                +memoData.memo_class_string+", '"+memoData.memo_title+"', '"
+                +memoData.memo_memo+"', '"+memoData.memo_time+"');");
+        db.close();
+    }
+
+    public ArrayList<MemoData> getMemo(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM memo ORDER BY memo_time;", null);
+        ArrayList<MemoData> ret = new ArrayList<>();
+        while(cursor.moveToNext()){
+            MemoData temp = new MemoData();
+            temp.memo_id = cursor.getLong(0);
+            temp.memo_class_string = cursor.getString(1);
+            temp.memo_title = cursor.getString(2);
+            temp.memo_memo = cursor.getString(3);
+            temp.memo_time = cursor.getLong(4);
+            ret.add(temp);
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
+    public void updateMemo(MemoData memoData){
+
+    }
+
+    public void deleteMemo(MemoData memoData){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM memo WHERE memo_id = "+memoData.memo_id);
+        db.close();
+    }
+
     //CRUD Operation for scheme 7
     public void insertSchedule(ScheduleData scheduleData){
         SQLiteDatabase db = getWritableDatabase();
@@ -398,6 +459,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteSchedule(ScheduleData scheduleData){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM schedule WHERE schedule_id = "+scheduleData.schedule_id);
+        db.close();
+    }
+
+    public void deleteScheduleByClassString(String class_string){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM schedule WHERE schedule_class_string = '"+class_string+"'");
         db.close();
     }
 }

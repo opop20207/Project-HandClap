@@ -8,75 +8,84 @@
     android:layout_margin="30dp"
     tools:context=".Drawer.Gallery.AddGalleryActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="사진"/>
-
-        <ImageView
-            android:id="@+id/iv_temp_image"
-            android:layout_margin="50sp"
-            android:layout_width="300sp"
-            android:layout_height="300sp"
-            android:layout_gravity="center"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_add_gallery_pick"
-            android:layout_gravity="center"
-            android:text="사진 추가하기"
-            android:drawableBottom="@drawable/icon_camera_add"
-            android:onClick="onClickAddGallery"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/layout_btn_add_gallery"
-        android:layout_marginBottom="70sp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="메모"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lines="3"
-            android:id="@+id/etxt_add_gallery_memo"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/layout_btn_add_gallery"
-        android:layout_alignParentBottom="true">
-
-        <Button
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/btn_add_gallery_submit"
-            android:text="저장"
-            android:onClick="onClickAddGallery"/>
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/btn_add_gallery_cancel"
-            android:text="취소"
-            android:onClick="onClickAddGallery"/>
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="사진"/>
+
+                <ImageView
+                    android:id="@+id/iv_temp_image"
+                    android:layout_margin="50sp"
+                    android:layout_width="300sp"
+                    android:layout_height="300sp"
+                    android:layout_gravity="center"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_add_gallery_pick"
+                    android:layout_gravity="center"
+                    android:text="사진 추가하기"
+                    android:drawableBottom="@drawable/icon_camera_add"
+                    android:onClick="onClickAddGallery"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/layout_btn_add_gallery"
+                android:layout_marginBottom="70sp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="메모"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="3"
+                    android:id="@+id/etxt_add_gallery_memo"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/layout_btn_add_gallery"
+                android:layout_alignParentBottom="true">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/btn_add_gallery_submit"
+                    android:text="저장"
+                    android:onClick="onClickAddGallery"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/btn_add_gallery_cancel"
+                    android:text="취소"
+                    android:onClick="onClickAddGallery"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

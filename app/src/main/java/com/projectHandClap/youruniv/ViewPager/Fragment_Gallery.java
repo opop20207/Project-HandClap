@@ -4,14 +4,17 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -28,6 +31,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.projectHandClap.youruniv.DatabaseHelper;
@@ -87,19 +91,71 @@ public class Fragment_Gallery extends Fragment {
 
     public void setLayout(){
         layoutGallery.removeAllViews();
+        LinearLayout.LayoutParams layoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+
         ArrayList<GalleryData> galleryDataList = db.getGallery();
-        for(GalleryData t : galleryDataList){
+
+        Typeface typeface = getResources().getFont(R.font.font);
+
+        long nowtime = 0;
+
+        for(GalleryData g : galleryDataList){
+            long t = g.gallery_time%1000000;
+            long d = (g.gallery_time/1000000);
+            String st = String.valueOf(t);
+            String sd = String.valueOf(d);
+
+            if(nowtime != d){
+                nowtime = d;
+
+                TextView txvDate = new TextView(mContext);
+
+                txvDate.setText(String.format(sd));
+                txvDate.setLayoutParams(layoutParams);
+                txvDate.setTextSize(15);
+                txvDate.setTypeface(typeface);
+                txvDate.getTypeface();
+                txvDate.setPadding(30,50,15, 0);
+                layoutGallery.addView(txvDate);
+            }
+
             ImageView imageView = new ImageView(mContext);
             BitmapFactory.Options options = new BitmapFactory.Options();
-            Bitmap origianalBm = BitmapFactory.decodeFile(t.gallery_image_path, options);
+            Bitmap origianalBm = BitmapFactory.decodeFile(g.gallery_image_path, options);
             imageView.setImageBitmap(origianalBm);
-            final GalleryData ft = t;
+            final GalleryData fg = g;
             imageView.setOnClickListener(new ImageView.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, GalleryDetailActivity.class);
-                    intent.putExtra("galleryId", ft.gallery_id);
+                    intent.putExtra("galleryId", fg.gallery_id);
                     startActivity(intent);
+                }
+            });
+            imageView.setOnLongClickListener(new ImageView.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setTitle("삭제 하시겠습니까?");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            db.deleteGallery(fg);
+                            Toast.makeText(mContext, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                            setLayout();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(mContext, "취소되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    builder.create().show();
+                    return false;
                 }
             });
             layoutGallery.addView(imageView);

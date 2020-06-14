@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GalleryDetailActivity"></activity>
+        <activity android:name=".MemoDetailActivity"></activity>
+        <activity android:name=".AddMemoActivity" />
+        <activity android:name=".GalleryDetailActivity" />
         <activity android:name=".Drawer.Gallery.AddGalleryActivity" />
         <activity android:name=".ClassDetailActivity" />
         <activity android:name=".ViewPager.ViewPagerActivity" />

@@ -50,7 +50,7 @@ public class Fragment_Schedule extends Fragment {
     }
 
     public void init(){
-        FloatingActionButton fab = viewGroup.findViewById(R.id.btn_add_schedule);
+        Button fab = viewGroup.findViewById(R.id.btn_add_schedule);
 
         fab.setOnClickListener(new FloatingActionButton.OnClickListener() {
             @Override

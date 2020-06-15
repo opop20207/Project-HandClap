@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -26,12 +26,14 @@
                     android:layout_height="match_parent"
                     android:layout_weight="5"
                     android:gravity="center_vertical"
+                    android:fontFamily="@font/font"
                     android:text="일정 명" />
 
                 <EditText
                     android:id="@+id/etxt_add_schedule_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/font"
                     android:layout_weight="1" />
 
             </LinearLayout>
@@ -48,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
+                    android:fontFamily="@font/font"
                     android:text="마감 시간" />
 
                 <LinearLayout
@@ -71,6 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="onClickAddSchedule"
+                        android:fontFamily="@font/font"
                         android:text="날짜 설정" />
                 </LinearLayout>
 
@@ -98,6 +102,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="5"
                         android:gravity="center_vertical"
+                        android:fontFamily="@font/font"
                         android:text="알람" />
 
                     <ToggleButton
@@ -106,6 +111,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:fontFamily="@font/font"
                         android:textOff="알람 설정되지 않음"
                         android:textOn="알람 설정됨" />
                 </LinearLayout>
@@ -122,12 +128,14 @@
                     android:layout_height="match_parent"
                     android:layout_weight="5"
                     android:gravity="center_vertical"
+                    android:fontFamily="@font/font"
                     android:text="중요" />
 
                 <ToggleButton
                     android:id="@+id/tbtn_add_schedule_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/font"
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -136,6 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
                 android:layout_marginBottom="5sp"
+                android:fontFamily="@font/font"
                 android:text="메모" />
 
             <EditText
@@ -145,33 +154,31 @@
                 android:layout_marginTop="5sp"
                 android:layout_marginBottom="5sp"
                 android:lines="3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5sp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_add_schedule_cancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClickAddSchedule"
-                    android:text="취소" />
-
-                <Button
-                    android:id="@+id/btn_add_schedule_submit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClickAddSchedule"
-                    android:text="저장" />
-            </LinearLayout>
-
-
         </LinearLayout>
-
     </ScrollView>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_add_schedule_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClickAddSchedule"
+            android:fontFamily="@font/font"
+            android:text="취소" />
+
+        <Button
+            android:id="@+id/btn_add_schedule_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClickAddSchedule"
+            android:fontFamily="@font/font"
+            android:text="저장" />
+    </LinearLayout>
+</RelativeLayout>

@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -74,7 +75,7 @@ public class Fragment_Gallery extends Fragment {
     }
 
     public void init(){
-        FloatingActionButton fab = viewGroup.findViewById(R.id.btn_add_gallery);
+        Button fab = viewGroup.findViewById(R.id.btn_add_gallery);
 
         fab.setOnClickListener(new FloatingActionButton.OnClickListener() {
             @Override
@@ -140,6 +141,7 @@ public class Fragment_Gallery extends Fragment {
                 public boolean onLongClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                     builder.setTitle("삭제 하시겠습니까?");
+                    builder.getContext().getResources().getFont(R.font.font);
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {

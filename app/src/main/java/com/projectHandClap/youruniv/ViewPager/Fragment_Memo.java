@@ -48,7 +48,7 @@ public class Fragment_Memo extends Fragment {
     }
 
     public void init(){
-        FloatingActionButton fab = viewGroup.findViewById(R.id.btn_add_memo);
+        Button fab = viewGroup.findViewById(R.id.btn_add_memo);
 
         fab.setOnClickListener(new FloatingActionButton.OnClickListener() {
             @Override

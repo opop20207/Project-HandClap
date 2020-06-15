@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddClassActivity"
-    android:layout_margin="30dp"
     android:orientation="vertical">
 
     <ScrollView
@@ -14,6 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="30dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -24,11 +24,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:fontFamily="@font/font"
                     android:text="과목명"/>
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/font"
                     android:id="@+id/etxt_add_class_title"/>
             </LinearLayout>
 
@@ -40,12 +42,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/font"
                     android:gravity="center"
                     android:text="강의실"/>
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/font"
                     android:id="@+id/etxt_add_class_place"/>
             </LinearLayout>
 
@@ -62,6 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="시간/날짜"
+                        android:fontFamily="@font/font"
                         android:layout_gravity="center"/>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -78,42 +83,49 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/font"
                                 android:id="@+id/rbtn_add_class_day_1"/>
                             <RadioButton
                                 android:text="화"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/font"
                                 android:id="@+id/rbtn_add_class_day_2"/>
                             <RadioButton
                                 android:text="수"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/font"
                                 android:id="@+id/rbtn_add_class_day_3"/>
                             <RadioButton
                                 android:text="목"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/font"
                                 android:id="@+id/rbtn_add_class_day_4"/>
                             <RadioButton
                                 android:text="금"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/font"
                                 android:id="@+id/rbtn_add_class_day_5"/>
                             <RadioButton
                                 android:text="토"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/font"
                                 android:id="@+id/rbtn_add_class_day_6"/>
                             <RadioButton
                                 android:text="일"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/font"
                                 android:id="@+id/rbtn_add_class_day_7"/>
                         </RadioGroup>
                     </LinearLayout>
@@ -163,6 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="알람"
+                    android:fontFamily="@font/font"
                     android:gravity="center"/>
 
                 <ToggleButton
@@ -183,11 +196,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="교수님 정보"
+                    android:fontFamily="@font/font"
                     android:gravity="center"/>
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/font"
                     android:id="@+id/etxt_add_class_professor"/>
             </LinearLayout>
 
@@ -200,6 +215,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="색상"
+                    android:fontFamily="@font/font"
                     android:gravity="center"/>
 
                 <LinearLayout
@@ -306,6 +322,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="메모"
+                    android:fontFamily="@font/font"
                     android:gravity="center"/>
 
                 <EditText
@@ -314,28 +331,31 @@
                     android:lines="3"
                     android:id="@+id/etxt_add_class_memo"/>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/btn_add_class_cancel"
-                    android:onClick="onClickAddClass"
-                    android:text="취소"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/btn_add_class_submit"
-                    android:onClick="onClickAddClass"
-                    android:text="저장"/>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/font"
+            android:id="@+id/btn_add_class_cancel"
+            android:onClick="onClickAddClass"
+            android:text="취소"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/font"
+            android:id="@+id/btn_add_class_submit"
+            android:onClick="onClickAddClass"
+            android:text="저장"/>
+    </LinearLayout>
+</RelativeLayout>

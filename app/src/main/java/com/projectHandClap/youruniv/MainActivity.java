@@ -45,11 +45,13 @@ public class MainActivity extends AppCompatActivity{
     TextView bottomSheetDialog_txvTitle;
     DatabaseHelper db;
 
+    BottomSheetDialog dialog;
     int [] tableColor = {R.color.colorAccent, R.color.ttcolor1, R.color.ttcolor2, R.color.ttcolor3, R.color.ttcolor4, R.color.ttcolor5,
             R.color.ttcolor6, R.color.ttcolor7, R.color.ttcolor8, R.color.ttcolor9, R.color.ttcolor10};
     String [] tableDay = {"S","M","T","W","T","F","S","S"};
     int timeInterval = 100;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity{
         init();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void init(){
         if(timetableId==0) pragmaOnce();
         initView();
@@ -199,6 +202,7 @@ public class MainActivity extends AppCompatActivity{
         timetable_list.setAdapter(adapter);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void addClassToLayout(){
         ArrayList<ClassData> classDataList = db.getClassData((int)timetableId);
         for(ClassData cd : classDataList){
@@ -206,7 +210,7 @@ public class MainActivity extends AppCompatActivity{
             int stime = Integer.parseInt(cd.class_stime);
             int etime = Integer.parseInt(cd.class_etime);
             int day = Integer.parseInt(cd.class_day);
-            for(int i=stime;i<=etime;i+=timeInterval){
+            for(int i=stime;i<etime;i+=timeInterval){
                 String k = "row"+Integer.toString(i)+"day"+Integer.toString(day);
                 Log.e("!", k);
                 int a = getResources().getIdentifier(k, "id", "com.projectHandClap.youruniv");
@@ -223,7 +227,7 @@ public class MainActivity extends AppCompatActivity{
                     public void onClick(View view) {
                         final int cid = (int)fcd.class_id;
                         final String cstr = fcd.class_string;
-                        final BottomSheetDialog dialog = new BottomSheetDialog(MainActivity.this);
+                        dialog = new BottomSheetDialog(MainActivity.this);
                         dialog.setContentView(R.layout.bottomsheetdialog);
 
                         bottomSheetDialog_btnDetail = (Button)dialog.findViewById(R.id.bottomSheetDialog_btnDetail);
@@ -240,7 +244,7 @@ public class MainActivity extends AppCompatActivity{
                             public void onClick(View view) {
                                 Intent intent = new Intent(MainActivity.this, ClassDetailActivity.class);
                                 intent.putExtra("classDataId", cid);
-                                startActivity(intent);
+                                startActivityForResult(intent, 5);
                             }
                         });
                         bottomSheetDialog_btnDelete.setOnClickListener(new Button.OnClickListener() {
@@ -347,6 +351,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -369,6 +374,9 @@ public class MainActivity extends AppCompatActivity{
             setLayout();
             setDrawerLayout();
             addClassToLayout();
+        } else if (requestCode == 5 ){
+            addClassToLayout();
+            dialog.cancel();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

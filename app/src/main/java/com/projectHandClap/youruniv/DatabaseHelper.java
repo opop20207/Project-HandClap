@@ -297,6 +297,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ret;
     }
 
+    public ArrayList<ClassData> getClassDataByClassString(String class_string){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM class WHERE class_string = '"+class_string+"';", null);
+        ArrayList<ClassData> ret = new ArrayList<ClassData>();
+        while(cursor.moveToNext()){
+            ClassData temp = new ClassData();
+            temp.class_id = cursor.getLong(0);
+            temp.class_timetable_id = cursor.getLong(1);
+            temp.class_title = cursor.getString(2);
+            temp.class_place = cursor.getString(3);
+            temp.class_day = cursor.getString(4);
+            temp.class_stime = cursor.getString(5);
+            temp.class_etime = cursor.getString(6);
+            temp.class_string = cursor.getString(7);
+            temp.class_alarm = cursor.getString(8);
+            temp.class_professor = cursor.getString(9);
+            temp.class_color = cursor.getString(10);
+            temp.class_memo = cursor.getString(11);
+            ret.add(temp);
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
     public ClassData getClassDataOneById(int class_id){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM class WHERE class_id = "+class_id+";", null);

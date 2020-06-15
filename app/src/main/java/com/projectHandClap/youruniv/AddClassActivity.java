@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,7 +28,6 @@ public class AddClassActivity extends AppCompatActivity {
     EditText etxt_add_class_title, etxt_add_class_place, etxt_add_class_professor, etxt_add_class_memo;
     TimePicker tp_add_class_stime, tp_add_class_etime;
     RadioGroup rgroup_add_class_color, rgroup_add_class_day;
-    ToggleButton tbtn_add_class_alarm;
 
     String [] tableDay = {"S","M","T","W","T","F","S","S"};
     DatabaseHelper db;
@@ -105,10 +105,9 @@ public class AddClassActivity extends AppCompatActivity {
 
         rgroup_add_class_color = (RadioGroup) findViewById(R.id.rgroup_add_class_color);
         rgroup_add_class_day = (RadioGroup) findViewById(R.id.rgorup_add_class_day);
-
-        tbtn_add_class_alarm = (ToggleButton) findViewById(R.id.tbtn_add_class_alarm);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onClickAddClass(View v){
         switch (v.getId()){
             case R.id.btn_add_class_submit:
@@ -158,8 +157,8 @@ public class AddClassActivity extends AppCompatActivity {
         }
         timeData.day = String.valueOf(dayNum);
 
-        timeData.stime = tp_add_class_stime.getHour()*100+tp_add_class_stime.getMinute();
-        timeData.etime = tp_add_class_etime.getHour()*100+tp_add_class_etime.getMinute();
+        timeData.stime = tp_add_class_stime.getHour()*100+tp_add_class_stime.getMinute()*15;
+        timeData.etime = tp_add_class_etime.getHour()*100+tp_add_class_etime.getMinute()*15;
         if(timeData.stime>=timeData.etime){
             //time setting error
             Toast.makeText(getApplicationContext(),"start time must be faster than end time",Toast.LENGTH_LONG).show();
@@ -173,27 +172,33 @@ public class AddClassActivity extends AppCompatActivity {
         }
 
         for(TimeData t : addClassArray){
-            if(Integer.parseInt(t.day) == Integer.parseInt(timeData.day)){
-                if(t.stime>=timeData.etime || t.etime<=timeData.stime){
-                    //time error
-                    Toast.makeText(getApplicationContext(), "시간 중복", Toast.LENGTH_LONG).show();
-                    return;
-                }
+            Log.e("newData", timeData.stime+"~"+timeData.etime);
+            Log.e("oldData", t.stime+"~"+t.etime);
+            if(Integer.parseInt(t.day) == Integer.parseInt(timeData.day)
+                    && !(timeData.etime <= t.stime || t.etime <= timeData.stime)){
+
+                //time error
+                Toast.makeText(getApplicationContext(), "시간 중복", Toast.LENGTH_LONG).show();
+                return;
             }
         }
 
         final LinearLayout ll_add_class_time = (LinearLayout)findViewById(R.id.ll_add_class_time);
         ll_add_class_time.setOrientation(LinearLayout.VERTICAL);
+        ll_add_class_time.setGravity(Gravity.CENTER);
 
         final LinearLayout ll = new LinearLayout(getApplicationContext());
+        ll.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
         TextView tv = new TextView(getApplicationContext());
         tv.setText(tableDay[dayNum]+" - "+timeData.stime+" ~ "+timeData.etime);
+        tv.setGravity(Gravity.CENTER);
         tv.setLayoutParams(layoutParams);
         tv.setTypeface(getResources().getFont(R.font.font));
 
         Button btn = new Button(getApplicationContext());
         btn.setText("삭제");
+        btn.setGravity(Gravity.CENTER);
         btn.setTypeface(getResources().getFont(R.font.font));
         btn.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -244,7 +249,7 @@ public class AddClassActivity extends AppCompatActivity {
             }
             classData.class_string = toStr;
 
-            boolean alarmBool = tbtn_add_class_alarm.isActivated();
+            boolean alarmBool = true;
             classData.class_alarm = (alarmBool ? "1" : "0");
 
             int colorId = rgroup_add_class_color.getCheckedRadioButtonId();
@@ -285,11 +290,9 @@ public class AddClassActivity extends AppCompatActivity {
 
             classData.class_memo = etxt_add_class_memo.getText().toString();
 
-            DatabaseHelper db = new DatabaseHelper(getApplicationContext());
             db.insertClassData(classData);
-
-            setResult(1);
-            finish();
         }
+        setResult(1);
+        finish();
     }
 }

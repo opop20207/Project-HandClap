@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_above="@+id/layout_class_detail_btn"
     android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15sp">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layout_class_detail_btn">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="30sp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -32,12 +34,14 @@
                     android:id="@+id/etxt_add_class_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="5sp"
                     android:fontFamily="@font/font" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -51,18 +55,19 @@
                     android:id="@+id/etxt_add_class_place"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="5sp"
                     android:fontFamily="@font/font" />
             </LinearLayout>
 
 
 
-                <LinearLayout
-                    android:id="@+id/ll_add_class_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_margin="15sp"
-                    android:orientation="vertical" />
+            <LinearLayout
+                android:id="@+id/ll_add_class_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="15sp"
+                android:orientation="vertical" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,6 +91,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="5sp"
                 android:orientation="vertical">
 
                 <TextView
@@ -113,8 +120,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/rbtn1"/>
+                            android:background="@color/ttcolor1" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_2"
@@ -122,8 +128,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/rbtn2"/>
+                            android:background="@color/ttcolor2" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_3"
@@ -131,8 +136,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/rbtn3"/>
+                            android:background="@color/ttcolor3" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_4"
@@ -140,8 +144,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/rbtn4"/>
+                            android:background="@color/ttcolor4" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_5"
@@ -149,8 +152,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/rbtn5"/>
+                            android:background="@color/ttcolor5" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_6"
@@ -158,8 +160,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/rbtn6"/>
+                            android:background="@color/ttcolor6" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_7"
@@ -167,8 +168,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/rbtn7"/>
+                            android:background="@color/ttcolor7" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_8"
@@ -176,8 +176,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/rbtn8"/>
+                            android:background="@color/ttcolor8" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_9"
@@ -185,8 +184,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/rbtn9"/>
+                            android:background="@color/ttcolor9" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_10"
@@ -194,8 +192,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/rbtn10"/>
+                            android:background="@color/ttcolor10" />
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
@@ -203,6 +200,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
                 android:orientation="vertical">
 
                 <TextView
@@ -216,34 +214,48 @@
                     android:id="@+id/etxt_add_class_memo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5sp"
                     android:lines="3" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_add_class_cancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/font"
-                    android:onClick="onClickAddClass"
-                    android:text="취소" />
-
-                <Button
-                    android:id="@+id/btn_add_class_submit"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/font"
-                    android:onClick="onClickAddClass"
-                    android:text="저장" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:layout_above="@+id/layout_class_detail_btn"
+        android:background="@color/black"/>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/layout_class_detail_btn"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_add_class_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/font"
+            android:background="@android:color/transparent"
+            android:onClick="onClickAddClass"
+            android:text="취소" />
+
+        <View
+            android:layout_width="1sp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+
+        <Button
+            android:id="@+id/btn_add_class_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/font"
+            android:background="@android:color/transparent"
+            android:onClick="onClickAddClass"
+            android:text="저장" />
+    </LinearLayout>
+</RelativeLayout>

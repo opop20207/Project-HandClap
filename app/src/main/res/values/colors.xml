@@ -12,6 +12,8 @@
 
     <color name="colorDarkBlue">#3D4054</color>
 
+    <color name="colorMain">#505050</color>
+
     <color name="lightgrey">#a6FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="orange">#FFA500</color>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="320sp"
     android:layout_height="wrap_content"
-    android:background="#505050"
+    android:background="@color/colorMain"
     android:orientation="vertical">
 
     <LinearLayout
@@ -16,7 +16,7 @@
             android:layout_height="50sp"
             android:text="시간표 추가"
             android:textSize="20sp"
-            android:background="#505050"
+            android:background="@color/colorMain"
             android:gravity="center"/>
     </LinearLayout>
 
@@ -26,7 +26,7 @@
         android:layout_height="50sp"
         android:hint="시간표 제목"
         android:background="@color/white"
-        android:textColor="#505050"
+        android:textColor="@color/colorMain"
         android:paddingStart="15sp"
         android:inputType="textPersonName" />
 
@@ -40,6 +40,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="확인"
-        android:background="#505050"
+        android:background="@color/colorMain"
         android:onClick="onClickAddTimetable"/>
 </LinearLayout>

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="bottom"
-    android:background="#505050"
+    android:background="@color/colorMain"
     android:id="@+id/layout_bottom_sheet_dialog">
 
     <TextView

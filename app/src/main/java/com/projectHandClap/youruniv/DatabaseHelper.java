@@ -454,9 +454,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public MemoData getMemoDataById(int memo_id){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM schedule WHERE memo_id = "+memo_id+";", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM memo WHERE memo_id = "+memo_id+";", null);
         MemoData ret = new MemoData();
         while(cursor.moveToNext()){
+            ret.memo_id = cursor.getInt(0);
+            ret.memo_class_string = cursor.getString(1);
+            ret.memo_title = cursor.getString(2);
+            ret.memo_memo = cursor.getString(3);
+            ret.memo_time = cursor.getLong(4);
         }
         cursor.close();
         db.close();

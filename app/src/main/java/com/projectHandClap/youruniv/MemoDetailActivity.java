@@ -1,7 +1,10 @@
 package com.projectHandClap.youruniv;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -10,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MemoDetailActivity extends AppCompatActivity {
-    String classString;
     DatabaseHelper db;
     EditText etxt_add_memo_title, etxt_add_memo_memo;
     MemoData mData;
@@ -25,22 +27,25 @@ public class MemoDetailActivity extends AppCompatActivity {
     }
 
     public void init(){
+        long mid = getIntent().getLongExtra("memoId", 1);
+        mData = db.getMemoDataById((int)mid);
+
         etxt_add_memo_title = (EditText)findViewById(R.id.etxt_add_memo_title);
         etxt_add_memo_memo = (EditText)findViewById(R.id.etxt_add_memo_memo);
+
+        etxt_add_memo_title.setText(mData.memo_title);
+        etxt_add_memo_memo.setText(mData.memo_memo);
     }
 
     public void addToDatabaseMemo(){
         MemoData memoData = new MemoData();
-        memoData.memo_class_string = classString;
+        memoData.memo_id = mData.memo_id;
+        memoData.memo_class_string = mData.memo_class_string;
 
         memoData.memo_title = etxt_add_memo_title.getText().toString();
         memoData.memo_memo = etxt_add_memo_memo.getText().toString();
 
-        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyyMMddHHmm");
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
-        String stringNow = sdfNow.format(date);
-        memoData.memo_time = Long.parseLong(stringNow);
+        memoData.memo_time = mData.memo_time;
 
         db.updateMemo(memoData);
     }

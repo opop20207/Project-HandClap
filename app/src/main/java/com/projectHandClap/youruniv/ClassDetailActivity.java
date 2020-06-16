@@ -34,6 +34,7 @@ public class ClassDetailActivity extends AppCompatActivity {
     String cstr;
     DatabaseHelper db;
     ClassData cd;
+    ArrayList<ClassData> clist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +42,11 @@ public class ClassDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_class_detail);
 
         db = new DatabaseHelper(this);
-        Log.e("!!","!!!");
         init();
-        Log.e("!!","!!!!@");
         setLayout();
-        Log.e("!!","!@@@@@@@@@");
     }
 
     public void init(){
-        Log.e("!!","!@@@!@");
         cid = getIntent().getIntExtra("classDataId", 1);
 
         etxt_add_class_title = (EditText) findViewById(R.id.etxt_add_class_title);
@@ -65,7 +62,7 @@ public class ClassDetailActivity extends AppCompatActivity {
         cd = db.getClassDataOneById(cid);
         Log.e("!!!", cid+"!!");
         cstr = cd.class_string;
-        ArrayList<ClassData> clist = db.getClassDataByClassString(cstr);
+        clist = db.getClassDataByClassString(cstr);
         Log.e("!!", clist.size()+"!");
         for(ClassData classData : clist){
             final TimeData timeData = new TimeData();
@@ -144,16 +141,20 @@ public class ClassDetailActivity extends AppCompatActivity {
     }
 
     public void addToDatabase_Class(){
-        db.deleteClassDataOneById(cstr);
-
         String toStr = null;
         if(addClassArray.size()==0){
             //no class error
             Toast.makeText(getApplicationContext(), "추가할 시간표 없음", Toast.LENGTH_LONG).show();
             return;
         }
+        int cnt = 0;
         for(TimeData temp : addClassArray){
             ClassData classData = new ClassData();
+
+            classData.class_id = clist.get(cnt).class_id;
+            classData.class_string = clist.get(cnt).class_string;
+            cnt++;
+
             classData.class_timetable_id = cd.class_timetable_id;
 
             classData.class_title = etxt_add_class_title.getText().toString();
@@ -172,10 +173,6 @@ public class ClassDetailActivity extends AppCompatActivity {
             classData.class_day = temp.day;
             classData.class_stime = String.valueOf(temp.stime);
             classData.class_etime = String.valueOf(temp.etime);
-            if(toStr == null){
-                toStr = classData.class_timetable_id+classData.class_stime+classData.class_etime+classData.class_day;
-            }
-            classData.class_string = toStr;
 
             classData.class_alarm = "1";
 
@@ -216,9 +213,11 @@ public class ClassDetailActivity extends AppCompatActivity {
             classData.class_color = String.valueOf(colorNum);
 
             classData.class_memo = etxt_add_class_memo.getText().toString();
-
-            db.insertClassData(classData);
+            Log.e("classData.class_memo", classData.class_memo);
+            db.updateClassData(classData);
+            Log.e("!!","!!@#@");
         }
+
         setResult(5);
         finish();
     }

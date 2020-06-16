@@ -261,6 +261,7 @@ public class MainActivity extends AppCompatActivity{
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                                intent.putExtra("position", 0);
                                 intent.putExtra("classDataId", cid);
                                 startActivity(intent);
                             }
@@ -269,6 +270,7 @@ public class MainActivity extends AppCompatActivity{
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                                intent.putExtra("position", 1);
                                 intent.putExtra("classDataId", cid);
                                 startActivity(intent);
                             }
@@ -277,6 +279,7 @@ public class MainActivity extends AppCompatActivity{
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                                intent.putExtra("position", 2);
                                 intent.putExtra("classDataId", cid);
                                 startActivity(intent);
                             }
@@ -285,6 +288,7 @@ public class MainActivity extends AppCompatActivity{
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                                intent.putExtra("position", 3);
                                 intent.putExtra("classDataId", cid);
                                 startActivity(intent);
                             }

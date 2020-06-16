@@ -348,8 +348,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void updateClassData(String toStr){
-
+    public void updateClassData(ClassData classData){
+        SQLiteDatabase db = getWritableDatabase();
+        Log.e("fromUpdateClassData", classData.class_id+"!"+classData.class_memo);
+        db.execSQL("UPDATE class SET " +
+                "class_timetable_id = "+classData.class_timetable_id+", " +
+                "class_title = '"+classData.class_title+"', " +
+                "class_place = '"+classData.class_place+"', " +
+                "class_day = '"+classData.class_day+"', " +
+                "class_stime = '"+classData.class_stime+"', " +
+                "class_etime = '"+classData.class_etime+"', " +
+                "class_string = '"+classData.class_string+"', " +
+                "class_alarm = '"+classData.class_alarm+"', " +
+                "class_professor = '"+classData.class_professor+"', " +
+                "class_color = '"+classData.class_color+"', " +
+                "class_memo = '"+classData.class_memo+"' " +
+                "WHERE class_id ="+classData.class_id+";");
+        db.close();
     }
 
     public void deleteClassDataOneById(String toStr){

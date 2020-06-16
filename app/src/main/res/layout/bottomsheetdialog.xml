@@ -10,11 +10,25 @@
 
     <TextView
         android:id="@+id/bottomSheetDialog_txvTitle"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_margin="20sp"
+        android:fontFamily="@font/font"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:hint="과목 이름"
         android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font"
+        android:textColor="@color/white"
+        android:layout_marginStart="15sp"
+        android:id="@+id/bottomSheetDialog_txvDetail"
+        android:hint="과목정보"
+        android:layout_gravity="center_horizontal"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1sp"

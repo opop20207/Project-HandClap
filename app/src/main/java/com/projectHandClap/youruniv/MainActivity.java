@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,7 +32,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
     public long timetableId;
@@ -42,13 +46,15 @@ public class MainActivity extends AppCompatActivity{
 
     Button bottomSheetDialog_btnGallery, bottomSheetDialog_btnDetail, bottomSheetDialog_btnDelete;
     Button bottomSheetDialog_btnRecord, bottomSheetDialog_btnMemo, bottomSheetDialog_btnSchedule;
-    TextView bottomSheetDialog_txvTitle;
+    TextView bottomSheetDialog_txvTitle, bottomSheetDialog_txvDetail;
     DatabaseHelper db;
 
     BottomSheetDialog dialog;
     int [] tableColor = {R.color.colorAccent, R.color.ttcolor1, R.color.ttcolor2, R.color.ttcolor3, R.color.ttcolor4, R.color.ttcolor5,
             R.color.ttcolor6, R.color.ttcolor7, R.color.ttcolor8, R.color.ttcolor9, R.color.ttcolor10};
     String [] tableDay = {"S","M","T","W","T","F","S","S"};
+    String [] tableDay2 = {"", "월", "화", "수", "목", "금", "토", "일"};
+
     int timeInterval = 100;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -205,7 +211,8 @@ public class MainActivity extends AppCompatActivity{
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addClassToLayout(){
         ArrayList<ClassData> classDataList = db.getClassData((int)timetableId);
-        for(ClassData cd : classDataList){
+
+        for(final ClassData cd : classDataList){
             String title = cd.class_title;
             int stime = Integer.parseInt(cd.class_stime);
             int etime = Integer.parseInt(cd.class_etime);
@@ -227,6 +234,21 @@ public class MainActivity extends AppCompatActivity{
                     public void onClick(View view) {
                         final int cid = (int)fcd.class_id;
                         final String cstr = fcd.class_string;
+
+                        ArrayList<ClassData> ffcd = db.getClassDataByClassString(cstr);
+                        String tempDetail = fcd.class_professor;
+
+                        tempDetail += "\n";
+                        for(ClassData classData : ffcd){
+                            tempDetail += tableDay2[Integer.parseInt(classData.class_day)];
+                            tempDetail += " ";
+                            tempDetail += classData.class_stime;
+                            tempDetail += "-";
+                            tempDetail += classData.class_etime;
+                            tempDetail += "\n";
+                        }
+
+
                         dialog = new BottomSheetDialog(MainActivity.this);
                         dialog.setContentView(R.layout.bottomsheetdialog);
 
@@ -237,8 +259,11 @@ public class MainActivity extends AppCompatActivity{
                         bottomSheetDialog_btnMemo = (Button)dialog.findViewById(R.id.bottomSheetDialog_btnMemo);
                         bottomSheetDialog_btnSchedule = (Button)dialog.findViewById(R.id.bottomSheetDialog_btnSchedule);
                         bottomSheetDialog_txvTitle = (TextView)dialog.findViewById(R.id.bottomSheetDialog_txvTitle);
+                        bottomSheetDialog_txvDetail = (TextView)dialog.findViewById(R.id.bottomSheetDialog_txvDetail);
 
                         bottomSheetDialog_txvTitle.setText(fcd.class_title);
+                        bottomSheetDialog_txvDetail.setText(tempDetail);
+
                         bottomSheetDialog_btnDetail.setOnClickListener(new Button.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -247,6 +272,7 @@ public class MainActivity extends AppCompatActivity{
                                 startActivityForResult(intent, 5);
                             }
                         });
+
                         bottomSheetDialog_btnDelete.setOnClickListener(new Button.OnClickListener() {
                             @Override
                             public void onClick(View view) {

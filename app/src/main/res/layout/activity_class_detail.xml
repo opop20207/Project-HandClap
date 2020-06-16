@@ -113,7 +113,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="#E9967A" />
+                            android:background="@color/ttcolor1" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_2"
@@ -121,7 +121,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="#CD5C5C" />
+                            android:background="@color/ttcolor2" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_3"
@@ -129,7 +129,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="#FFA500" />
+                            android:background="@color/ttcolor3" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_4"
@@ -137,7 +137,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="#4682B4" />
+                            android:background="@color/ttcolor4" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_5"
@@ -145,7 +145,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="#87CEEB" />
+                            android:background="@color/ttcolor5" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_6"
@@ -153,7 +153,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="#6B8E23" />
+                            android:background="@color/ttcolor6" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_7"
@@ -161,7 +161,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="#008000" />
+                            android:background="@color/ttcolor7" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_8"
@@ -169,7 +169,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="#FF8C00" />
+                            android:background="@color/ttcolor8" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_9"
@@ -177,7 +177,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="#FF4500" />
+                            android:background="@color/ttcolor9" />
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_10"
@@ -185,7 +185,7 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="#C0C0C0" />
+                            android:background="@color/ttcolor10" />
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>

@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity{
     DatabaseHelper db;
 
     BottomSheetDialog dialog;
-    int [] tableColor = {R.color.colorAccent, R.color.ttcolor1, R.color.ttcolor2, R.color.ttcolor3, R.color.ttcolor4, R.color.ttcolor5,
+    int [] tableColor = {R.color.colorAccent,R.color.ttcolor1, R.color.ttcolor2, R.color.ttcolor3, R.color.ttcolor4, R.color.ttcolor5,
             R.color.ttcolor6, R.color.ttcolor7, R.color.ttcolor8, R.color.ttcolor9, R.color.ttcolor10};
     String [] tableDay = {"S","M","T","W","T","F","S","S"};
     String [] tableDay2 = {"", "월", "화", "수", "목", "금", "토", "일"};
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity{
                                 setDrawerLayout();
                                 addClassToLayout();
                             }
-                    });
+                        });
                 dlg.setNegativeButton("취소",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -152,17 +152,24 @@ public class MainActivity extends AppCompatActivity{
 
         int stime = Integer.parseInt(userSetting.setting_stime);
         int etime = Integer.parseInt(userSetting.setting_etime);
-        for(int t=stime; t<=etime;t+=timeInterval){
+        for(int t=stime; t<=etime;t+=15){
+            Log.e("stime~etime", stime+"~"+etime);
+            if(t%100==60) t+=40;
             TableRow tr = new TableRow(getApplicationContext());
             tr.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
-
             for(int i=1;i<=7;i++){
+                int tt = t;
                 if(i==1){
                     TextView tvFirst = new TextView(getApplicationContext());
                     tvFirst.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
                     int time = t / 100;
+                    Log.e("time", time+"!");
                     if(time >= 13)  time = time - 12;
-                    tvFirst.setText(Integer.toString(time));
+                    if(t%100 == 0){
+                        tvFirst.setText(Integer.toString(time));
+                    }else{
+                        tvFirst.setText("");
+                    }
                     tvFirst.setGravity(Gravity.TOP);
                     tvFirst.setTypeface(getResources().getFont(R.font.font));
                     tvFirst.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -173,7 +180,7 @@ public class MainActivity extends AppCompatActivity{
                     tv.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3f));
                     tv.setBackgroundResource(R.drawable.border);
                     tv.setTypeface(getResources().getFont(R.font.font));
-                    String k = "row"+Integer.toString(t)+"day"+Integer.toString(i);
+                    String k = "row"+Integer.toString(tt)+"day"+Integer.toString(i);
                     int a = getResources().getIdentifier(k,"id","com.projectHandClap.youruniv");
                     tv.setId(a);
                     tr.addView(tv);
@@ -217,7 +224,8 @@ public class MainActivity extends AppCompatActivity{
             int stime = Integer.parseInt(cd.class_stime);
             int etime = Integer.parseInt(cd.class_etime);
             int day = Integer.parseInt(cd.class_day);
-            for(int i=stime;i<etime;i+=timeInterval){
+            for(int i=stime;i<etime;i+=15){
+                if(i%100==60) i+=40;
                 String k = "row"+Integer.toString(i)+"day"+Integer.toString(day);
                 Log.e("!", k);
                 int a = getResources().getIdentifier(k, "id", "com.projectHandClap.youruniv");

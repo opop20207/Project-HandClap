@@ -65,16 +65,18 @@ public class SetActivity extends AppCompatActivity {
             int k = Integer.parseInt(String.valueOf(temp.charAt(i)));
             chk[k] = true;
         }
-
+        Log.e("!!", "!@");
         tp_setting_stime = (TimePicker) findViewById(R.id.tp_setting_stime);
         tp_setting_etime = (TimePicker) findViewById(R.id.tp_setting_etime);
 
+        Log.e("!!", "!@2");
         int sh, sm, eh, em;
         sh = Integer.parseInt(retSetting.setting_stime)/100;
         sm = Integer.parseInt(retSetting.setting_stime)%100;
         eh = Integer.parseInt(retSetting.setting_etime)/100;
         em = Integer.parseInt(retSetting.setting_etime)%100;
 
+        Log.e("!!", "!@3");
         displayedMinute = new ArrayList<>();
         for(int k=0;k<3;k++){
             for(int i=0;i<60;i+=TIME_PICKER_INTERVAL){
@@ -85,12 +87,12 @@ public class SetActivity extends AppCompatActivity {
         setTimePickerInterval(tp_setting_stime);
         tp_setting_stime.setIs24HourView(true);
         tp_setting_stime.setHour(sh);
-        tp_setting_stime.setMinute(sm);
+        tp_setting_stime.setMinute(sm/15);
 
         setTimePickerInterval(tp_setting_etime);
         tp_setting_etime.setIs24HourView(true);
         tp_setting_etime.setHour(eh);
-        tp_setting_etime.setMinute(em);
+        tp_setting_etime.setMinute(em/15);
 
         txv_setting_main_timetable_id = (TextView)findViewById(R.id.txv_setting_main_timetable_id);
         chkbox_setting_day_1 = (CheckBox) findViewById(R.id.chkbox_setting_day_1);
@@ -150,8 +152,8 @@ public class SetActivity extends AppCompatActivity {
     }
 
     public void submit(){
-        retSetting.setting_stime = String.valueOf(tp_setting_stime.getHour()*100+tp_setting_stime.getMinute());
-        retSetting.setting_etime = String.valueOf(tp_setting_etime.getHour()*100+tp_setting_etime.getMinute());
+        retSetting.setting_stime = String.valueOf(tp_setting_stime.getHour()*100+tp_setting_stime.getMinute()*15);
+        retSetting.setting_etime = String.valueOf(tp_setting_etime.getHour()*100+tp_setting_etime.getMinute()*15);
         String retDay="";
         for(int i=1;i<=7;i++){
             if(chk[i]){

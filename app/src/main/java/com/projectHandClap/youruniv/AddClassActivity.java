@@ -38,8 +38,8 @@ public class AddClassActivity extends AppCompatActivity {
     private int TIME_PICKER_INTERVAL = 15;
     NumberPicker minutePicker;
 
-
     ArrayList<TimeData> addClassArray;
+    ArrayList<ClassData> originalClassDataList;
 
     int timetableId;
     int timeInterval = 100;
@@ -90,6 +90,8 @@ public class AddClassActivity extends AppCompatActivity {
 
         setTimePickerInterval(tp_add_class_etime);
         tp_add_class_etime.setIs24HourView(true);
+
+        originalClassDataList = db.getClassData(timetableId);
     }
 
     public void initView(){
@@ -162,11 +164,20 @@ public class AddClassActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"start time must be faster than end time",Toast.LENGTH_LONG).show();
             return;
         }
-        if(timeData.stime<Integer.parseInt(settingData.setting_stime) ||
-           timeData.etime>Integer.parseInt(settingData.setting_etime)){
-            //setting error
-            Toast.makeText(getApplicationContext(), "out of setting time", Toast.LENGTH_LONG).show();
-            return;
+
+        for(ClassData cd : originalClassDataList){
+            TimeData t = new TimeData();
+            t.day = cd.class_day;
+            t.stime = Integer.parseInt(cd.class_stime);
+            t.etime = Integer.parseInt(cd.class_etime);
+            Log.e("newData", timeData.stime+"~"+timeData.etime);
+            Log.e("oldData", t.stime+"~"+t.etime);
+            if(Integer.parseInt(t.day) == Integer.parseInt(timeData.day)
+                    && !(timeData.etime <= t.stime || t.etime <= timeData.stime)){
+                //time error
+                Toast.makeText(getApplicationContext(), "시간 중복", Toast.LENGTH_LONG).show();
+                return;
+            }
         }
 
         for(TimeData t : addClassArray){
@@ -174,7 +185,6 @@ public class AddClassActivity extends AppCompatActivity {
             Log.e("oldData", t.stime+"~"+t.etime);
             if(Integer.parseInt(t.day) == Integer.parseInt(timeData.day)
                     && !(timeData.etime <= t.stime || t.etime <= timeData.stime)){
-
                 //time error
                 Toast.makeText(getApplicationContext(), "시간 중복", Toast.LENGTH_LONG).show();
                 return;
@@ -248,7 +258,7 @@ public class AddClassActivity extends AppCompatActivity {
             classData.class_alarm = (alarmBool ? "1" : "0");
 
             int colorId = rgroup_add_class_color.getCheckedRadioButtonId();
-            int colorNum = 0;
+            int colorNum = 1;
             switch(colorId){
                 case R.id.rbtn_add_class_color_1:
                     colorNum = 1;

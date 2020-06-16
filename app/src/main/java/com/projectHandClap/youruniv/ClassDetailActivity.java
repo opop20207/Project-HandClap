@@ -121,6 +121,8 @@ public class ClassDetailActivity extends AppCompatActivity {
             case 10:
                 rbtn_c = findViewById(R.id.rbtn_add_class_color_10);
                 break;
+            default:
+                rbtn_c = findViewById(R.id.rbtn_add_class_color_1);
         }
         rbtn_c.setChecked(true);
         etxt_add_class_title.setText(cd.class_title);

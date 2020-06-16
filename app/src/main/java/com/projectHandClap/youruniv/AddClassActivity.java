@@ -21,7 +21,9 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AddClassActivity extends AppCompatActivity {
@@ -36,11 +38,7 @@ public class AddClassActivity extends AppCompatActivity {
     private int TIME_PICKER_INTERVAL = 15;
     NumberPicker minutePicker;
 
-    public class TimeData{
-        int stime;
-        int etime;
-        String day;
-    }
+
     ArrayList<TimeData> addClassArray;
 
     int timetableId;
@@ -218,7 +216,7 @@ public class AddClassActivity extends AppCompatActivity {
     }
 
     public void addToDatabase_Class(){
-        String toStr = null;
+        String toStr = new SimpleDateFormat("yyyyMMddkkmmss").format(new Date());
         if(addClassArray.size()==0){
             //no class error
             Toast.makeText(getApplicationContext(), "추가할 시간표 없음", Toast.LENGTH_LONG).show();
@@ -244,9 +242,6 @@ public class AddClassActivity extends AppCompatActivity {
             classData.class_day = temp.day;
             classData.class_stime = String.valueOf(temp.stime);
             classData.class_etime = String.valueOf(temp.etime);
-            if(toStr == null){
-                toStr = classData.class_timetable_id+classData.class_stime+classData.class_etime+classData.class_day;
-            }
             classData.class_string = toStr;
 
             boolean alarmBool = true;
@@ -296,3 +291,4 @@ public class AddClassActivity extends AppCompatActivity {
         finish();
     }
 }
+

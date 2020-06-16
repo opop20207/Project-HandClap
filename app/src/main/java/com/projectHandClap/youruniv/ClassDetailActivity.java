@@ -28,11 +28,6 @@ public class ClassDetailActivity extends AppCompatActivity {
     RadioGroup rgroup_add_class_color;
     String [] tableDay = {"S","M","T","W","T","F","S","S"};
 
-    public class TimeData{
-        int stime;
-        int etime;
-        String day;
-    }
     ArrayList<TimeData> addClassArray;
 
     int cid;

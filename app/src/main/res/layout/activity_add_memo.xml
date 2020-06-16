@@ -85,6 +85,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:onClick="onClickAddMemo"
+            android:fontFamily="@font/font"
             android:text="취소" />
 
         <View
@@ -97,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/font"
             android:onClick="onClickAddMemo"
             android:background="@android:color/transparent"
             android:text="저장" />

@@ -515,8 +515,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ret;
     }
 
-    public void updateSchedule(ScheduleData scheduleData){
+    public ScheduleData getScheduleById(int schedule_id){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM schedule WHERE schedule_id = "+schedule_id+";", null);
+        ScheduleData ret = new ScheduleData();
+        while(cursor.moveToNext()){
+            ScheduleData temp = new ScheduleData();
+            temp.schedule_id = cursor.getInt(0);
+            temp.schedule_class_string = cursor.getString(1);
+            temp.schedule_title = cursor.getString(2);
+            temp.schedule_memo = cursor.getString(3);
+            temp.schedule_alarm = cursor.getString(4);
+            temp.schedule_isDone = cursor.getString(5);
+            temp.schedule_deadline = cursor.getLong(6);
+            ret = temp;
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
 
+    public void updateSchedule(ScheduleData scheduleData){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE schedule SET " +
+                "schedule_class_string = "+scheduleData.schedule_class_string+", " +
+                "schedule_title = '"+scheduleData.schedule_title+"', " +
+                "schedule_memo = '"+ scheduleData.schedule_memo+"', " +
+                "schedule_alarm = '"+ scheduleData.schedule_alarm+"', " +
+                "schedule_isDone = '"+ scheduleData.schedule_isDone+"', " +
+                "schedule_deadline = '"+scheduleData.schedule_deadline+"' " +
+                "WHERE schedule_id ="+scheduleData.schedule_id+";");
+        db.close();
     }
 
     public void deleteSchedule(ScheduleData scheduleData){

@@ -27,6 +27,7 @@ import com.projectHandClap.youruniv.Drawer.Schedule.AddScheduleActivity;
 import com.projectHandClap.youruniv.Drawer.Schedule.ScheduleActivity;
 import com.projectHandClap.youruniv.R;
 import com.projectHandClap.youruniv.ScheduleData;
+import com.projectHandClap.youruniv.ScheduleDetailActivity;
 
 import java.util.ArrayList;
 
@@ -83,6 +84,7 @@ public class Fragment_Schedule extends Fragment {
         long nowtime = 0;
 
         for(ScheduleData s : scheduleList){
+            final ScheduleData fs = s;
             long t = s.schedule_deadline%10000;
             long d = (s.schedule_deadline/10000);
             String st = String.valueOf(t);
@@ -125,6 +127,24 @@ public class Fragment_Schedule extends Fragment {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     2));
 
+            Button btnDetail = new Button(mContext);
+            btnDetail.setText("상세");
+            btnDetail.setTypeface(typeface);
+            btnDetail.setBackgroundColor(Color.TRANSPARENT);
+            btnDetail.setPadding(0, 15, 10, 0);
+            btnDetail.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    2));
+            btnDetail.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, ScheduleDetailActivity.class);
+                    intent.putExtra("scheduleId", fs.schedule_id);
+                    startActivityForResult(intent, 1);
+                }
+            });
+
             Button btnDelete = new Button(mContext);
             btnDelete.setText("삭제");
             btnDelete.setTypeface(typeface);
@@ -134,7 +154,6 @@ public class Fragment_Schedule extends Fragment {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     2));
-            final ScheduleData fs = s;
             btnDelete.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -145,6 +164,7 @@ public class Fragment_Schedule extends Fragment {
 
             ll.addView(txvTitle);
             ll.addView(txvTime);
+            ll.addView(btnDetail);
             ll.addView(btnDelete);
             layoutSchedule.addView(ll);
         }

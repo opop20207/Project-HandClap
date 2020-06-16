@@ -452,8 +452,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ret;
     }
 
-    public void updateMemo(MemoData memoData){
+    public MemoData getMemoDataById(int memo_id){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM schedule WHERE memo_id = "+memo_id+";", null);
+        MemoData ret = new MemoData();
+        while(cursor.moveToNext()){
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
 
+    public void updateMemo(MemoData memoData){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE memo SET " +
+                "memo_class_string = "+memoData.memo_class_string+", " +
+                "memo_title = '"+memoData.memo_title+"', " +
+                "memo_memo = '"+ memoData.memo_memo+"', " +
+                "memo_time = '"+memoData.memo_time+"' " +
+                "WHERE memo_id ="+memoData.memo_id+";");
+        db.close();
     }
 
     public void deleteMemo(MemoData memoData){

@@ -126,7 +126,7 @@ public class Fragment_Memo extends Fragment {
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, MemoDetailActivity.class);
                     intent.putExtra("memoId", fm.memo_id);
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                 }
             });
 
@@ -181,5 +181,6 @@ public class Fragment_Memo extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
 
 }

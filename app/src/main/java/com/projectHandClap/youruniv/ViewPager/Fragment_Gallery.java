@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -87,12 +88,13 @@ public class Fragment_Gallery extends Fragment {
         });
 
         layoutGallery = (LinearLayout)viewGroup.findViewById(R.id.layout_gallery);
+        layoutGallery.setOrientation(LinearLayout.HORIZONTAL);
         setLayout();
     }
 
     public void setLayout(){
         layoutGallery.removeAllViews();
-        LinearLayout.LayoutParams layoutParams =
+        LinearLayout.LayoutParams layoutParams_txt =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -115,11 +117,12 @@ public class Fragment_Gallery extends Fragment {
                 TextView txvDate = new TextView(mContext);
 
                 txvDate.setText(String.format(sd));
-                txvDate.setLayoutParams(layoutParams);
+                txvDate.setLayoutParams(layoutParams_txt);
                 txvDate.setTextSize(15);
                 txvDate.setTypeface(typeface);
                 txvDate.getTypeface();
-                txvDate.setPadding(30,50,15, 0);
+                txvDate.setPadding(30,50,15, 5);
+                txvDate.setBackgroundColor(Color.rgb(50,50,50));
                 layoutGallery.addView(txvDate);
             }
 
@@ -160,6 +163,10 @@ public class Fragment_Gallery extends Fragment {
                     return false;
                 }
             });
+            imageView.setLayoutParams(layoutParams_txt);
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(350, 350));
+            imageView.setBackgroundColor(Color.rgb(50,50,50));
+            imageView.setPadding(30,0,15, 5);
             layoutGallery.addView(imageView);
         }
     }

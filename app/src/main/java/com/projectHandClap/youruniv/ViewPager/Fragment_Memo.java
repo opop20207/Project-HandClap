@@ -50,7 +50,7 @@ public class Fragment_Memo extends Fragment {
     public void init(){
         Button fab = viewGroup.findViewById(R.id.btn_add_memo);
 
-        fab.setOnClickListener(new FloatingActionButton.OnClickListener() {
+        fab.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent;

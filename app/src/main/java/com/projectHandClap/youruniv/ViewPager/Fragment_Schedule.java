@@ -52,7 +52,7 @@ public class Fragment_Schedule extends Fragment {
     public void init(){
         Button fab = viewGroup.findViewById(R.id.btn_add_schedule);
 
-        fab.setOnClickListener(new FloatingActionButton.OnClickListener() {
+        fab.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent;

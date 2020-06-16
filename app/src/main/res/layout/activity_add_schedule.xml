@@ -9,7 +9,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_above="@id/layout_add_schedule_btn">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,7 +42,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="10sp"
                 android:orientation="vertical">
 
 
@@ -56,12 +57,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginBottom="5sp"
+                    android:layout_marginTop="10sp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txv_add_schedule_date"
+                        android:fontFamily="@font/font"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -73,6 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@android:color/transparent"
                         android:onClick="onClickAddSchedule"
                         android:fontFamily="@font/font"
                         android:text="날짜 설정" />
@@ -95,6 +97,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_marginTop="10sp"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -112,6 +115,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:fontFamily="@font/font"
+                        android:background="@android:color/transparent"
                         android:textOff="알람 설정되지 않음"
                         android:textOn="알람 설정됨" />
                 </LinearLayout>
@@ -120,8 +124,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:layout_marginBottom="5sp">
+                android:layout_marginTop="10sp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -135,6 +138,7 @@
                     android:id="@+id/tbtn_add_schedule_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
                     android:fontFamily="@font/font"
                     android:layout_weight="1" />
             </LinearLayout>
@@ -142,8 +146,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:layout_marginBottom="5sp"
+                android:layout_marginTop="10sp"
                 android:fontFamily="@font/font"
                 android:text="메모" />
 
@@ -151,16 +154,22 @@
                 android:id="@+id/etxt_add_schedule_memo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:layout_marginBottom="5sp"
+                android:layout_marginTop="10sp"
                 android:lines="3" />
         </LinearLayout>
     </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:layout_above="@+id/layout_add_schedule_btn"
+        android:background="@color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:id="@+id/layout_add_schedule_btn"
         android:orientation="horizontal">
 
         <Button
@@ -169,8 +178,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onClickAddSchedule"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/font"
             android:text="취소" />
+
+        <View
+            android:layout_width="1sp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
 
         <Button
             android:id="@+id/btn_add_schedule_submit"
@@ -178,6 +193,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onClickAddSchedule"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/font"
             android:text="저장" />
     </LinearLayout>

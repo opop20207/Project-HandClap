@@ -228,7 +228,8 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="@color/ttcolor1" />
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/rbtn1"/>
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_2"
@@ -236,7 +237,8 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="@color/ttcolor2" />
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/rbtn2"/>
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_3"
@@ -244,7 +246,8 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="@color/ttcolor3" />
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/rbtn3"/>
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_4"
@@ -252,7 +255,8 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="@color/ttcolor4" />
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/rbtn4"/>
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_5"
@@ -260,7 +264,8 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="@color/ttcolor5" />
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/rbtn5"/>
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_6"
@@ -268,7 +273,8 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="@color/ttcolor6" />
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/rbtn6"/>
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_7"
@@ -276,7 +282,8 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="@color/ttcolor7" />
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/rbtn7"/>
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_8"
@@ -284,7 +291,8 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="@color/ttcolor8" />
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/rbtn8"/>
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_9"
@@ -292,7 +300,8 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="@color/ttcolor9" />
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/rbtn9"/>
 
                         <RadioButton
                             android:id="@+id/rbtn_add_class_color_10"
@@ -300,7 +309,8 @@
                             android:layout_height="60dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:background="@color/ttcolor10" />
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/rbtn10"/>
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>

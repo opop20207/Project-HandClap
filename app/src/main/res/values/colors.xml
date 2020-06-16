@@ -19,15 +19,15 @@
     <color name="black">#000000</color>
     <color name="skyblue">#4BB4E9</color>
 
-    <color name="ttcolor1">#E9967A</color>
-    <color name="ttcolor2">#CD5C5C</color>
-    <color name="ttcolor3">#FFA500</color>
-    <color name="ttcolor4">#4682B4</color>
-    <color name="ttcolor5">#87CEEB</color>
-    <color name="ttcolor6">#6B8E23</color>
-    <color name="ttcolor7">#008000</color>
-    <color name="ttcolor8">#FF8C00</color>
-    <color name="ttcolor9">#FF4500</color>
-    <color name="ttcolor10">#C0C0C0</color>
+    <color name="ttcolor1">#e8959d</color>
+    <color name="ttcolor2">#f5c8cf</color>
+    <color name="ttcolor3">#f1d6a1</color>
+    <color name="ttcolor4">#eddec1</color>
+    <color name="ttcolor5">#89ad91</color>
+    <color name="ttcolor6">#e57c48</color>
+    <color name="ttcolor7">#c8823f</color>
+    <color name="ttcolor8">#f5c74b</color>
+    <color name="ttcolor9">#f3e794</color>
+    <color name="ttcolor10">#b4ca36</color>
 
 </resources>

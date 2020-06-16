@@ -178,7 +178,18 @@ public class MainActivity extends AppCompatActivity{
                 if(userSetting.setting_day.contains(String.valueOf(i))){
                     TextView tv = new TextView(getApplicationContext());
                     tv.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3f));
-                    tv.setBackgroundResource(R.drawable.border);
+                    switch (t%100){
+                        case 0:
+                            tv.setBackgroundResource(R.drawable.border1);
+                            break;
+                        case 15:
+                        case 30:
+                            tv.setBackgroundResource(R.drawable.border2);
+                            break;
+                        case 45:
+                            tv.setBackgroundResource(R.drawable.border3);
+                            break;
+                    }
                     tv.setTypeface(getResources().getFont(R.font.font));
                     String k = "row"+Integer.toString(tt)+"day"+Integer.toString(i);
                     int a = getResources().getIdentifier(k,"id","com.projectHandClap.youruniv");

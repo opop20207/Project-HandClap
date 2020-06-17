@@ -408,6 +408,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ret;
     }
 
+    public GalleryData getGalleryById(int gallery_id){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM gallery WHERE gallery_id = "+gallery_id+";", null);
+        GalleryData ret = new GalleryData();
+        while(cursor.moveToNext()){
+            GalleryData temp = new GalleryData();
+            temp.gallery_id = cursor.getInt(0);
+            temp.gallery_class_string = cursor.getString(1);
+            temp.gallery_image_path = cursor.getString(2);
+            temp.gallery_title = cursor.getString(3);
+            temp.gallery_memo = cursor.getString(4);
+            temp.gallery_time = cursor.getLong(5);
+            ret = temp;
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
     public void updateGallery(GalleryData galleryData){
 
     }

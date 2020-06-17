@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.lang.reflect.Field;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,8 +36,6 @@ public class AddClassActivity extends AppCompatActivity {
     String [] tableDay = {"S","M","T","W","T","F","S","S"};
     DatabaseHelper db;
 
-    List<String> displayedMinute;
-    private int TIME_PICKER_INTERVAL = 15;
     NumberPicker minutePicker;
 
     ArrayList<TimeData> addClassArray;
@@ -54,18 +54,21 @@ public class AddClassActivity extends AppCompatActivity {
         init();
     }
 
-    public void setTimePickerInterval(TimePicker timePicker){
-        try{
-            Class<?> classForid = Class.forName("com.android.internal.R$id");
-            Field field = classForid.getField("minute");
-            minutePicker = (NumberPicker) timePicker.findViewById(field.getInt(null));
+    private static final int INTERVAL = 15;
+    private static final DecimalFormat FORMATTER = new DecimalFormat("00");
 
+    public void setTimePickerInterval(TimePicker timePicker){
+        int numValues = 60 / INTERVAL;
+        String[] displayedValues = new String[numValues];
+        for (int i = 0; i < numValues; i++) {
+            displayedValues[i] = FORMATTER.format(i * INTERVAL);
+        }
+        View minute = timePicker.findViewById(Resources.getSystem().getIdentifier("minute", "id", "android"));
+        if ((minute != null) && (minute instanceof NumberPicker)) {
+            minutePicker = (NumberPicker) minute;
             minutePicker.setMinValue(0);
-            minutePicker.setMaxValue(3);
-            minutePicker.setDisplayedValues(displayedMinute.toArray(new String[0]));
-            minutePicker.setWrapSelectorWheel(true);
-        }catch(Exception e){
-            e.printStackTrace();
+            minutePicker.setMaxValue(numValues - 1);
+            minutePicker.setDisplayedValues(displayedValues);
         }
     }
 
@@ -79,12 +82,6 @@ public class AddClassActivity extends AppCompatActivity {
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         settingData = db.getSetting();
 
-        displayedMinute = new ArrayList<>();
-        for(int k=0;k<3;k++){
-            for(int i=0;i<60;i+=TIME_PICKER_INTERVAL){
-                displayedMinute.add(String.format("%02d", i));
-            }
-        }
         setTimePickerInterval(tp_add_class_stime);
         tp_add_class_stime.setIs24HourView(true);
 
@@ -157,6 +154,7 @@ public class AddClassActivity extends AppCompatActivity {
         }
         timeData.day = String.valueOf(dayNum);
 
+        Log.e("tp", tp_add_class_stime.getMinute()+"!"+tp_add_class_etime.getMinute());
         timeData.stime = tp_add_class_stime.getHour()*100+tp_add_class_stime.getMinute()*15;
         timeData.etime = tp_add_class_etime.getHour()*100+tp_add_class_etime.getMinute()*15;
         if(timeData.stime>=timeData.etime){

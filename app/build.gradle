@@ -43,4 +43,7 @@ dependencies {
 
     //Material Design Components
     implementation 'com.google.android.material:material:1.2.0-alpha04'
+
+    //photoview
+    implementation 'com.github.chrisbanes:PhotoView:2.1.3'
 }

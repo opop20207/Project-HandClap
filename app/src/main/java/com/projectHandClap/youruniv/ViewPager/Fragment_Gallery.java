@@ -136,7 +136,7 @@ public class Fragment_Gallery extends Fragment {
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, GalleryDetailActivity.class);
                     intent.putExtra("galleryId", fg.gallery_id);
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                 }
             });
             imageView.setOnLongClickListener(new ImageView.OnLongClickListener() {

@@ -16,7 +16,9 @@
             android:layout_height="50sp"
             android:text="시간표 추가"
             android:textSize="20sp"
-            android:background="@color/colorMain"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font"
+            android:background="@drawable/button2"
             android:gravity="center"/>
     </LinearLayout>
 
@@ -40,6 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="확인"
-        android:background="@color/colorMain"
+        android:fontFamily="@font/font"
+        android:textColor="@color/white"
+        android:background="@drawable/button2"
         android:onClick="onClickAddTimetable"/>
 </LinearLayout>

@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/transparent"
+        android:background="@drawable/button"
         android:text="일정추가"
         android:fontFamily="@font/font"
         android:layout_marginEnd="25sp"

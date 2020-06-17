@@ -73,7 +73,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@android:color/transparent"
+                        android:background="@drawable/button"
                         android:onClick="onClickAddSchedule"
                         android:fontFamily="@font/font"
                         android:text="날짜 설정" />
@@ -104,12 +104,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1sp"
-        android:layout_above="@+id/layout_add_schedule_btn"
-        android:background="@color/black"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -123,14 +117,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onClickAddSchedule"
-            android:background="@android:color/transparent"
+            android:background="@drawable/button"
             android:fontFamily="@font/font"
             android:text="취소" />
-
-        <View
-            android:layout_width="1sp"
-            android:layout_height="match_parent"
-            android:background="@color/black"/>
 
         <Button
             android:id="@+id/btn_add_schedule_submit"
@@ -138,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onClickAddSchedule"
-            android:background="@android:color/transparent"
+            android:background="@drawable/button"
             android:fontFamily="@font/font"
             android:text="저장" />
     </LinearLayout>

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:layout_gravity="start"
     android:layout_width="240sp"
-    android:background="@color/colorBasicDarkula"
+    android:background="@color/grey"
     android:clickable="true"
     android:focusable="true"
     android:id="@+id/drawer">
@@ -49,9 +49,10 @@
     <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15sp"
+        android:paddingStart="15sp"
         android:groupIndicator="@drawable/expandable_indicator"
         android:divider="@null"
+        android:background="@color/grey"
         android:transcriptMode="alwaysScroll"
         android:id="@+id/timetable_list" >
 
@@ -70,10 +71,10 @@
         android:text="시간표 추가"
         android:fontFamily="@font/font"
         android:textColor="@color/colorBasic"
-        android:background="@color/colorBasicDarkula"
+        android:background="@drawable/button2"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
-        android:layout_marginStart="15sp"
+        android:paddingStart="15sp"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_add_timetable"/>
 
@@ -90,10 +91,10 @@
         android:text="시간표 삭제"
         android:fontFamily="@font/font"
         android:textColor="@color/colorBasic"
-        android:background="@color/colorBasicDarkula"
+        android:background="@drawable/button2"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
-        android:layout_marginStart="15sp"
+        android:paddingStart="15sp"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_delete_timetable"/>
 
@@ -110,10 +111,10 @@
         android:text="사진"
         android:fontFamily="@font/font"
         android:textColor="@color/colorBasic"
-        android:background="@color/colorBasicDarkula"
+        android:background="@drawable/button2"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
-        android:layout_marginStart="15sp"
+        android:paddingStart="15sp"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_gallery" />
 
@@ -130,10 +131,10 @@
         android:text="녹음"
         android:fontFamily="@font/font"
         android:textColor="@color/colorBasic"
-        android:background="@color/colorBasicDarkula"
+        android:background="@drawable/button2"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
-        android:layout_marginStart="15sp"
+        android:paddingStart="15sp"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_recorder" />
 
@@ -150,10 +151,10 @@
         android:text="메모"
         android:fontFamily="@font/font"
         android:textColor="@color/colorBasic"
-        android:background="@color/colorBasicDarkula"
+        android:background="@drawable/button2"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
-        android:layout_marginStart="15sp"
+        android:paddingStart="15sp"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_memo" />
 
@@ -170,10 +171,10 @@
         android:text="일정"
         android:fontFamily="@font/font"
         android:textColor="@color/colorBasic"
-        android:background="@color/colorBasicDarkula"
+        android:background="@drawable/button2"
         android:gravity="center_vertical|left"
         tools:ignore="HardcodedText,RtlHardcoded"
-        android:layout_marginStart="15sp"
+        android:paddingStart="15sp"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/open_schedule"/>
 

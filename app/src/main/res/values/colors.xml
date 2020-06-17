@@ -7,14 +7,15 @@
     <color name="colorBasic">#F2F2F2</color>
     <color name="colorBasicDarkula">#7F7F7F</color>
 
-    <color name="grey">#848282</color>
-    <color name="darkGrey">#706E6E</color>
+    <color name="lightgrey">#D3D3D3</color>
+    <color name="grey">#808080</color>
+    <color name="darkGrey">#696969</color>
 
     <color name="colorDarkBlue">#3D4054</color>
 
-    <color name="colorMain">#505050</color>
+    <color name="colorMain">#7F7F7F</color>
+    <color name="colorOriginal">#706E6E</color>
 
-    <color name="lightgrey">#a6FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="orange">#FFA500</color>
     <color name="lightorange">#A6FFA500</color>

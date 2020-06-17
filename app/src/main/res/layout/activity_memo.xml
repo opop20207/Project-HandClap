@@ -25,7 +25,7 @@
         android:id="@+id/btn_add_memo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@drawable/button"
         android:text="메모추가"
         android:fontFamily="@font/font"
         android:layout_alignParentEnd="true"

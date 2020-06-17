@@ -11,12 +11,14 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -60,7 +62,7 @@ import java.util.Objects;
 public class Fragment_Gallery extends Fragment {
     ViewPagerActivity viewPagerActivity;
     ViewGroup viewGroup;
-    LinearLayout layoutGallery;
+    ConstraintLayout layoutGallery;
     DatabaseHelper db;
     Context mContext;
 
@@ -87,34 +89,41 @@ public class Fragment_Gallery extends Fragment {
             }
         });
 
-        layoutGallery = (LinearLayout)viewGroup.findViewById(R.id.layout_gallery);
-        layoutGallery.setOrientation(LinearLayout.HORIZONTAL);
+        layoutGallery = (ConstraintLayout)viewGroup.findViewById(R.id.layout_gallery);
+ //       layoutGallery.setOrientation(LinearLayout.HORIZONTAL);
         setLayout();
     }
 
     public void setLayout(){
         layoutGallery.removeAllViews();
-        LinearLayout.LayoutParams layoutParams_txt =
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
+        ConstraintLayout.LayoutParams layoutParams_txt =
+                new ConstraintLayout.LayoutParams(
+                        ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
+
+        ConstraintLayout.LayoutParams layoutParams_img =
+                new ConstraintLayout.LayoutParams(
+                        ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT
+                );
 
         ArrayList<GalleryData> galleryDataList = db.getGallery();
 
         Typeface typeface = getResources().getFont(R.font.font);
 
         long nowtime = 0;
+        ArrayList<GalleryData> todaygallery;
+        String today=null;
 
         for(GalleryData g : galleryDataList){
             long t = g.gallery_time%1000000;
             long d = (g.gallery_time/1000000);
             String st = String.valueOf(t);
             String sd = String.valueOf(d);
+            TextView txvDate = null;
 
             if(nowtime != d){
                 nowtime = d;
 
-                TextView txvDate = new TextView(mContext);
+                txvDate = new TextView(mContext);
 
                 txvDate.setText(String.format(sd));
                 txvDate.setLayoutParams(layoutParams_txt);
@@ -130,6 +139,7 @@ public class Fragment_Gallery extends Fragment {
             BitmapFactory.Options options = new BitmapFactory.Options();
             Bitmap origianalBm = BitmapFactory.decodeFile(g.gallery_image_path, options);
             imageView.setImageBitmap(origianalBm);
+
             final GalleryData fg = g;
             imageView.setOnClickListener(new ImageView.OnClickListener() {
                 @Override
@@ -162,11 +172,14 @@ public class Fragment_Gallery extends Fragment {
                     builder.create().show();
                     return false;
                 }
-            });
-            imageView.setLayoutParams(layoutParams_txt);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(350, 350));
-            imageView.setBackgroundColor(Color.rgb(50,50,50));
-            imageView.setPadding(30,0,15, 5);
+            });     // 매트릭스를 이미지뷰에 적용한다.
+            View.generateViewId();
+
+ //           layoutParams_img.topToBottom = txvDate.getId();
+
+            imageView.setLayoutParams(layoutParams_img);
+
+  //          imageView.setPadding(30,0,15, 5);
             layoutGallery.addView(imageView);
         }
     }

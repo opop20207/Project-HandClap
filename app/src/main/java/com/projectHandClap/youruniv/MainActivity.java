@@ -3,8 +3,10 @@ package com.projectHandClap.youruniv;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -131,21 +133,25 @@ public class MainActivity extends AppCompatActivity{
         tableLayout.removeAllViews();
 
         TableRow tableRow = new TableRow(getApplicationContext());
-        tableRow.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        tableRow.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
 
         TextView temp = new TextView(getApplicationContext());
-        temp.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
+        temp.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
         temp.setText("");
         tableRow.addView(temp);
 
+        int countColum = 1;
 
         for(int i=1;i<=7;i++){
             if(userSetting.setting_day.contains(String.valueOf(i))){
                 TextView tv = new TextView(getApplicationContext());
-                tv.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3f));
+                tv.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 3f));
                 tv.setText(tableDay2[i]);
                 tv.setGravity(Gravity.CENTER);
                 tv.setTypeface(getResources().getFont(R.font.font));
+
+                tableLayout.setColumnStretchable(countColum, true);
+                tableLayout.setColumnShrinkable(countColum, true);
                 tableRow.addView(tv);
             }
         }
@@ -153,16 +159,18 @@ public class MainActivity extends AppCompatActivity{
 
         int stime = Integer.parseInt(userSetting.setting_stime);
         int etime = Integer.parseInt(userSetting.setting_etime);
+
         for(int t=stime; t<=etime;t+=15){
             Log.e("stime~etime", stime+"~"+etime);
             if(t%100==60) t+=40;
             TableRow tr = new TableRow(getApplicationContext());
-            tr.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
+            tr.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
+
             for(int i=1;i<=7;i++){
                 int tt = t;
                 if(i==1){
                     TextView tvFirst = new TextView(getApplicationContext());
-                    tvFirst.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
+                    tvFirst.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
                     int time = t / 100;
                     Log.e("time", time+"!");
                     if(time >= 13)  time = time - 12;
@@ -178,7 +186,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 if(userSetting.setting_day.contains(String.valueOf(i))){
                     TextView tv = new TextView(getApplicationContext());
-                    tv.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3f));
+                    tv.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 3f));
                     switch (t%100){
                         case 0:
                             tv.setBackgroundResource(R.drawable.border1);
@@ -192,6 +200,7 @@ public class MainActivity extends AppCompatActivity{
                             break;
                     }
                     tv.setTypeface(getResources().getFont(R.font.font));
+
                     String k = "row"+Integer.toString(tt)+"day"+Integer.toString(i);
                     int a = getResources().getIdentifier(k,"id","com.projectHandClap.youruniv");
                     tv.setId(a);
@@ -200,6 +209,7 @@ public class MainActivity extends AppCompatActivity{
             }
             tableLayout.addView(tr);
         }
+
     }
 
     public int getPixelFromDips(float pixels){
@@ -245,8 +255,26 @@ public class MainActivity extends AppCompatActivity{
                 final ClassData fcd = cd;
 
                 TextView tv = (TextView) findViewById(a);
+
                 if(tv==null) continue;
                 //tv.setText(title);
+
+                tv.setTextColor(Color.WHITE);
+                tv.setMaxLines(1);
+                tv.setEllipsize(TextUtils.TruncateAt.END);
+
+                if(i == stime) {
+                    tv.setText(cd.class_title);
+                    tv.setGravity(Gravity.CENTER_HORIZONTAL);
+                }
+
+                else if(i == stime + 15 || (stime % 100 == 45 && i % 100 == 0)){
+                    tv.setPadding(0,2,0,0);
+                    tv.setText(cd.class_place);
+                    tv.setGravity(Gravity.CENTER_HORIZONTAL);
+                }
+
+
                 tv.setBackgroundColor(getResources().getColor(tableColor[Integer.parseInt(cd.class_color)]));
                 tv.setTypeface(getResources().getFont(R.font.font));
                 tv.setOnClickListener(new TextView.OnClickListener() {
@@ -267,7 +295,6 @@ public class MainActivity extends AppCompatActivity{
                             tempDetail += classData.class_etime;
                             tempDetail += "\n";
                         }
-
 
                         dialog = new BottomSheetDialog(MainActivity.this);
                         dialog.setContentView(R.layout.bottomsheetdialog);
@@ -303,6 +330,7 @@ public class MainActivity extends AppCompatActivity{
                                 dialog.cancel();
                             }
                         });
+
                         bottomSheetDialog_btnGallery.setOnClickListener(new Button.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -312,6 +340,7 @@ public class MainActivity extends AppCompatActivity{
                                 startActivity(intent);
                             }
                         });
+
                         bottomSheetDialog_btnRecord.setOnClickListener(new Button.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -321,6 +350,7 @@ public class MainActivity extends AppCompatActivity{
                                 startActivity(intent);
                             }
                         });
+
                         bottomSheetDialog_btnMemo.setOnClickListener(new Button.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -330,6 +360,7 @@ public class MainActivity extends AppCompatActivity{
                                 startActivity(intent);
                             }
                         });
+
                         bottomSheetDialog_btnSchedule.setOnClickListener(new Button.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -339,6 +370,7 @@ public class MainActivity extends AppCompatActivity{
                                 startActivity(intent);
                             }
                         });
+
                         dialog.show();
                     }
                 });

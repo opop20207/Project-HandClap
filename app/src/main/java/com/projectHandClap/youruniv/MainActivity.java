@@ -138,11 +138,12 @@ public class MainActivity extends AppCompatActivity{
         temp.setText("");
         tableRow.addView(temp);
 
+
         for(int i=1;i<=7;i++){
             if(userSetting.setting_day.contains(String.valueOf(i))){
                 TextView tv = new TextView(getApplicationContext());
                 tv.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3f));
-                tv.setText(tableDay[i]);
+                tv.setText(tableDay2[i]);
                 tv.setGravity(Gravity.CENTER);
                 tv.setTypeface(getResources().getFont(R.font.font));
                 tableRow.addView(tv);

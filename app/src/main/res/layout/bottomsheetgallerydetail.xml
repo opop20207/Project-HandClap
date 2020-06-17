@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    android:background="@color/colorMain"
+    android:id="@+id/layout_bottom_sheet_gallery_detail">
+    <TextView
+        android:text="메모"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/white"/>
+    <EditText
+        android:id="@+id/etxt_gallery_detail"
+        android:lines="5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/white"/>
+    <Button
+        android:gravity="center"
+        android:id="@+id/btn_gallery_detail_submit"
+        android:text="저장"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black"
     tools:context=".GalleryDetailActivity">
 
     <LinearLayout
@@ -13,19 +14,6 @@
         android:orientation="vertical">
         <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/photo_view_gallery_detail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:text="메모"
-            android:layout_weight="9"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <EditText
-            android:id="@+id/etxt_gallery_detail"
-            android:layout_weight="9"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

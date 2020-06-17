@@ -18,6 +18,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -32,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -62,7 +64,7 @@ import java.util.Objects;
 public class Fragment_Gallery extends Fragment {
     ViewPagerActivity viewPagerActivity;
     ViewGroup viewGroup;
-    ConstraintLayout layoutGallery;
+    LinearLayout layoutGallery;
     DatabaseHelper db;
     Context mContext;
 
@@ -89,30 +91,27 @@ public class Fragment_Gallery extends Fragment {
             }
         });
 
-        layoutGallery = (ConstraintLayout)viewGroup.findViewById(R.id.layout_gallery);
- //       layoutGallery.setOrientation(LinearLayout.HORIZONTAL);
+        layoutGallery = viewGroup.findViewById(R.id.layout_gallery);
         setLayout();
     }
 
     public void setLayout(){
         layoutGallery.removeAllViews();
-        ConstraintLayout.LayoutParams layoutParams_txt =
-                new ConstraintLayout.LayoutParams(
-                        ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
-
-        ConstraintLayout.LayoutParams layoutParams_img =
-                new ConstraintLayout.LayoutParams(
-                        ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT
-                );
+        LinearLayout.LayoutParams layoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams2 =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT, 1);
 
         ArrayList<GalleryData> galleryDataList = db.getGallery();
 
         Typeface typeface = getResources().getFont(R.font.font);
-
+        Boolean flag = false;
         long nowtime = 0;
-        ArrayList<GalleryData> todaygallery;
-        String today=null;
-
+        GridLayout gl = null;
         for(GalleryData g : galleryDataList){
             long t = g.gallery_time%1000000;
             long d = (g.gallery_time/1000000);
@@ -121,24 +120,29 @@ public class Fragment_Gallery extends Fragment {
             TextView txvDate = null;
 
             if(nowtime != d){
+                flag=true;
+                if(gl!=null){
+                    layoutGallery.addView(gl);
+                    gl = null;
+                }
                 nowtime = d;
-
+                gl = new GridLayout(mContext);
+                gl.setColumnCount(3);
+                gl.setOrientation(GridLayout.HORIZONTAL);
+                gl.setUseDefaultMargins(true);
                 txvDate = new TextView(mContext);
 
                 txvDate.setText(String.format(sd));
-                txvDate.setLayoutParams(layoutParams_txt);
+                txvDate.setLayoutParams(layoutParams);
                 txvDate.setTextSize(15);
                 txvDate.setTypeface(typeface);
                 txvDate.getTypeface();
-                txvDate.setPadding(30,50,15, 5);
-                txvDate.setBackgroundColor(Color.rgb(50,50,50));
+                txvDate.setPadding(30,50,15, 0);
                 layoutGallery.addView(txvDate);
             }
 
             ImageView imageView = new ImageView(mContext);
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            Bitmap origianalBm = BitmapFactory.decodeFile(g.gallery_image_path, options);
-            imageView.setImageBitmap(origianalBm);
+            imageView.setImageBitmap(decodeSampledBitmapFromFile(g.gallery_image_path, 200, 200));
 
             final GalleryData fg = g;
             imageView.setOnClickListener(new ImageView.OnClickListener() {
@@ -172,16 +176,45 @@ public class Fragment_Gallery extends Fragment {
                     builder.create().show();
                     return false;
                 }
-            });     // 매트릭스를 이미지뷰에 적용한다.
-            View.generateViewId();
+            });
+            //imageView.setLayoutParams(layoutParams2);
 
- //           layoutParams_img.topToBottom = txvDate.getId();
-
-            imageView.setLayoutParams(layoutParams_img);
-
-  //          imageView.setPadding(30,0,15, 5);
-            layoutGallery.addView(imageView);
+            GridLayout.Spec rowSpan = GridLayout.spec(GridLayout.UNDEFINED, 1, 1f);
+            GridLayout.Spec colSpan = GridLayout.spec(GridLayout.UNDEFINED, 1, 1f);
+            GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(rowSpan, colSpan);
+            Log.e("!!", g.gallery_image_path+"!");
+            gl.addView(imageView, gridParam);
         }
+        if(gl!=null){
+            layoutGallery.addView(gl);
+        }
+    }
+
+    public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight){
+        int height = options.outHeight;
+        int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if(height > reqHeight || width > reqWidth){
+            int halfHeight = height/2;
+            int halfWidth = width/2;
+            while((halfHeight/inSampleSize) > reqHeight
+                    && (halfWidth/inSampleSize) > reqWidth){
+                inSampleSize *=2;
+            }
+        }
+        return inSampleSize;
+    }
+
+    public Bitmap decodeSampledBitmapFromFile(String filePath, int reqWidth, int reqHeight){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(filePath, options);
     }
 
     @Override

@@ -428,7 +428,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void updateGallery(GalleryData galleryData){
-
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE gallery SET " +
+                "gallery_class_string = "+galleryData.gallery_class_string+", " +
+                "gallery_image_path = '"+galleryData.gallery_image_path+"', " +
+                "gallery_title = '"+ galleryData.gallery_title+"', " +
+                "gallery_memo = '"+ galleryData.gallery_memo+"', " +
+                "gallery_time = '"+galleryData.gallery_time+"' " +
+                "WHERE gallery_id ="+galleryData.gallery_id+";");
+        db.close();
     }
 
     public void deleteGallery(GalleryData galleryData){

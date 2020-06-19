@@ -72,7 +72,7 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
         bottomSheetBehavior = BottomSheetBehavior.from(playerSheet);
         audioList = view.findViewById(R.id.audio_list_view);
 
-        playBtn = view.findViewById(R.id.palyer_play_button);
+        playBtn = view.findViewById(R.id.ibtn_player_play_button);
         playerHeader = view.findViewById(R.id.player_header_title);
         playerFilename = view.findViewById(R.id.player_filename);
 

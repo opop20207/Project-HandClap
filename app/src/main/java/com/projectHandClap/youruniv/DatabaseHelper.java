@@ -105,8 +105,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + MEMO_COLUMN_MEMO_MEMO + " TEXT, "
             + MEMO_COLUMN_MEMO_TIME + " INTEGER)";
 
-    //scheme 6 : recorder
-    private static final String RECORDER_TABLE_NAME = "recorder";
+    //scheme 6 : record
+    private static final String RECORD_TABLE_NAME = "record";
+    private static final String RECORD_COLUMN_RECORD_ID = "record_id";
+    private static final String RECORD_COLUMN_RECORD_CLASS_STRING = "record_class_string";
+    private static final String RECORD_COLUMN_RECORD_FILE_PATH = "record_file_path";
+    private static final String RECORD_COLUMN_RECORD_TITLE = "record_title";
+    private static final String RECORD_COLUMN_RECORD_TIME = "record_time";
+
+    private static final String RECORD_CREATE_TABLE = "CREATE TABLE "
+            + RECORD_TABLE_NAME + "("
+            + RECORD_COLUMN_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + RECORD_COLUMN_RECORD_CLASS_STRING + " TEXT, "
+            + RECORD_COLUMN_RECORD_FILE_PATH + " TEXT, "
+            + RECORD_COLUMN_RECORD_TITLE + " TEXT, "
+            + RECORD_COLUMN_RECORD_TIME + " INTEGER)";
 
     //scheme 7 : schedule
     private static final String SCHEDULE_TABLE_NAME = "schedule";
@@ -139,7 +152,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CLASS_CREATE_TABLE);
         db.execSQL(GALLERY_CREATE_TABLE);
         db.execSQL(MEMO_CREATE_TABLE);
-
+        db.execSQL(RECORD_CREATE_TABLE);
         db.execSQL(SCHEDULE_CREATE_TABLE);
     }
 
@@ -150,7 +163,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ CLASS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ GALLERY_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ MEMO_TABLE_NAME);
-
+        db.execSQL("DROP TABLE IF EXISTS "+ RECORD_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ SCHEDULE_TABLE_NAME);
         onCreate(db);
     }
@@ -162,7 +175,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ CLASS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ GALLERY_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ MEMO_TABLE_NAME);
-
+        db.execSQL("DROP TABLE IF EXISTS "+ RECORD_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ SCHEDULE_TABLE_NAME);
 
         db.execSQL(SETTING_CREATE_TABLE);
@@ -170,7 +183,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CLASS_CREATE_TABLE);
         db.execSQL(GALLERY_CREATE_TABLE);
         db.execSQL(MEMO_CREATE_TABLE);
-
+        db.execSQL(RECORD_CREATE_TABLE);
         db.execSQL(SCHEDULE_CREATE_TABLE);
     }
 
@@ -511,6 +524,75 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM memo WHERE memo_id = "+memoData.memo_id);
         db.close();
     }
+
+    //CRUD Operation for scheme 6
+    public void insertRecord(RecordData recordData){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO record(record_class_string, record_file_path, "
+                + "record_title, record_time) VALUES("
+                +recordData.record_class_string+", '"+recordData.record_file_path +"', '"
+                +recordData.record_title+"', '"+recordData.record_time+"');");
+        db.close();
+    }
+
+    public ArrayList<RecordData> getRecord(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM record ORDER BY record_time;", null);
+        ArrayList<RecordData> ret = new ArrayList<RecordData>();
+        while(cursor.moveToNext()){
+            RecordData temp = new RecordData();
+            temp.record_id = cursor.getInt(0);
+            temp.record_class_string = cursor.getString(1);
+            temp.record_file_path = cursor.getString(2);
+            temp.record_title = cursor.getString(3);
+            temp.record_time = cursor.getLong(4);
+            ret.add(temp);
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
+    public RecordData getRecordById(int record_id){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM record WHERE record_id = "+record_id+";", null);
+        RecordData ret = new RecordData();
+        while(cursor.moveToNext()){
+            RecordData temp = new RecordData();
+            temp.record_id = cursor.getInt(0);
+            temp.record_class_string = cursor.getString(1);
+            temp.record_file_path = cursor.getString(2);
+            temp.record_title = cursor.getString(3);
+            temp.record_time = cursor.getLong(4);
+            ret = temp;
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
+    public void updateRecord(RecordData recordData){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE record SET " +
+                "record_class_string = "+recordData.record_class_string+", " +
+                "record_file_path = "+recordData.record_file_path+", " +
+                "record_title = "+recordData.record_title+", " +
+                "record_time = '"+recordData.record_time+"' " +
+                "WHERE record_id ="+recordData.record_id+";");
+        db.close();
+    }
+
+    public void deleteRecord(int record_id){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM record WHERE record_id = "+record_id);
+        db.close();
+    }
+
+//    public void deleteRecordByClassString(String class_string){
+//        SQLiteDatabase db = getWritableDatabase();
+//        db.execSQL("DELETE FROM schedule WHERE schedule_class_string = '"+class_string+"'");
+//        db.close();
+//    }
 
     //CRUD Operation for scheme 7
     public void insertSchedule(ScheduleData scheduleData){

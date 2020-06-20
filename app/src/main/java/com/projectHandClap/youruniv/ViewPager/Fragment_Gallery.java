@@ -115,8 +115,12 @@ public class Fragment_Gallery extends Fragment {
         for(GalleryData g : galleryDataList){
             long t = g.gallery_time%1000000;
             long d = (g.gallery_time/1000000);
-            String st = String.valueOf(t);
-            String sd = String.valueOf(d);
+
+            long year=d/10000;
+            long month=(d%10000)/100;
+            long day=(d%10000)%100;
+
+            String sd=String.valueOf(year)+"년 "+String.valueOf(month)+"월 "+String.valueOf(day)+"일";
             TextView txvDate = null;
 
             if(nowtime != d){
@@ -134,10 +138,10 @@ public class Fragment_Gallery extends Fragment {
 
                 txvDate.setText(String.format(sd));
                 txvDate.setLayoutParams(layoutParams);
-                txvDate.setTextSize(15);
+                txvDate.setTextSize(25);
                 txvDate.setTypeface(typeface);
                 txvDate.getTypeface();
-                txvDate.setPadding(30,50,15, 0);
+                txvDate.setPadding(60,50,15, 20);
                 layoutGallery.addView(txvDate);
             }
 
@@ -177,8 +181,6 @@ public class Fragment_Gallery extends Fragment {
                     return false;
                 }
             });
-            //imageView.setLayoutParams(layoutParams2);
-
             GridLayout.Spec rowSpan = GridLayout.spec(GridLayout.UNDEFINED, 1, 1f);
             GridLayout.Spec colSpan = GridLayout.spec(GridLayout.UNDEFINED, 1, 1f);
             GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(rowSpan, colSpan);

@@ -67,10 +67,10 @@ public class ViewPagerActivity extends AppCompatActivity {
 
     public void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new Fragment_Gallery(), "Gallery");
-        adapter.addFrag(new Fragment_Recorder(), "Recorder");
-        adapter.addFrag(new Fragment_Memo(), "Memo");
-        adapter.addFrag(new Fragment_Schedule(), "Schedule");
+        adapter.addFrag(new Fragment_Gallery(), "사진");
+        adapter.addFrag(new Fragment_Recorder(), "녹음");
+        adapter.addFrag(new Fragment_Memo(), "메모");
+        adapter.addFrag(new Fragment_Schedule(), "일정");
         viewPager.setAdapter(adapter);
     }
 

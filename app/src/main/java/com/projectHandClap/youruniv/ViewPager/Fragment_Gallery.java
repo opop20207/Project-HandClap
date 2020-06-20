@@ -121,6 +121,7 @@ public class Fragment_Gallery extends Fragment {
             long day=(d%10000)%100;
 
             String sd=String.valueOf(year)+"년 "+String.valueOf(month)+"월 "+String.valueOf(day)+"일";
+
             TextView txvDate = null;
 
             if(nowtime != d){
@@ -138,10 +139,9 @@ public class Fragment_Gallery extends Fragment {
 
                 txvDate.setText(String.format(sd));
                 txvDate.setLayoutParams(layoutParams);
-                txvDate.setTextSize(25);
+                txvDate.setTextSize(15);
                 txvDate.setTypeface(typeface);
-                txvDate.getTypeface();
-                txvDate.setPadding(60,50,15, 20);
+                txvDate.setPadding(30,50,15, 0);
                 layoutGallery.addView(txvDate);
             }
 

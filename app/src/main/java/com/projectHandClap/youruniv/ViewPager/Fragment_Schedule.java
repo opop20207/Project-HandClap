@@ -87,8 +87,13 @@ public class Fragment_Schedule extends Fragment {
             final ScheduleData fs = s;
             long t = s.schedule_deadline%10000;
             long d = (s.schedule_deadline/10000);
-            String st = String.valueOf(t);
-            String sd = String.valueOf(d);
+
+            long year=d/10000;
+            long month=(d%10000)/100;
+            long day=(d%10000)%100;
+
+            String sd=String.valueOf(year)+"년 "+String.valueOf(month)+"월 "+String.valueOf(day)+"일";
+
             Log.e("!!", "!+"+nowtime+"!"+s.schedule_deadline);
             if(nowtime != d){
                 nowtime = d;

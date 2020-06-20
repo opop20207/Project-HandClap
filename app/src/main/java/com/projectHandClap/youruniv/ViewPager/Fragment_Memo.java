@@ -82,8 +82,13 @@ public class Fragment_Memo extends Fragment {
         for(MemoData m : memoData){
             long t = m.memo_time%10000;
             long d = (m.memo_time/10000);
-            String st = String.valueOf(t);
-            String sd = String.valueOf(d);
+
+            long year=d/10000;
+            long month=(d%10000)/100;
+            long day=(d%10000)%100;
+
+            String sd=String.valueOf(year)+"년 "+String.valueOf(month)+"월 "+String.valueOf(day)+"일";
+
             final MemoData fm = m;
 
             if(nowtime != d){

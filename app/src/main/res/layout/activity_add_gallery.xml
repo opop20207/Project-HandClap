@@ -60,7 +60,7 @@
         android:text="사진 추가하기"
         android:layout_marginBottom="30sp"
         android:fontFamily="@font/font"
-        android:background="@android:color/transparent"
+        android:background="@drawable/button"
         android:drawableBottom="@drawable/icon_camera_add"
         android:layout_above="@id/layout_add_gallery_btn"
         android:layout_centerHorizontal="true"

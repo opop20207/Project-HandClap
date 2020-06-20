@@ -2,6 +2,7 @@ package com.projectHandClap.youruniv.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -159,8 +160,13 @@ public class Fragment_Recorder extends Fragment {
         for(RecordData r : recordData){
             long t = r.record_time%1000000;
             long d = (r.record_time/1000000);
-            String st = String.valueOf(t);
-            String sd = String.valueOf(d);
+
+            long year = d/10000;
+            long month = (d%10000)/100;
+            long day = (d%10000)%100;
+
+            String sd = String.valueOf(year)+"년 "+String.valueOf(month)+"월 "+String.valueOf(day)+"일";
+
             final RecordData fr = r;
             TextView txvDate = null;
 
@@ -178,10 +184,20 @@ public class Fragment_Recorder extends Fragment {
             LinearLayout ll = new LinearLayout(mContext);
             ll.setLayoutParams(layoutParams);
 
+            TextView txvTitle = new TextView(mContext);
+            txvTitle.setLayoutParams(new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    2f));
+            txvTitle.setText(r.record_title);
+            txvTitle.setTypeface(typeface);
+            txvTitle.setPadding(100,15,15,0);
+
             Button btnSelect = new Button(mContext);
             btnSelect.setTypeface(typeface);
-            btnSelect.setText("파일 선택");
-            btnSelect.setBackgroundResource(R.drawable.button);
+            btnSelect.setText("재생");
+            btnSelect.setBackgroundColor(Color.TRANSPARENT);
+            btnSelect.setPadding(0, 15, 10, 0);
             btnSelect.setLayoutParams(new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -195,22 +211,14 @@ public class Fragment_Recorder extends Fragment {
                 }
             });
 
-            TextView txvTitle = new TextView(mContext);
-            txvTitle.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    2f));
-            txvTitle.setText(r.record_title);
-            txvTitle.setTypeface(typeface);
-            txvTitle.setGravity(Gravity.CENTER);
-
             Button btnDelete = new Button(mContext);
-            btnDelete.setBackgroundResource(R.drawable.button);
             btnDelete.setLayoutParams(new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     3f));
             btnDelete.setText("삭제");
+            btnDelete.setBackgroundColor(Color.TRANSPARENT);
+            btnDelete.setPadding(0,15,10,0);
             btnDelete.setTypeface(typeface);
             btnDelete.setOnClickListener(new Button.OnClickListener() {
                 @Override
@@ -223,8 +231,8 @@ public class Fragment_Recorder extends Fragment {
                 }
             });
 
-            ll.addView(btnSelect);
             ll.addView(txvTitle);
+            ll.addView(btnSelect);
             ll.addView(btnDelete);
             layoutRecord.addView(ll);
         }

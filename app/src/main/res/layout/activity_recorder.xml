@@ -13,14 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <Button
-                android:id="@+id/btn_add_record"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/button"
-                android:fontFamily="@font/font"
-                android:text="녹음추가" />
             <LinearLayout
                 android:id="@+id/layout_record"
                 android:layout_width="match_parent"
@@ -30,6 +22,18 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_add_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="100sp"
+        android:layout_marginEnd="25sp"
+        android:background="@drawable/button"
+        android:fontFamily="@font/font"
+        android:text="녹음추가"
+        tools:ignore="RtlHardcoded" />
 
     <include layout="@layout/player_sheet"/>
 

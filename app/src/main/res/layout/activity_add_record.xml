@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AddRecordActivity">
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_record">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="15sp"
+            android:layout_margin="30sp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,6 +35,7 @@
                     android:fontFamily="@font/font"
                     android:layout_weight="1" />
             </LinearLayout>
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -45,33 +48,35 @@
                     android:textSize="20sp"
                     android:text="-"
                     android:fontFamily="@font/font"/>
+
                 <Chronometer
                     android:id="@+id/record_timer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="64sp"
-                    android:textColor="@color/colorDarkBlue"
-                    />
-                <Button
-                    android:id="@+id/btn_record"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:onClick="onClickAddRecord"
-                    android:background="@drawable/button"
-                    android:fontFamily="@font/font"
-                    android:text="녹음 시작"/>
+                    android:textColor="@color/colorDarkBlue" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:onClick="onClickAddRecord"
+        android:layout_above="@id/layout_add_record_btn"
+        android:background="@drawable/button"
+        android:fontFamily="@font/font"
+        android:text="녹음 시작"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:id="@+id/layout_add_schedule_btn"
+        android:id="@+id/layout_add_record_btn"
         android:orientation="horizontal">
 
         <Button
@@ -95,4 +100,4 @@
             android:text="저장" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

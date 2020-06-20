@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +7,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layout_record_player">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,21 +21,15 @@
                 android:orientation="vertical">
             </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_add_record"
-        android:layout_width="wrap_content"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="100sp"
-        android:layout_marginEnd="25sp"
-        android:background="@drawable/button"
-        android:fontFamily="@font/font"
-        android:text="녹음추가"
-        tools:ignore="RtlHardcoded" />
+        android:id="@+id/layout_record_player"
+        android:layout_alignParentBottom="true">
 
-    <include layout="@layout/player_sheet"/>
+        <include layout="@layout/player_sheet"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package com.projectHandClap.youruniv;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -237,6 +238,7 @@ public class MainActivity extends AppCompatActivity{
         timetable_list.setAdapter(adapter);
     }
 
+    @SuppressLint("RtlHardcoded")
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addClassToLayout(){
         ArrayList<ClassData> classDataList = db.getClassData((int)timetableId);
@@ -246,8 +248,13 @@ public class MainActivity extends AppCompatActivity{
             int stime = Integer.parseInt(cd.class_stime);
             int etime = Integer.parseInt(cd.class_etime);
             int day = Integer.parseInt(cd.class_day);
+            int count = 0;
+
             for(int i=stime;i<etime;i+=15){
-                if(i%100==60) i+=40;
+                if(i%100==60) {
+                    i+=40;
+                    if(i==etime)    continue;
+                }
                 String k = "row"+Integer.toString(i)+"day"+Integer.toString(day);
                 Log.e("!", k);
                 int a = getResources().getIdentifier(k, "id", "com.projectHandClap.youruniv");
@@ -259,21 +266,38 @@ public class MainActivity extends AppCompatActivity{
                 if(tv==null) continue;
                 //tv.setText(title);
 
+                String tempTitle = cd.class_title;
+                String tempPlace = cd.class_place;
+
                 tv.setTextColor(Color.WHITE);
                 tv.setMaxLines(1);
                 tv.setEllipsize(TextUtils.TruncateAt.END);
 
-                if(i == stime) {
-                    tv.setText(cd.class_title);
-                    tv.setGravity(Gravity.CENTER_HORIZONTAL);
+                if(count == 0) {
+                    if(tempTitle.length() > 5) tv.setText(tempTitle.substring(0, 5));
+                    else tv.setText(tempTitle);
+                    tv.setGravity(Gravity.LEFT);
+                    count += 1;
                 }
 
-                else if(i == stime + 15 || (stime % 100 == 45 && i % 100 == 0)){
-                    tv.setPadding(0,2,0,0);
-                    tv.setText(cd.class_place);
-                    tv.setGravity(Gravity.CENTER_HORIZONTAL);
+                else if(count == 1){
+                    if(tempTitle.length() > 5) tv.setText(tempTitle.substring(5));
+                    tv.setGravity(Gravity.LEFT);
+                    count += 1;
                 }
 
+                else if(count == 2){
+                    if(tempPlace.length() > 5) tv.setText(tempPlace.substring(0, 5));
+                    else tv.setText(tempPlace);
+                    tv.setGravity(Gravity.LEFT);
+                    count += 1;
+                }
+
+                else if(count == 3){
+                    if(tempTitle.length() > 5) tv.setText(tempPlace.substring(5));
+                    tv.setGravity(Gravity.LEFT);
+                    count += 1;
+                }
 
                 tv.setBackgroundColor(getResources().getColor(tableColor[Integer.parseInt(cd.class_color)]));
                 tv.setTypeface(getResources().getFont(R.font.font));

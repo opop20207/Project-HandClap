@@ -422,6 +422,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public GalleryData getGalleryById(int gallery_id){
+        Log.e("!!", gallery_id+"!");
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM gallery WHERE gallery_id = "+gallery_id+";", null);
         GalleryData ret = new GalleryData();

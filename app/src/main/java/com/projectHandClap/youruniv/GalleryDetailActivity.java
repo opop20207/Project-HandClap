@@ -32,6 +32,7 @@ public class GalleryDetailActivity extends AppCompatActivity {
 
     public void init(){
         gid = getIntent().getIntExtra("galleryId", 1);
+        Log.e("!!", "get:"+gid);
         gData = db.getGalleryById(gid);
 
         photo_view_gallery_detail = (PhotoView) findViewById(R.id.photo_view_gallery_detail);

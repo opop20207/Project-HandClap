@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -153,7 +154,8 @@ public class Fragment_Gallery extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, GalleryDetailActivity.class);
-                    intent.putExtra("galleryId", fg.gallery_id);
+                    Log.e("!!", "send"+fg.gallery_id);
+                    intent.putExtra("galleryId", (int)fg.gallery_id);
                     startActivityForResult(intent, 1);
                 }
             });
@@ -184,6 +186,7 @@ public class Fragment_Gallery extends Fragment {
             GridLayout.Spec rowSpan = GridLayout.spec(GridLayout.UNDEFINED, 1, 1f);
             GridLayout.Spec colSpan = GridLayout.spec(GridLayout.UNDEFINED, 1, 1f);
             GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(rowSpan, colSpan);
+            gridParam.setGravity(Gravity.LEFT);
             Log.e("!!", g.gallery_image_path+"!");
             gl.addView(imageView, gridParam);
         }

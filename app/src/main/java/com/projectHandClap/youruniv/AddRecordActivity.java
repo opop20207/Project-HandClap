@@ -1,12 +1,12 @@
 package com.projectHandClap.youruniv;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
@@ -47,6 +47,11 @@ public class AddRecordActivity extends AppCompatActivity {
 
     DatabaseHelper db;
 
+    String cstr;
+    int cid;
+    TextView txv_add_record_class;
+    Button btn_add_record_class;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +59,53 @@ public class AddRecordActivity extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
         init();
-        tedPermission();
+        tedPermission();initIndex();
+    }
+
+    public void initIndex(){
+        txv_add_record_class = (TextView)findViewById(R.id.txv_add_record_class);
+        btn_add_record_class = (Button)findViewById(R.id.btn_add_record_class);
+
+        cid = getIntent().getIntExtra("classDataId", -1);
+        cstr = getIntent().getStringExtra("classString");
+        if(cstr==null) cstr = "Default String";
+        ClassData cd = db.getClassDataOneById(cid);
+        if(cid==-1){
+            txv_add_record_class.setText("-");
+        }else{
+            txv_add_record_class.setText(cd.class_title);
+        }
+
+        final ArrayList<ClassData> clist = db.getClassDataAll();
+        final ArrayList<String> cstrlist = new ArrayList<>();
+        cstrlist.add("All Classes");
+        for(ClassData cdata : clist) cstrlist.add(cdata.class_title);
+
+        final CharSequence[] classItem = cstrlist.toArray(new String[cstrlist.size()]);
+        btn_add_record_class.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                android.app.AlertDialog.Builder builder = new AlertDialog.Builder(AddRecordActivity.this);
+                builder.setItems(classItem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(i==0){
+                            txv_add_record_class.setText("-");
+                            cid = -1;
+                            cstr = "Default String";
+                            return;
+                        }
+                        i--;
+                        String selectedClassTitle = clist.get(i).class_title;
+                        String selectedClassString = clist.get(i).class_string;
+                        txv_add_record_class.setText(selectedClassTitle);
+                        cid = (int)clist.get(i).class_id;
+                        cstr = selectedClassString;
+                    }
+                });
+                builder.create().show();
+            }
+        });
     }
     public void tedPermission(){
         PermissionListener permissionListener = new PermissionListener() {
@@ -149,7 +200,7 @@ public class AddRecordActivity extends AppCompatActivity {
             return 1;
         }
         RecordData recordData = new RecordData();
-        recordData.record_class_string = "1";
+        recordData.record_class_string = cstr;
         recordData.record_title = etxt_add_record_title.getText().toString();
         recordData.record_file_path = file_path;
         recordData.record_time = Long.parseLong(timeStamp);

@@ -47,7 +47,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 DatabaseHelper db = new DatabaseHelper(context);
-                long res=0;
+                int res=0;
                 ArrayList<TimetableData> temp = db.getTimetable();
                 for(TimetableData t1 : temp){
                     if(t1.timetable_title.equals(t)){

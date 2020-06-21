@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.projectHandClap.youruniv.ClassData;
 import com.projectHandClap.youruniv.DatabaseHelper;
 import com.projectHandClap.youruniv.Drawer.Gallery.AddGalleryActivity;
 import com.projectHandClap.youruniv.Drawer.Gallery.GalleryActivity;
@@ -69,15 +71,112 @@ public class Fragment_Gallery extends Fragment {
     DatabaseHelper db;
     Context mContext;
 
+    TextView txv_gallery_index_date, txv_gallery_index_class;
+    Button btn_gallery_index_date, btn_gallery_index_class;
+    ArrayList<Long> dateList;
+    long y=0, m=0, d=0;
+    int cid;
+    String cstr;
+    String selDateString;
+    long selDateLong;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewGroup = (ViewGroup)inflater.inflate(R.layout.activity_gallery, container, false);
 
         mContext = viewGroup.getContext();
         db = new DatabaseHelper(mContext);
+        cid = viewPagerActivity.cid;
+        cstr = viewPagerActivity.cstr;
+        dateList = new ArrayList<>();
+        selDateString=null;
+        selDateLong = -1;
         init();
 
         return viewGroup;
+    }
+
+    public void initIndex(){
+        txv_gallery_index_class = (TextView)viewGroup.findViewById(R.id.txv_gallery_index_class);
+        txv_gallery_index_date = (TextView)viewGroup.findViewById(R.id.txv_gallery_index_date);
+        btn_gallery_index_class = (Button)viewGroup.findViewById(R.id.btn_gallery_index_class);
+        btn_gallery_index_date = (Button)viewGroup.findViewById(R.id.btn_gallery_index_date);
+
+        if(cid!=-1){
+            ClassData cd = db.getClassDataOneById(cid);
+            txv_gallery_index_class.setText(cd.class_title);
+        }
+
+        final ArrayList<ClassData> clist = db.getClassDataAll();
+        final ArrayList<String> cstrlist = new ArrayList<>();
+        cstrlist.add("All Classes");
+        for(ClassData cdata : clist) cstrlist.add(cdata.class_title);
+
+        final CharSequence[] classItem = cstrlist.toArray(new String[cstrlist.size()]);
+
+        btn_gallery_index_class.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(mContext);
+                builder.setItems(classItem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(i==0){
+                            txv_gallery_index_class.setText("-");
+                            cid = -1;
+                            cstr = "Default String";
+                            viewPagerActivity.cid = cid;
+                            viewPagerActivity.cstr = cstr;
+                            setLayout();
+                            return;
+                        }
+                        i--;
+                        String selectedClassTitle = clist.get(i).class_title;
+                        String selectedClassString = clist.get(i).class_string;
+                        txv_gallery_index_class.setText(selectedClassTitle);
+                        cid = (int)clist.get(i).class_id;
+                        cstr = selectedClassString;
+                        viewPagerActivity.cid = cid;
+                        viewPagerActivity.cstr = cstr;
+                        setLayout();
+                    }
+                });
+                builder.create().show();
+            }
+        });
+
+        final ArrayList<String> dateStrList = new ArrayList<>();
+        dateStrList.add("All date");
+        for(long t : dateList){
+            dateStrList.add(String.valueOf(t));
+        }
+
+        final CharSequence[] dateItem = dateStrList.toArray(new String[dateStrList.size()]);
+        btn_gallery_index_date.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(mContext);
+                builder.setItems(dateItem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(i==0){
+                            txv_gallery_index_date.setText("-");
+                            selDateString = null;
+                            selDateLong = -1;
+                            setLayout();
+                            return;
+                        }
+                        String selectedDateString = dateStrList.get(i);
+                        long selectedDateLong = Long.parseLong(selectedDateString);
+                        txv_gallery_index_date.setText(selectedDateString);
+                        selDateString = selectedDateString;
+                        selDateLong = selectedDateLong;
+                        setLayout();
+                    }
+                });
+                builder.create().show();
+            }
+        });
     }
 
     public void init(){
@@ -88,6 +187,8 @@ public class Fragment_Gallery extends Fragment {
             public void onClick(View view) {
                 Intent intent;
                 intent = new Intent(mContext, AddGalleryActivity.class);
+                intent.putExtra("classDataId", cid);
+                intent.putExtra("classString", cstr);
                 startActivityForResult(intent, 1);
             }
         });
@@ -96,8 +197,14 @@ public class Fragment_Gallery extends Fragment {
         setLayout();
     }
 
+    public int convertPixelsToDp(float px, Context context){
+        int value = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, context.getResources().getDisplayMetrics());
+        return value;
+    }
+
     public void setLayout(){
         layoutGallery.removeAllViews();
+        dateList = new ArrayList<>();
         LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -107,7 +214,12 @@ public class Fragment_Gallery extends Fragment {
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT, 1);
 
-        ArrayList<GalleryData> galleryDataList = db.getGallery();
+        ArrayList<GalleryData> galleryDataList;
+        if(cid==-1){
+            galleryDataList = db.getGallery();
+        }else{
+            galleryDataList = db.getGalleryByClassString(cstr);
+        }
 
         Typeface typeface = getResources().getFont(R.font.font);
         Boolean flag = false;
@@ -127,6 +239,10 @@ public class Fragment_Gallery extends Fragment {
 
             if(nowtime != d){
                 flag=true;
+                dateList.add(d);
+                if(selDateLong!=-1 && selDateLong!=d){
+                    continue;
+                }
                 if(gl!=null){
                     layoutGallery.addView(gl);
                     gl = null;
@@ -136,17 +252,20 @@ public class Fragment_Gallery extends Fragment {
                 gl.setColumnCount(3);
                 gl.setOrientation(GridLayout.HORIZONTAL);
                 gl.setUseDefaultMargins(true);
-                txvDate = new TextView(mContext);
 
+                txvDate = new TextView(mContext);
                 txvDate.setText(String.format(sd));
                 txvDate.setLayoutParams(layoutParams);
                 txvDate.setTextSize(15);
                 txvDate.setTypeface(typeface);
                 txvDate.setPadding(30,50,15, 0);
                 layoutGallery.addView(txvDate);
+            }else if(selDateLong!=-1 && selDateLong!=d){
+                continue;
             }
 
             ImageView imageView = new ImageView(mContext);
+            imageView.setLayoutParams(layoutParams2);
             imageView.setImageBitmap(decodeSampledBitmapFromFile(g.gallery_image_path, 200, 200));
 
             final GalleryData fg = g;
@@ -156,6 +275,8 @@ public class Fragment_Gallery extends Fragment {
                     Intent intent = new Intent(mContext, GalleryDetailActivity.class);
                     Log.e("!!", "send"+fg.gallery_id);
                     intent.putExtra("galleryId", (int)fg.gallery_id);
+                    intent.putExtra("classDataId", cid);
+                    intent.putExtra("classString", cstr);
                     startActivityForResult(intent, 1);
                 }
             });
@@ -183,16 +304,18 @@ public class Fragment_Gallery extends Fragment {
                     return false;
                 }
             });
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
             GridLayout.Spec rowSpan = GridLayout.spec(GridLayout.UNDEFINED, 1, 1f);
             GridLayout.Spec colSpan = GridLayout.spec(GridLayout.UNDEFINED, 1, 1f);
             GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(rowSpan, colSpan);
             gridParam.setGravity(Gravity.LEFT);
-            Log.e("!!", g.gallery_image_path+"!");
             gl.addView(imageView, gridParam);
         }
         if(gl!=null){
             layoutGallery.addView(gl);
         }
+        initIndex();
     }
 
     public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight){

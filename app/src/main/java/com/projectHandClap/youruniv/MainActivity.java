@@ -1,7 +1,6 @@
 package com.projectHandClap.youruniv;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,23 +10,16 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.projectHandClap.youruniv.Drawer.Gallery.GalleryActivity;
-import com.projectHandClap.youruniv.Drawer.MemoActivity;
-import com.projectHandClap.youruniv.Drawer.RecorderActivity;
-import com.projectHandClap.youruniv.Drawer.Schedule.ScheduleActivity;
 import com.projectHandClap.youruniv.ViewPager.ViewPagerActivity;
 
 import androidx.annotation.RequiresApi;
@@ -35,13 +27,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
-    public long timetableId;
+    public int timetableId;
     ExpandableListView timetable_list;
     DrawerLayout drawerLayout;
     View drawerView;
@@ -347,6 +336,10 @@ public class MainActivity extends AppCompatActivity{
                         bottomSheetDialog_btnDelete.setOnClickListener(new Button.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                db.deleteScheduleByClassString(cstr);
+                                db.deleteGalleryByClassString(cstr);
+                                db.deleteRecordByClassString(cstr);
+                                db.deleteMemoByClassString(cstr);
                                 db.deleteClassDataOneById(cstr);
                                 setLayout();
                                 setDrawerLayout();
@@ -361,6 +354,7 @@ public class MainActivity extends AppCompatActivity{
                                 Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
                                 intent.putExtra("position", 0);
                                 intent.putExtra("classDataId", cid);
+                                intent.putExtra("classString", cstr);
                                 startActivity(intent);
                             }
                         });
@@ -371,6 +365,7 @@ public class MainActivity extends AppCompatActivity{
                                 Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
                                 intent.putExtra("position", 1);
                                 intent.putExtra("classDataId", cid);
+                                intent.putExtra("classString", cstr);
                                 startActivity(intent);
                             }
                         });
@@ -381,6 +376,7 @@ public class MainActivity extends AppCompatActivity{
                                 Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
                                 intent.putExtra("position", 2);
                                 intent.putExtra("classDataId", cid);
+                                intent.putExtra("classString", cstr);
                                 startActivity(intent);
                             }
                         });
@@ -391,6 +387,7 @@ public class MainActivity extends AppCompatActivity{
                                 Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
                                 intent.putExtra("position", 3);
                                 intent.putExtra("classDataId", cid);
+                                intent.putExtra("classString", cstr);
                                 startActivity(intent);
                             }
                         });

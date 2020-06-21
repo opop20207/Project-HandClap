@@ -33,9 +33,6 @@
             android:theme="@android:style/Theme.Holo.Dialog.NoActionBar" />
         <activity android:name=".Drawer.Schedule.AddScheduleActivity" />
         <activity android:name=".AddClassActivity" />
-        <activity android:name=".Drawer.Schedule.ScheduleActivity" />
-        <activity android:name=".Drawer.MemoActivity" />
-        <activity android:name=".Drawer.RecorderActivity" />
         <activity android:name=".Drawer.Gallery.GalleryActivity" />
         <activity android:name=".SetActivity" />
         <activity android:name=".Drawer.Gallery.ImageDisplay" />

@@ -285,14 +285,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public ArrayList<ClassData> getClassDataAll(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM class;", null);
+        ArrayList<ClassData> ret = new ArrayList<ClassData>();
+        while(cursor.moveToNext()){
+            ClassData temp = new ClassData();
+            temp.class_id = cursor.getInt(0);
+            temp.class_timetable_id = cursor.getInt(1);
+            temp.class_title = cursor.getString(2);
+            temp.class_place = cursor.getString(3);
+            temp.class_day = cursor.getString(4);
+            temp.class_stime = cursor.getString(5);
+            temp.class_etime = cursor.getString(6);
+            temp.class_string = cursor.getString(7);
+            temp.class_alarm = cursor.getString(8);
+            temp.class_professor = cursor.getString(9);
+            temp.class_color = cursor.getString(10);
+            temp.class_memo = cursor.getString(11);
+            ret.add(temp);
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
     public ArrayList<ClassData> getClassData(int timetable_id){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM class WHERE class_timetable_id = "+timetable_id+";", null);
         ArrayList<ClassData> ret = new ArrayList<ClassData>();
         while(cursor.moveToNext()){
             ClassData temp = new ClassData();
-            temp.class_id = cursor.getLong(0);
-            temp.class_timetable_id = cursor.getLong(1);
+            temp.class_id = cursor.getInt(0);
+            temp.class_timetable_id = cursor.getInt(1);
             temp.class_title = cursor.getString(2);
             temp.class_place = cursor.getString(3);
             temp.class_day = cursor.getString(4);
@@ -316,8 +341,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<ClassData> ret = new ArrayList<ClassData>();
         while(cursor.moveToNext()){
             ClassData temp = new ClassData();
-            temp.class_id = cursor.getLong(0);
-            temp.class_timetable_id = cursor.getLong(1);
+            temp.class_id = cursor.getInt(0);
+            temp.class_timetable_id = cursor.getInt(1);
             temp.class_title = cursor.getString(2);
             temp.class_place = cursor.getString(3);
             temp.class_day = cursor.getString(4);
@@ -341,8 +366,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ClassData ret = new ClassData();
         while(cursor.moveToNext()){
             ClassData temp = new ClassData();
-            temp.class_id = cursor.getLong(0);
-            temp.class_timetable_id = cursor.getLong(1);
+            temp.class_id = cursor.getInt(0);
+            temp.class_timetable_id = cursor.getInt(1);
             temp.class_title = cursor.getString(2);
             temp.class_place = cursor.getString(3);
             temp.class_day = cursor.getString(4);
@@ -421,6 +446,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ret;
     }
 
+    public ArrayList<GalleryData> getGalleryByClassString(String class_string){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM gallery WHERE gallery_class_string = '"+class_string+"' ORDER BY gallery_time;", null);
+        ArrayList<GalleryData> ret = new ArrayList<>();
+        while(cursor.moveToNext()){
+            GalleryData temp = new GalleryData();
+            temp.gallery_id = cursor.getInt(0);
+            temp.gallery_class_string = cursor.getString(1);
+            temp.gallery_image_path = cursor.getString(2);
+            temp.gallery_title = cursor.getString(3);
+            temp.gallery_memo = cursor.getString(4);
+            temp.gallery_time = cursor.getLong(5);
+            ret.add(temp);
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
     public GalleryData getGalleryById(int gallery_id){
         Log.e("!!", gallery_id+"!");
         SQLiteDatabase db = getReadableDatabase();
@@ -461,7 +505,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteGalleryByClassString(String class_string){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM gallery WHERE gallery_string_id = '"+class_string+"'");
+        db.execSQL("DELETE FROM gallery WHERE gallery_class_string = '"+class_string+"'");
         db.close();
     }
 
@@ -481,7 +525,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<MemoData> ret = new ArrayList<>();
         while(cursor.moveToNext()){
             MemoData temp = new MemoData();
-            temp.memo_id = cursor.getLong(0);
+            temp.memo_id = cursor.getInt(0);
+            temp.memo_class_string = cursor.getString(1);
+            temp.memo_title = cursor.getString(2);
+            temp.memo_memo = cursor.getString(3);
+            temp.memo_time = cursor.getLong(4);
+            ret.add(temp);
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
+    public ArrayList<MemoData> getMemoByClassString(String class_string){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM memo WHERE memo_class_string = '"+class_string+"' ORDER BY memo_time;", null);
+        ArrayList<MemoData> ret = new ArrayList<>();
+        while(cursor.moveToNext()){
+            MemoData temp = new MemoData();
+            temp.memo_id = cursor.getInt(0);
             temp.memo_class_string = cursor.getString(1);
             temp.memo_title = cursor.getString(2);
             temp.memo_memo = cursor.getString(3);
@@ -526,6 +588,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteMemoByClassString(String class_string){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM memo WHERE memo_class_string = '"+class_string+"';");
+        db.close();
+    }
+
     //CRUD Operation for scheme 6
     public void insertRecord(RecordData recordData){
         SQLiteDatabase db = getWritableDatabase();
@@ -539,6 +607,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<RecordData> getRecord(){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM record ORDER BY record_time;", null);
+        ArrayList<RecordData> ret = new ArrayList<RecordData>();
+        while(cursor.moveToNext()){
+            RecordData temp = new RecordData();
+            temp.record_id = cursor.getInt(0);
+            temp.record_class_string = cursor.getString(1);
+            temp.record_file_path = cursor.getString(2);
+            temp.record_title = cursor.getString(3);
+            temp.record_time = cursor.getLong(4);
+            ret.add(temp);
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
+    public ArrayList<RecordData> getRecordByClassString(String class_string){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM record WHERE record_class_string = '"+class_string+"' ORDER BY record_time;", null);
         ArrayList<RecordData> ret = new ArrayList<RecordData>();
         while(cursor.moveToNext()){
             RecordData temp = new RecordData();
@@ -589,11 +675,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-//    public void deleteRecordByClassString(String class_string){
-//        SQLiteDatabase db = getWritableDatabase();
-//        db.execSQL("DELETE FROM schedule WHERE schedule_class_string = '"+class_string+"'");
-//        db.close();
-//    }
+    public void deleteRecordByClassString(String class_string){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM record WHERE record_class_string = '"+class_string+"'");
+        db.close();
+    }
 
     //CRUD Operation for scheme 7
     public void insertSchedule(ScheduleData scheduleData){
@@ -639,6 +725,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             temp.schedule_isDone = cursor.getString(5);
             temp.schedule_deadline = cursor.getLong(6);
             ret = temp;
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
+    public ArrayList<ScheduleData> getScheduleByClassString(String class_string){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM schedule WHERE schedule_class_string = '"+class_string+"' ORDER BY schedule_deadline;", null);
+        ArrayList<ScheduleData> ret = new ArrayList<>();
+        while(cursor.moveToNext()){
+            ScheduleData temp = new ScheduleData();
+            temp.schedule_id = cursor.getInt(0);
+            temp.schedule_class_string = cursor.getString(1);
+            temp.schedule_title = cursor.getString(2);
+            temp.schedule_memo = cursor.getString(3);
+            temp.schedule_alarm = cursor.getString(4);
+            temp.schedule_isDone = cursor.getString(5);
+            temp.schedule_deadline = cursor.getLong(6);
+            ret.add(temp);
         }
         cursor.close();
         db.close();

@@ -28,6 +28,8 @@ public class ViewPagerActivity extends AppCompatActivity {
     ViewPager viewPager;
     TabLayout tabLayout;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
+    int cid;
+    String cstr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,9 @@ public class ViewPagerActivity extends AppCompatActivity {
     }
 
     public void init(){
+        cid = getIntent().getIntExtra("classDataId", -1);
+        cstr = getIntent().getStringExtra("classString");
+        if(cstr==null) cstr = "Default String";
         if(ContextCompat.checkSelfPermission(ViewPagerActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED)

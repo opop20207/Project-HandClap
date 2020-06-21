@@ -18,12 +18,15 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.projectHandClap.youruniv.ClassData;
 import com.projectHandClap.youruniv.DatabaseHelper;
 import com.projectHandClap.youruniv.GalleryData;
 import com.projectHandClap.youruniv.R;
@@ -43,6 +46,11 @@ public class AddGalleryActivity extends AppCompatActivity {
     String timeStamp_db = null;
     DatabaseHelper db;
 
+    String cstr;
+    int cid;
+    TextView txv_add_gallery_class;
+    Button btn_add_gallery_class;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +58,52 @@ public class AddGalleryActivity extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
         init();
-        tedPermission();
+        tedPermission();initIndex();
+    }
+    public void initIndex(){
+        txv_add_gallery_class = (TextView)findViewById(R.id.txv_add_gallery_class);
+        btn_add_gallery_class = (Button)findViewById(R.id.btn_add_gallery_class);
+
+        cid = getIntent().getIntExtra("classDataId", -1);
+        cstr = getIntent().getStringExtra("classString");
+        if(cstr==null) cstr = "Default String";
+        ClassData cd = db.getClassDataOneById(cid);
+        if(cid==-1){
+            txv_add_gallery_class.setText("-");
+        }else{
+            txv_add_gallery_class.setText(cd.class_title);
+        }
+
+        final ArrayList<ClassData> clist = db.getClassDataAll();
+        final ArrayList<String> cstrlist = new ArrayList<>();
+        cstrlist.add("All Classes");
+        for(ClassData cdata : clist) cstrlist.add(cdata.class_title);
+
+        final CharSequence[] classItem = cstrlist.toArray(new String[cstrlist.size()]);
+        btn_add_gallery_class.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddGalleryActivity.this);
+                builder.setItems(classItem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(i==0){
+                            txv_add_gallery_class.setText("-");
+                            cid = -1;
+                            cstr = "Default String";
+                            return;
+                        }
+                        i--;
+                        String selectedClassTitle = clist.get(i).class_title;
+                        String selectedClassString = clist.get(i).class_string;
+                        txv_add_gallery_class.setText(selectedClassTitle);
+                        cid = (int)clist.get(i).class_id;
+                        cstr = selectedClassString;
+                    }
+                });
+                builder.create().show();
+            }
+        });
     }
 
     public void init(){
@@ -118,7 +171,7 @@ public class AddGalleryActivity extends AppCompatActivity {
 
     public void addToDatabase_Gallery(){
         GalleryData galleryData = new GalleryData();
-        galleryData.gallery_class_string = "1";
+        galleryData.gallery_class_string = cstr;
         galleryData.gallery_image_path = tempFile.getAbsolutePath();
 
         EditText editText = (EditText)findViewById(R.id.etxt_add_gallery_memo);

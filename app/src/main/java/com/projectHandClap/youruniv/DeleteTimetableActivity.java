@@ -55,13 +55,20 @@ public class DeleteTimetableActivity extends AppCompatActivity {
             txv.setTypeface(getResources().getFont(R.font.font));
             btnDelete.setText("삭제");
             btnDelete.setTypeface(getResources().getFont(R.font.font));
-            final long did = t1.timetable_id;
+            final int did = t1.timetable_id;
             btnDelete.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(did == userSetting.setting_main_timetable_id){
                         Toast.makeText(getApplicationContext(), "메인 시간표로 설정된 시간표는 삭제할 수 없습니다.", Toast.LENGTH_LONG).show();
                         return;
+                    }
+                    ArrayList<ClassData> clist = db.getClassData(did);
+                    for(ClassData cd : clist){
+                        db.deleteScheduleByClassString(cd.class_string);
+                        db.deleteGalleryByClassString(cd.class_string);
+                        db.deleteRecordByClassString(cd.class_string);
+                        db.deleteMemoByClassString(cd.class_string);
                     }
                     db.deleteTimetable((int)did);
                     db.deleteClassData((int)did);

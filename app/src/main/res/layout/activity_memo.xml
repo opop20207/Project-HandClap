@@ -5,19 +5,62 @@
     android:id="@+id/activity_memo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Drawer.MemoActivity">
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <LinearLayout
-            android:id="@+id/layout_memo"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/btn_memo_index_date"
+                        android:text="날짜 선택"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txv_memo_index_date"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="-"
+                        android:fontFamily="@font/font"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txv_memo_index_class"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="-"
+                        android:fontFamily="@font/font"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:id="@+id/btn_memo_index_class"
+                        android:text="과목 선택"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/layout_memo">
 
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

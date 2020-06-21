@@ -1,11 +1,11 @@
 package com.projectHandClap.youruniv;
 
 public class SettingData {
-    long setting_id;
-    int setting_main_timetable_id;
-    String setting_day;
-    String setting_stime;
-    String setting_etime;
+    public int setting_id;
+    public int setting_main_timetable_id;
+    public String setting_day;
+    public String setting_stime;
+    public String setting_etime;
 
     public SettingData() {
         setting_id = -1;

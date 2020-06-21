@@ -24,31 +24,35 @@
                     android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/btn_memo_index_date"
-                        android:text="날짜 선택"
+                        android:text="날짜"
                         android:layout_weight="1"
                         android:fontFamily="@font/font"
+                        android:background="@drawable/button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:id="@+id/txv_memo_index_date"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:background="@drawable/button"
                         android:text="-"
                         android:fontFamily="@font/font"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:id="@+id/txv_memo_index_class"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="-"
+                        android:background="@drawable/button"
                         android:fontFamily="@font/font"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="match_parent"/>
                     <Button
                         android:id="@+id/btn_memo_index_class"
-                        android:text="과목 선택"
+                        android:text="과목"
                         android:layout_weight="1"
+                        android:background="@drawable/button"
                         android:fontFamily="@font/font"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>

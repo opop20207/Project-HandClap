@@ -34,6 +34,7 @@ public class AddClassActivity extends AppCompatActivity {
     RadioGroup rgroup_add_class_color, rgroup_add_class_day;
 
     String [] tableDay = {"S","M","T","W","T","F","S","S"};
+    String [] tableDay2 = {"", "월", "화", "수", "목", "금", "토", "일"};
     DatabaseHelper db;
 
     NumberPicker minutePicker;
@@ -197,7 +198,11 @@ public class AddClassActivity extends AppCompatActivity {
         ll.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
         TextView tv = new TextView(getApplicationContext());
-        tv.setText(tableDay[dayNum]+" - "+timeData.stime+" ~ "+timeData.etime);
+        tv.setTextColor(getResources().getColor(R.color.black));
+        tv.setText(tableDay2[dayNum]+" "+
+                String.format("%02d:%02d", timeData.stime/100, timeData.stime%100)
+                +"~"+
+                String.format("%02d:%02d", timeData.etime/100, timeData.etime%100));
         tv.setGravity(Gravity.CENTER);
         tv.setLayoutParams(layoutParams);
         tv.setTypeface(getResources().getFont(R.font.font));

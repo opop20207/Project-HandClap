@@ -28,6 +28,7 @@
                     android:text="메인 시간표"
                     android:gravity="center"
                     android:layout_weight="1"
+                    android:fontFamily="@font/font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -36,6 +37,7 @@
                     android:text="temp"
                     android:gravity="center"
                     android:layout_weight="1"
+                    android:fontFamily="@font/font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -44,6 +46,7 @@
                     android:gravity="center"
                     android:id="@+id/btn_setting_main_timetable_id"
                     android:layout_weight="1"
+                    android:fontFamily="@font/font"
                     android:background="@drawable/button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -66,6 +69,7 @@
                 <TextView
                     android:text="시간표에 나타낼 시간"
                     android:gravity="center"
+                    android:fontFamily="@font/font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -106,6 +110,7 @@
                     android:text="시간표에 나타낼 요일"
                     android:gravity="center"
                     android:layout_marginTop="15sp"
+                    android:fontFamily="@font/font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <LinearLayout
@@ -116,42 +121,49 @@
                     <CheckBox
                         android:layout_weight="1"
                         android:text="월"
+                        android:fontFamily="@font/font"
                         android:id="@+id/chkbox_setting_day_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <CheckBox
                         android:layout_weight="1"
                         android:text="화"
+                        android:fontFamily="@font/font"
                         android:id="@+id/chkbox_setting_day_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <CheckBox
                         android:layout_weight="1"
                         android:text="수"
+                        android:fontFamily="@font/font"
                         android:id="@+id/chkbox_setting_day_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <CheckBox
                         android:layout_weight="1"
                         android:text="목"
+                        android:fontFamily="@font/font"
                         android:id="@+id/chkbox_setting_day_4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <CheckBox
                         android:layout_weight="1"
                         android:text="금"
+                        android:fontFamily="@font/font"
                         android:id="@+id/chkbox_setting_day_5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <CheckBox
                         android:layout_weight="1"
                         android:text="토"
+                        android:fontFamily="@font/font"
                         android:id="@+id/chkbox_setting_day_6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <CheckBox
                         android:layout_weight="1"
                         android:text="일"
+                        android:fontFamily="@font/font"
                         android:id="@+id/chkbox_setting_day_7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -169,6 +181,7 @@
     <Button
         android:id="@+id/btn_setting_submit"
         android:text="확인"
+        android:fontFamily="@font/font"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button"

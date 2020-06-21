@@ -8,5 +8,6 @@
         android:layout_height="50sp"
         android:textColor="@color/colorBasic"
         android:background="@color/colorBasicDarkula"
+        android:fontFamily="@font/font"
         android:gravity="center_vertical|left"/>
 </LinearLayout>

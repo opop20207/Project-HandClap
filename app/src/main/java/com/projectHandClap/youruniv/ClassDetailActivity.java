@@ -27,6 +27,7 @@ public class ClassDetailActivity extends AppCompatActivity {
     EditText etxt_add_class_title, etxt_add_class_place, etxt_add_class_professor, etxt_add_class_memo;
     RadioGroup rgroup_add_class_color;
     String [] tableDay = {"S","M","T","W","T","F","S","S"};
+    String [] tableDay2 = {"", "월", "화", "수", "목", "금", "토", "일"};
 
     ArrayList<TimeData> addClassArray;
 
@@ -79,7 +80,11 @@ public class ClassDetailActivity extends AppCompatActivity {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
             ll.setGravity(Gravity.CENTER);
             TextView tv = new TextView(getApplicationContext());
-            tv.setText(tableDay[dayNum]+" - "+timeData.stime+" ~ "+timeData.etime);
+            tv.setTextColor(getResources().getColor(R.color.black));
+            tv.setText(tableDay2[dayNum]+" "+
+                    String.format("%02d:%02d", timeData.stime/100, timeData.stime%100)
+                    +"~"+
+                    String.format("%02d:%02d", timeData.etime/100, timeData.etime%100));
             tv.setLayoutParams(layoutParams);
             tv.setTypeface(getResources().getFont(R.font.font));
             tv.setGravity(Gravity.CENTER);

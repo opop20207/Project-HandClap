@@ -150,9 +150,11 @@ public class MainActivity extends AppCompatActivity{
         int stime = Integer.parseInt(userSetting.setting_stime);
         int etime = Integer.parseInt(userSetting.setting_etime);
 
-        for(int t=stime; t<=etime;t+=15){
-            Log.e("stime~etime", stime+"~"+etime);
-            if(t%100==60) t+=40;
+        for(int t=stime; t<etime;t+=15){
+            if(t%100==60) {
+                t+=40;
+                if(t==etime) continue;
+            }
             TableRow tr = new TableRow(getApplicationContext());
             tr.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
 
@@ -162,7 +164,6 @@ public class MainActivity extends AppCompatActivity{
                     TextView tvFirst = new TextView(getApplicationContext());
                     tvFirst.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
                     int time = t / 100;
-                    Log.e("time", time+"!");
                     if(time >= 13)  time = time - 12;
                     if(t%100 == 0){
                         tvFirst.setText(Integer.toString(time));
@@ -245,7 +246,6 @@ public class MainActivity extends AppCompatActivity{
                     if(i==etime)    continue;
                 }
                 String k = "row"+Integer.toString(i)+"day"+Integer.toString(day);
-                Log.e("!", k);
                 int a = getResources().getIdentifier(k, "id", "com.projectHandClap.youruniv");
 
                 final ClassData fcd = cd;
@@ -301,11 +301,13 @@ public class MainActivity extends AppCompatActivity{
 
                         tempDetail += "\n";
                         for(ClassData classData : ffcd){
+                            int stime = Integer.parseInt(classData.class_stime);
+                            int etime = Integer.parseInt(classData.class_etime);
                             tempDetail += tableDay2[Integer.parseInt(classData.class_day)];
                             tempDetail += " ";
-                            tempDetail += classData.class_stime;
+                            tempDetail += String.format("%02d:%02d", stime/100, stime%100);
                             tempDetail += "-";
-                            tempDetail += classData.class_etime;
+                            tempDetail += String.format("%02d:%02d", etime/100, etime%100);
                             tempDetail += "\n";
                         }
 

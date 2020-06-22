@@ -413,7 +413,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteClassData(int id){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM class WHERE class_timetable_id = '"+id+"'");
+        db.execSQL("DELETE FROM class WHERE class_timetable_id = "+id);
         db.close();
     }
 
@@ -421,8 +421,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertGallery(GalleryData galleryData){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO gallery(gallery_class_string, gallery_image_path, gallery_title, "
-                + "gallery_memo, gallery_time) VALUES("
-                +galleryData.gallery_class_string+", '"+galleryData.gallery_image_path +"', '"+galleryData.gallery_title+"', '"
+                + "gallery_memo, gallery_time) VALUES('"
+                +galleryData.gallery_class_string+"', '"+galleryData.gallery_image_path +"', '"+galleryData.gallery_title+"', '"
                 +galleryData.gallery_memo+"', '"+galleryData.gallery_time+"');");
         db.close();
     }
@@ -488,7 +488,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateGallery(GalleryData galleryData){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE gallery SET " +
-                "gallery_class_string = "+galleryData.gallery_class_string+", " +
+                "gallery_class_string = '"+galleryData.gallery_class_string+"', " +
                 "gallery_image_path = '"+galleryData.gallery_image_path+"', " +
                 "gallery_title = '"+ galleryData.gallery_title+"', " +
                 "gallery_memo = '"+ galleryData.gallery_memo+"', " +
@@ -513,8 +513,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertMemo(MemoData memoData){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO memo(memo_class_string, memo_title, "
-                + "memo_memo, memo_time) VALUES("
-                +memoData.memo_class_string+", '"+memoData.memo_title+"', '"
+                + "memo_memo, memo_time) VALUES('"
+                +memoData.memo_class_string+"', '"+memoData.memo_title+"', '"
                 +memoData.memo_memo+"', '"+memoData.memo_time+"');");
         db.close();
     }
@@ -574,7 +574,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateMemo(MemoData memoData){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE memo SET " +
-                "memo_class_string = "+memoData.memo_class_string+", " +
+                "memo_class_string = '"+memoData.memo_class_string+"', " +
                 "memo_title = '"+memoData.memo_title+"', " +
                 "memo_memo = '"+ memoData.memo_memo+"', " +
                 "memo_time = '"+memoData.memo_time+"' " +
@@ -598,8 +598,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertRecord(RecordData recordData){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO record(record_class_string, record_file_path, "
-                + "record_title, record_time) VALUES("
-                +recordData.record_class_string+", '"+recordData.record_file_path +"', '"
+                + "record_title, record_time) VALUES('"
+                +recordData.record_class_string+"', '"+recordData.record_file_path +"', '"
                 +recordData.record_title+"', '"+recordData.record_time+"');");
         db.close();
     }
@@ -661,7 +661,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateRecord(RecordData recordData){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE record SET " +
-                "record_class_string = "+recordData.record_class_string+", " +
+                "record_class_string = '"+recordData.record_class_string+"', " +
                 "record_file_path = "+recordData.record_file_path+", " +
                 "record_title = "+recordData.record_title+", " +
                 "record_time = '"+recordData.record_time+"' " +
@@ -685,8 +685,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertSchedule(ScheduleData scheduleData){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO schedule(schedule_class_string, schedule_title, schedule_memo, "
-                + "schedule_alarm, schedule_isdone, schedule_deadline) VALUES("
-                +scheduleData.schedule_class_string+", '"+scheduleData.schedule_title +"', '"+scheduleData.schedule_memo+"', '"
+                + "schedule_alarm, schedule_isdone, schedule_deadline) VALUES('"
+                +scheduleData.schedule_class_string+"', '"+scheduleData.schedule_title +"', '"+scheduleData.schedule_memo+"', '"
                 +scheduleData.schedule_alarm+"', '"+scheduleData.schedule_isDone+"', '"+scheduleData.schedule_deadline+"');");
         db.close();
     }
@@ -754,7 +754,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateSchedule(ScheduleData scheduleData){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE schedule SET " +
-                "schedule_class_string = "+scheduleData.schedule_class_string+", " +
+                "schedule_class_string = '"+scheduleData.schedule_class_string+"', " +
                 "schedule_title = '"+scheduleData.schedule_title+"', " +
                 "schedule_memo = '"+ scheduleData.schedule_memo+"', " +
                 "schedule_alarm = '"+ scheduleData.schedule_alarm+"', " +

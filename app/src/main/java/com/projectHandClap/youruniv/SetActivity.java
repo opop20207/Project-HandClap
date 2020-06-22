@@ -83,11 +83,13 @@ public class SetActivity extends AppCompatActivity {
         tp_setting_stime.setIs24HourView(true);
         tp_setting_stime.setHour(sh);
         tp_setting_stime.setMinute(sm/15);
+        tp_setting_stime.setClickable(false);
 
         setTimePickerInterval(tp_setting_etime);
         tp_setting_etime.setIs24HourView(true);
         tp_setting_etime.setHour(eh);
         tp_setting_etime.setMinute(em/15);
+        tp_setting_etime.setClickable(false);
 
         txv_setting_main_timetable_id = (TextView)findViewById(R.id.txv_setting_main_timetable_id);
         chkbox_setting_day_1 = (CheckBox) findViewById(R.id.chkbox_setting_day_1);

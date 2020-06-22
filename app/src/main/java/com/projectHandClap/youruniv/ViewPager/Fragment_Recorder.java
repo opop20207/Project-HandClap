@@ -103,8 +103,13 @@ public class Fragment_Recorder extends Fragment {
 
         final ArrayList<ClassData> clist = db.getClassDataAll();
         final ArrayList<String> cstrlist = new ArrayList<>();
+        final ArrayList<String> cstrTempList = new ArrayList<>();
         cstrlist.add("All Classes");
-        for(ClassData cdata : clist) cstrlist.add(cdata.class_title);
+        for(ClassData cdata : clist) {
+            if(cstrTempList.contains(cdata.class_string)) continue;
+            cstrTempList.add(cdata.class_string);
+            cstrlist.add(cdata.class_title);
+        }
 
         final CharSequence[] classItem = cstrlist.toArray(new String[cstrlist.size()]);
 

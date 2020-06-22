@@ -76,7 +76,10 @@ public class Fragment_Schedule extends Fragment {
         final ArrayList<ClassData> clist = db.getClassDataAll();
         final ArrayList<String> cstrlist = new ArrayList<>();
         cstrlist.add("All Classes");
-        for(ClassData cdata : clist) cstrlist.add(cdata.class_title);
+        for(ClassData cdata : clist) {
+            if(cstrlist.contains(cdata.class_string)) continue;
+            cstrlist.add(cdata.class_title);
+        }
 
         final CharSequence[] classItem = cstrlist.toArray(new String[cstrlist.size()]);
 

@@ -78,8 +78,13 @@ public class AddRecordActivity extends AppCompatActivity {
 
         final ArrayList<ClassData> clist = db.getClassDataAll();
         final ArrayList<String> cstrlist = new ArrayList<>();
+        final ArrayList<String> cstrTempList = new ArrayList<>();
         cstrlist.add("All Classes");
-        for(ClassData cdata : clist) cstrlist.add(cdata.class_title);
+        for(ClassData cdata : clist) {
+            if(cstrTempList.contains(cdata.class_string)) continue;
+            cstrTempList.add(cdata.class_string);
+            cstrlist.add(cdata.class_title);
+        }
 
         final CharSequence[] classItem = cstrlist.toArray(new String[cstrlist.size()]);
         btn_add_record_class.setOnClickListener(new Button.OnClickListener() {
@@ -171,7 +176,7 @@ public class AddRecordActivity extends AppCompatActivity {
         timeStamp = formatter.format(now);
 
         Log.e("!!", "btn_record in@#");
-        recordFile = "Record_"+timeStamp+".3gp";
+        recordFile = "Record_"+timeStamp+".mp3";
         txv_record_title.setText("Recording...,");
         file_path = recordPath+"/"+recordFile;
 

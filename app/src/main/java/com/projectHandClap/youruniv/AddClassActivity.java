@@ -85,9 +85,11 @@ public class AddClassActivity extends AppCompatActivity {
 
         setTimePickerInterval(tp_add_class_stime);
         tp_add_class_stime.setIs24HourView(true);
+        tp_add_class_stime.setClickable(false);
 
         setTimePickerInterval(tp_add_class_etime);
         tp_add_class_etime.setIs24HourView(true);
+        tp_add_class_etime.setClickable(false);
 
         originalClassDataList = db.getClassData(timetableId);
     }

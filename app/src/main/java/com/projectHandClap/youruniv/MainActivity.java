@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity{
             TimetableData timetableData = new TimetableData();
             timetableData.timetable_title = "내 시간표";
             db.insertTimetable(timetableData);
-            db.insertSetting(new SettingData(1,"1234567","900", "1800"));
+            db.insertSetting(new SettingData(1,"12345","900", "1800"));
         }
         userSetting = db.getSetting();
         timetableId = userSetting.setting_main_timetable_id;

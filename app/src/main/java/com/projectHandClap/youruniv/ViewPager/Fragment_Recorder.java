@@ -103,15 +103,15 @@ public class Fragment_Recorder extends Fragment {
         }
 
         final ArrayList<ClassData> clist = db.getClassDataAll();
+        final ArrayList<ClassData> selectedClist = new ArrayList<>();
         final ArrayList<String> cstrlist = new ArrayList<>();
-        final ArrayList<String> cstrTempList = new ArrayList<>();
-        final ArrayList<Integer> cstrIdList = new ArrayList<>();
+        final ArrayList<String> chklist = new ArrayList<>();
         cstrlist.add("All Classes");
         for(ClassData cdata : clist) {
-            if(cstrTempList.contains(cdata.class_string)) continue;
-            cstrTempList.add(cdata.class_string);
+            if(chklist.contains(cdata.class_string)) continue;
+            chklist.add(cdata.class_string);
             cstrlist.add(cdata.class_title);
-            cstrIdList.add(cdata.class_id);
+            selectedClist.add(cdata);
         }
 
         final CharSequence[] classItem = cstrlist.toArray(new String[cstrlist.size()]);
@@ -119,7 +119,7 @@ public class Fragment_Recorder extends Fragment {
         btn_record_index_class.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(mContext);
                 builder.setItems(classItem, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -134,11 +134,11 @@ public class Fragment_Recorder extends Fragment {
                             return;
                         }
                         i--;
-                        String selectedClassTitle = cstrlist.get(i);
-                        String selectedClassString = cstrTempList.get(i);
+                        String selectedClassTitle = selectedClist.get(i).class_title;
+                        String selectedClassString = selectedClist.get(i).class_string;
                         Log.e("!!@", selectedClassTitle);
                         txv_record_index_class.setText("ㅁ");
-                        cid = (int)cstrIdList.get(i);
+                        cid = (int)selectedClist.get(i).class_id;
                         cstr = selectedClassString;
                         viewPagerActivity.cid = cid;
                         viewPagerActivity.cstr = cstr;

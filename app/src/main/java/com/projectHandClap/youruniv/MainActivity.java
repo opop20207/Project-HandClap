@@ -265,26 +265,22 @@ public class MainActivity extends AppCompatActivity{
                 if(count == 0) {
                     if(tempTitle.length() > 5) tv.setText(tempTitle.substring(0, 5));
                     else tv.setText(tempTitle);
-                    tv.setGravity(Gravity.LEFT);
+                    tv.setGravity(Gravity.CENTER);
+                    tv.setTextSize(13);
                     count += 1;
                 }
 
                 else if(count == 1){
                     if(tempTitle.length() > 5) tv.setText(tempTitle.substring(5));
-                    tv.setGravity(Gravity.LEFT);
+                    tv.setGravity(Gravity.CENTER);
+                    tv.setTextSize(13);
                     count += 1;
                 }
 
                 else if(count == 2){
-                    if(tempPlace.length() > 5) tv.setText(tempPlace.substring(0, 5));
-                    else tv.setText(tempPlace);
-                    tv.setGravity(Gravity.LEFT);
-                    count += 1;
-                }
-
-                else if(count == 3){
-                    if(tempTitle.length() > 5) tv.setText(tempPlace.substring(5));
-                    tv.setGravity(Gravity.LEFT);
+                    tv.setText(tempPlace);
+                    tv.setGravity(Gravity.CENTER);
+                    tv.setTextSize(10);
                     count += 1;
                 }
 

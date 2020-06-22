@@ -345,7 +345,7 @@ public class Fragment_Recorder extends Fragment {
                 @Override
                 public void onClick(View view) {
                     if(fileToPlayString != null){
-                        if(fileToPlayString.equals(fr.record_file_path){
+                        if(fileToPlayString.equals(fr.record_file_path)){
                             initPlayer();
                         }
                     }

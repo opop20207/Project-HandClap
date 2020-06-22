@@ -1,5 +1,6 @@
 package com.projectHandClap.youruniv;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.projectHandClap.youruniv.ViewPager.ViewPagerActivity;
 
 import androidx.annotation.RequiresApi;
@@ -65,6 +68,29 @@ public class MainActivity extends AppCompatActivity{
         setLayout();
         setDrawerLayout();
         addClassToLayout();
+    }
+
+    public void tedPermission(){
+        PermissionListener permissionListener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+
+            }
+        };
+        TedPermission.with(this)
+                .setPermissionListener(permissionListener)
+                .setRationaleMessage("파일 관리를 위해 접근 권한이 필요합니다.")
+                .setDeniedMessage(getResources().getString(R.string.permission_1))
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.RECORD_AUDIO)
+                .check();
     }
 
     public void pragmaOnce(){

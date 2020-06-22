@@ -72,7 +72,7 @@
         android:id="@+id/btn_add_memo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button"
+        android:background="@drawable/button2"
         android:text="메모추가"
         android:fontFamily="@font/font"
         android:layout_alignParentEnd="true"

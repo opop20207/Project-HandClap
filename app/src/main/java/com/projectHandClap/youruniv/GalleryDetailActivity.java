@@ -2,6 +2,7 @@ package com.projectHandClap.youruniv;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,8 +16,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class GalleryDetailActivity extends AppCompatActivity {
     PhotoView photo_view_gallery_detail;
-    EditText etxt_gallery_detail;
-    Button btn_gallery_detail_submit;
     DatabaseHelper db;
     int gid;
     GalleryData gData;
@@ -37,37 +36,18 @@ public class GalleryDetailActivity extends AppCompatActivity {
 
         photo_view_gallery_detail = (PhotoView) findViewById(R.id.photo_view_gallery_detail);
 
-        final BottomSheetDialog dialog = new BottomSheetDialog(GalleryDetailActivity.this);
-        dialog.setContentView(R.layout.bottomsheetgallerydetail);
-
-        etxt_gallery_detail = (EditText) dialog.findViewById(R.id.etxt_gallery_detail);
-        etxt_gallery_detail.setText(gData.gallery_memo);
-
-        btn_gallery_detail_submit = (Button) dialog.findViewById(R.id.btn_gallery_detail_submit);
-        btn_gallery_detail_submit.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                submit();
-            }
-        });
-
         Log.e("!!", gData.gallery_image_path);
         BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap origianalBm = BitmapFactory.decodeFile(gData.gallery_image_path, options);
         photo_view_gallery_detail.setImageBitmap(origianalBm);
-        photo_view_gallery_detail.setOnLongClickListener(new PhotoView.OnLongClickListener() {
+        photo_view_gallery_detail.setOnClickListener(new PhotoView.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                dialog.show();
-                return false;
+            public void onClick(View view) {
+                Intent intent = new Intent(GalleryDetailActivity.this, TransparentActivity.class);
+                intent.putExtra("galleryId", gid);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
-    }
-
-    public void submit(){
-        gData.gallery_memo = etxt_gallery_detail.getText().toString();
-        db.updateGallery(gData);
-        setResult(1);
-        finish();
     }
 }

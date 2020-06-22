@@ -18,7 +18,10 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddRecordActivity"></activity>
+        <activity android:name=".TransparentActivity"
+            android:theme="@style/Theme.Transparent"/>
+
+        <activity android:name=".AddRecordActivity" />
         <activity android:name=".ScheduleDetailActivity" />
         <activity android:name=".MemoDetailActivity" />
         <activity android:name=".AddMemoActivity" />

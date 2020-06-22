@@ -26,7 +26,7 @@
             android:layout_gravity="right"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="25dp"
-            android:background="@drawable/button"
+            android:background="@drawable/button2"
             android:fontFamily="@font/font"
             android:text="녹음추가"
             android:textColor="@color/black"

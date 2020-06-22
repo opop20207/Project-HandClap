@@ -344,8 +344,10 @@ public class Fragment_Recorder extends Fragment {
             btnDelete.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(fileToPlayString.equals(fr.record_file_path)){
-                        initPlayer();
+                    if(fileToPlayString != null){
+                        if(fileToPlayString.equals(fr.record_file_path){
+                            initPlayer();
+                        }
                     }
                     db.deleteRecord(fr.record_id);
                     setLayout();

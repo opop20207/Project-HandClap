@@ -80,11 +80,13 @@ public class Fragment_Memo extends Fragment {
         final ArrayList<ClassData> clist = db.getClassDataAll();
         final ArrayList<String> cstrlist = new ArrayList<>();
         final ArrayList<String> cstrTempList = new ArrayList<>();
+        final ArrayList<Integer> cstrIdList = new ArrayList<>();
         cstrlist.add("All Classes");
         for(ClassData cdata : clist) {
             if(cstrTempList.contains(cdata.class_string)) continue;
             cstrTempList.add(cdata.class_string);
             cstrlist.add(cdata.class_title);
+            cstrIdList.add(cdata.class_id);
         }
 
         final CharSequence[] classItem = cstrlist.toArray(new String[cstrlist.size()]);
@@ -96,6 +98,7 @@ public class Fragment_Memo extends Fragment {
                 builder.setItems(classItem, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.e("!!@", "!"+i);
                         if(i==0){
                             txv_memo_index_class.setText("-");
                             cid = -1;
@@ -106,10 +109,11 @@ public class Fragment_Memo extends Fragment {
                             return;
                         }
                         i--;
-                        String selectedClassTitle = clist.get(i).class_title;
-                        String selectedClassString = clist.get(i).class_string;
-                        txv_memo_index_class.setText(selectedClassTitle);
-                        cid = (int)clist.get(i).class_id;
+                        String selectedClassTitle = cstrlist.get(i);
+                        String selectedClassString = cstrTempList.get(i);
+                        Log.e("!!@", selectedClassTitle);
+                        txv_memo_index_class.setText("ㅁ");
+                        cid = (int)cstrIdList.get(i);
                         cstr = selectedClassString;
                         viewPagerActivity.cid = cid;
                         viewPagerActivity.cstr = cstr;

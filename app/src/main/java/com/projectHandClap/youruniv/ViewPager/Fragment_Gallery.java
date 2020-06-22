@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.projectHandClap.youruniv.AutoGridLayout;
 import com.projectHandClap.youruniv.ClassData;
 import com.projectHandClap.youruniv.DatabaseHelper;
 import com.projectHandClap.youruniv.Drawer.Gallery.AddGalleryActivity;
@@ -55,6 +58,7 @@ import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFacer;
 import com.projectHandClap.youruniv.Drawer.Gallery.utils.pictureFolderAdapter;
 import com.projectHandClap.youruniv.GalleryData;
 import com.projectHandClap.youruniv.GalleryDetailActivity;
+import com.projectHandClap.youruniv.SquareImageView;
 import com.projectHandClap.youruniv.ViewPager.ViewPagerActivity;
 import com.projectHandClap.youruniv.R;
 
@@ -110,11 +114,13 @@ public class Fragment_Gallery extends Fragment {
         final ArrayList<ClassData> clist = db.getClassDataAll();
         final ArrayList<String> cstrlist = new ArrayList<>();
         final ArrayList<String> cstrTempList = new ArrayList<>();
+        final ArrayList<Integer> cstrIdList = new ArrayList<>();
         cstrlist.add("All Classes");
         for(ClassData cdata : clist) {
             if(cstrTempList.contains(cdata.class_string)) continue;
             cstrTempList.add(cdata.class_string);
             cstrlist.add(cdata.class_title);
+            cstrIdList.add(cdata.class_id);
         }
 
         final CharSequence[] classItem = cstrlist.toArray(new String[cstrlist.size()]);
@@ -126,6 +132,7 @@ public class Fragment_Gallery extends Fragment {
                 builder.setItems(classItem, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.e("!!@", "!"+i);
                         if(i==0){
                             txv_gallery_index_class.setText("-");
                             cid = -1;
@@ -136,10 +143,11 @@ public class Fragment_Gallery extends Fragment {
                             return;
                         }
                         i--;
-                        String selectedClassTitle = clist.get(i).class_title;
-                        String selectedClassString = clist.get(i).class_string;
-                        txv_gallery_index_class.setText(selectedClassTitle);
-                        cid = (int)clist.get(i).class_id;
+                        String selectedClassTitle = cstrlist.get(i);
+                        String selectedClassString = cstrTempList.get(i);
+                        Log.e("!!@", selectedClassTitle);
+                        txv_gallery_index_class.setText("ㅁ");
+                        cid = (int)cstrIdList.get(i);
                         cstr = selectedClassString;
                         viewPagerActivity.cid = cid;
                         viewPagerActivity.cstr = cstr;
@@ -226,6 +234,13 @@ public class Fragment_Gallery extends Fragment {
             galleryDataList = db.getGalleryByClassString(cstr);
         }
 
+        Point size = new Point();
+        viewPagerActivity.getWindowManager().getDefaultDisplay().getSize(size);
+        int screenWidth = size.x;
+        int screenHeight = size.y;
+        int r = 0;
+        int c = 0;
+
         Typeface typeface = getResources().getFont(R.font.font);
         Boolean flag = false;
         long nowtime = 0;
@@ -253,10 +268,9 @@ public class Fragment_Gallery extends Fragment {
                     gl = null;
                 }
                 nowtime = d;
-                gl = new GridLayout(mContext);
+                gl = new AutoGridLayout(mContext);
                 gl.setColumnCount(3);
                 gl.setOrientation(GridLayout.HORIZONTAL);
-                gl.setUseDefaultMargins(true);
 
                 txvDate = new TextView(mContext);
                 txvDate.setText(String.format(sd));
@@ -269,9 +283,14 @@ public class Fragment_Gallery extends Fragment {
                 continue;
             }
 
-            ImageView imageView = new ImageView(mContext);
-            imageView.setLayoutParams(layoutParams2);
-            imageView.setImageBitmap(decodeSampledBitmapFromFile(g.gallery_image_path, 200, 200));
+            CardView cardView= new CardView(mContext);
+            cardView.setLayoutParams(new CardView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT, Gravity.CENTER_HORIZONTAL));
+
+            SquareImageView imageView = new SquareImageView(mContext);
+            imageView.setImageBitmap(decodeSampledBitmapFromFile(g.gallery_image_path, 100, 100));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
             final GalleryData fg = g;
             imageView.setOnClickListener(new ImageView.OnClickListener() {
@@ -309,11 +328,18 @@ public class Fragment_Gallery extends Fragment {
                     return false;
                 }
             });
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-            GridLayout.Spec rowSpan = GridLayout.spec(GridLayout.UNDEFINED, 1, 1f);
-            GridLayout.Spec colSpan = GridLayout.spec(GridLayout.UNDEFINED, 1, 1f);
+
+            GridLayout.Spec rowSpan = GridLayout.spec(r);
+            GridLayout.Spec colSpan = GridLayout.spec(c);
             GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(rowSpan, colSpan);
+            gridParam.width = gridParam.height = screenWidth/3;
+            c++;
+            if(c==3){
+                r++;
+                c=0;
+            }
+
             gridParam.setGravity(Gravity.LEFT);
             gl.addView(imageView, gridParam);
         }

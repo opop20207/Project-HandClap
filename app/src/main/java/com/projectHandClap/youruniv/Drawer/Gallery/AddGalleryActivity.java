@@ -237,6 +237,7 @@ public class AddGalleryActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 0) return;
         if(resultCode != Activity.RESULT_OK){
             Toast.makeText(this,"취소 되었습니다", Toast.LENGTH_LONG).show();
             if(tempFile!=null){

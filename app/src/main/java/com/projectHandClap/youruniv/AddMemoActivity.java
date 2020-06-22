@@ -52,11 +52,13 @@ public class AddMemoActivity extends AppCompatActivity {
         final ArrayList<ClassData> clist = db.getClassDataAll();
         final ArrayList<String> cstrlist = new ArrayList<>();
         final ArrayList<String> cstrTempList = new ArrayList<>();
+        final ArrayList<Integer> cstrIdList = new ArrayList<>();
         cstrlist.add("All Classes");
         for(ClassData cdata : clist) {
             if(cstrTempList.contains(cdata.class_string)) continue;
             cstrTempList.add(cdata.class_string);
             cstrlist.add(cdata.class_title);
+            cstrIdList.add(cdata.class_id);
         }
 
         final CharSequence[] classItem = cstrlist.toArray(new String[cstrlist.size()]);
@@ -74,10 +76,10 @@ public class AddMemoActivity extends AppCompatActivity {
                             return;
                         }
                         i--;
-                        String selectedClassTitle = clist.get(i).class_title;
-                        String selectedClassString = clist.get(i).class_string;
+                        String selectedClassTitle = cstrlist.get(i);
+                        String selectedClassString = cstrTempList.get(i);
                         txv_add_memo_class.setText(selectedClassTitle);
-                        cid = (int)clist.get(i).class_id;
+                        cid = (int)cstrIdList.get(i);
                         cstr = selectedClassString;
                     }
                 });
